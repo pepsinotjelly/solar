@@ -13,12 +13,18 @@
   <name>RecommendService</name>
   <url>http://maven.apache.org</url>
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>junit</groupId>-->
+<!--      <artifactId>junit</artifactId>-->
+<!--      <version>3.8.1</version>-->
+<!--      <scope>test</scope>-->
+<!--      <exclusions>-->
+<!--        <exclusion>-->
+<!--          <groupId>org.junit.vintage</groupId>-->
+<!--          <artifactId>junit-vintage-engine</artifactId>-->
+<!--        </exclusion>-->
+<!--      </exclusions>-->
+<!--    </dependency>-->
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -29,9 +35,29 @@
       <artifactId>spring-boot-starter-jdbc</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.mybatis</groupId>
-      <artifactId>mybatis</artifactId>
-      <version>3.5.7</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus</artifactId>
+      <version>3.3.1.tmp</version>
+    </dependency>
+    <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus-boot-starter</artifactId>
+      <version>3.3.1.tmp</version>
     </dependency>
     <!-- 集成Pebble View -->
     <dependency>
@@ -44,6 +70,38 @@
     <dependency>
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
+    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>junit</groupId>-->
+<!--      <artifactId>junit</artifactId>-->
+<!--      <scope>test</scope>-->
+<!--      <exclusions>-->
+<!--        <exclusion>-->
+<!--          <groupId>org.junit.vintage</groupId>-->
+<!--          <artifactId>junit-vintage-engine</artifactId>-->
+<!--        </exclusion>-->
+<!--      </exclusions>-->
+<!--    </dependency>-->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.18</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+<!--      <version>1.18.10</version>-->
+    </dependency>
+    <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus-generator</artifactId>
+      <version>3.3.1.tmp</version>
+    </dependency>
+    <!-- 添加 模板引擎 依赖 -->
+    <dependency>
+      <groupId>org.apache.velocity</groupId>
+      <artifactId>velocity-engine-core</artifactId>
+      <version>2.2</version>
     </dependency>
   </dependencies>
   <build>

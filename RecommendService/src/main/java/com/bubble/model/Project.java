@@ -1,4 +1,4 @@
-package com.bubble.Model;
+package com.bubble.model;
 
 /**
  * @Author: sunpengyu.sonia
