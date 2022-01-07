@@ -1,4 +1,4 @@
-package com.bubble.dao;
+package com.bubble.model;
 
 public class UserWithBLOBs extends User {
     private byte[] sslCipher;

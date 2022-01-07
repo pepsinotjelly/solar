@@ -1,4 +1,4 @@
-package com.bubble.dao;
+package com.bubble.model;
 
 import java.util.ArrayList;
 import java.util.Date;

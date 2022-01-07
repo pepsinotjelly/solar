@@ -5,6 +5,7 @@
 
 <generatorConfiguration>
     <context id="mysqlTables" targetRuntime="MyBatis3">
+        <!--控制生成实体的注释内容-->
         <commentGenerator>
             <property name="suppressDate" value="false"/>
             <property name="suppressAllComments" value="true"/>
@@ -14,29 +15,28 @@
                         connectionURL="jdbc:mysql://localhost:3306/solar?serverTimezone=UTC&amp;useSSL=false&amp;userUnicode=true&amp;characterEncoding=UTF-8
 "
                         userId="root" password="Ss7758258!"/>
-        <!-- 指定生成的类型为java类型，避免数据库中number等类型字段 -->
+        <!-- 解析和计算数据库列类型和java类型的映射关系-->
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
-        <!-- 生成model模型，对应的包，存放位置可以指定具体的路径,如/ProjectName/src，也可以使用MAVEN来自动生成 -->
-        <javaModelGenerator targetPackage="com.bubble.dao" targetProject="src/main/java">
+        <!-- 控制实体（model）类的代码生成行为-->
+        <javaModelGenerator targetPackage="com.bubble.model" targetProject="src/main/java">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
             <property name="immutable" value="false"/>
         </javaModelGenerator>
-        <!--对应的xml mapper文件  -->
-
+        <!--控制xml映射文件的代码生成-->
         <sqlMapGenerator targetPackage="mapper"  targetProject="src/main/resources/mybatis">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
-        <!-- 对应的dao接口 -->
+        <!-- 控制mapper接口的代码生成行为-->
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.bubble.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
-        <!--定义需要操作的表及对应的DTO名称-->
-        <!--        <table tableName="t_user" domainObjectName="User" enableCountByExample="false"-->
-        <!--                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
-        <!--                selectByExampleQueryId="false"/>-->
+        <!--配置要生成代码的数据库表格，定制一些代码行为等-->
+<!--                <table tableName="t_user" domainObjectName="User" enableCountByExample="false"-->
+<!--                        enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--                        selectByExampleQueryId="false"/>-->
         <table tableName="user" domainObjectName="User" />
     </context>
 </generatorConfiguration>

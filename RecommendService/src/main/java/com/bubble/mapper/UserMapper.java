@@ -1,7 +1,7 @@
 package com.bubble.mapper;
 
-import com.bubble.dao.User;
-import com.bubble.dao.UserExample;
+import com.bubble.model.User;
+import com.bubble.model.UserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
