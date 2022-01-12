@@ -13,7 +13,6 @@ import java.util.List;
  */
 @SpringBootApplication
 @MapperScan("com.bubble.mapper")
-@ComponentScan(basePackages = "com.bubble.mapper")
 public class Application
 {
     public static void main(String[] args) throws Exception{

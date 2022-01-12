@@ -12,20 +12,8 @@
   <version>1.0-SNAPSHOT</version>
   <name>RecommendService</name>
   <url>http://maven.apache.org</url>
-  <dependencies>
-<!--    <dependency>-->
-<!--      <groupId>junit</groupId>-->
-<!--      <artifactId>junit</artifactId>-->
-<!--      <version>3.8.1</version>-->
-<!--      <scope>test</scope>-->
-<!--      <exclusions>-->
-<!--        <exclusion>-->
-<!--          <groupId>org.junit.vintage</groupId>-->
-<!--          <artifactId>junit-vintage-engine</artifactId>-->
-<!--        </exclusion>-->
-<!--      </exclusions>-->
-<!--    </dependency>-->
 
+  <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -49,16 +37,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <dependency>
-      <groupId>com.baomidou</groupId>
-      <artifactId>mybatis-plus</artifactId>
-      <version>3.3.1.tmp</version>
-    </dependency>
-    <dependency>
-      <groupId>com.baomidou</groupId>
-      <artifactId>mybatis-plus-boot-starter</artifactId>
-      <version>3.3.1.tmp</version>
-    </dependency>
     <!-- 集成Pebble View -->
     <dependency>
       <groupId>io.pebbletemplates</groupId>
@@ -71,17 +49,7 @@
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
     </dependency>
-<!--    <dependency>-->
-<!--      <groupId>junit</groupId>-->
-<!--      <artifactId>junit</artifactId>-->
-<!--      <scope>test</scope>-->
-<!--      <exclusions>-->
-<!--        <exclusion>-->
-<!--          <groupId>org.junit.vintage</groupId>-->
-<!--          <artifactId>junit-vintage-engine</artifactId>-->
-<!--        </exclusion>-->
-<!--      </exclusions>-->
-<!--    </dependency>-->
+
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
@@ -90,13 +58,19 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
+      <optional>true</optional>
 <!--      <version>1.18.10</version>-->
     </dependency>
     <dependency>
-      <groupId>com.baomidou</groupId>
-      <artifactId>mybatis-plus-generator</artifactId>
-      <version>3.3.1.tmp</version>
+      <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>2.1.1</version>
     </dependency>
+<!--    <dependency>-->
+<!--      <groupId>com.baomidou</groupId>-->
+<!--      <artifactId>mybatis-plus-generator</artifactId>-->
+<!--      <version>3.3.1.tmp</version>-->
+<!--    </dependency>-->
     <!-- 添加 模板引擎 依赖 -->
     <dependency>
       <groupId>org.apache.velocity</groupId>
@@ -110,25 +84,47 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
-        <plugin>
+      <plugin>
+        <groupId>org.mybatis.generator</groupId>
+        <artifactId>mybatis-generator-maven-plugin</artifactId>
+        <version>1.3.7</version>
+        <configuration>
+<!--          是否允许移动生成的文件-->
+          <verbose>true</verbose>
+<!--          是否覆盖-->
+          <overwrite>true</overwrite>
+<!--          自动生成的配置-->
+          <configurationFile>src/main/resources/mybatis/generatorConfig.xml</configurationFile>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.19</version>
+          </dependency>
+          <dependency>
             <groupId>org.mybatis.generator</groupId>
-            <artifactId>mybatis-generator-maven-plugin</artifactId>
+            <artifactId>mybatis-generator-core</artifactId>
             <version>1.3.7</version>
-            <configuration>
-                <verbose>true</verbose>
-                <overwrite>true</overwrite>
-
-                <configurationFile>src/main/resources/mybatis/generatorConfig.xml</configurationFile>
-            </configuration>
-
-            <dependencies>
-                <dependency>
-                    <groupId>mysql</groupId>
-                    <artifactId>mysql-connector-java</artifactId>
-                    <version>8.0.19</version>
-                </dependency>
-            </dependencies>
-        </plugin>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>Generate MyBatis Artifacts</id>
+            <phase>package</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
+<!--      <resources>-->
+<!--          <resource>-->
+<!--              <directory>-->
+<!--                  -->
+<!--              </directory>-->
+<!--          </resource>-->
+<!--      </resources>-->
   </build>
 </project>

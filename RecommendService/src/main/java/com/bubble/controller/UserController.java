@@ -1,9 +1,11 @@
 package com.bubble.controller;
 
-import com.bubble.model.User;
-import org.springframework.stereotype.Controller;
+import com.bubble.model.UserInfo;
+import com.bubble.service.UserInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -12,12 +14,20 @@ import java.util.List;
  * @Date: 2022/1/7 2:28 PM
  * @Desc:
  */
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String userList() throws Exception {
+    @Autowired
+    private UserInfoService userInfoService;
 
-        return "/user/list";
+
+    @GetMapping("/test")
+    public String test(){
+        return "OK";
+    }
+
+    @GetMapping(value = "/list")
+    public List<UserInfo> getUserList() throws Exception {
+        return userInfoService.getList();
     }
 }

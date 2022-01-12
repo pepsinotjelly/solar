@@ -2,7 +2,7 @@ package com.bubble.model;
 
 import java.util.Date;
 
-public class User {
+public class UserInfo {
     private Integer id;
 
     private String userName;
