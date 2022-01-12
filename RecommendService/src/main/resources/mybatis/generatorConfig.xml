@@ -12,8 +12,7 @@
         </commentGenerator>
         <!--目标数据库配置-->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/solar?serverTimezone=UTC&amp;useSSL=false&amp;userUnicode=true&amp;characterEncoding=UTF-8
-"
+                        connectionURL='jdbc:mysql://localhost:3306/solar?serverTimezone=UTC&amp;useSSL=false&amp;userUnicode=true&amp;characterEncoding=UTF-8'
                         userId="root" password="Ss7758258!"/>
         <!-- 解析和计算数据库列类型和java类型的映射关系-->
         <javaTypeResolver>

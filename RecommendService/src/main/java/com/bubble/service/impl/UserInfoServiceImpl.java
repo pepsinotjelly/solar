@@ -21,15 +21,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public List<UserInfo> getList() {
-        System.out.println("hello list");
-        System.out.println(userInfoMapper);
         UserInfoExample userInfoExample = new UserInfoExample();
         userInfoExample.createCriteria().andAgeIsNotNull();
-        List<UserInfo> listUser =  userInfoMapper.selectByExample(userInfoExample);
-        for(UserInfo item:listUser){
-            System.out.println(item.getAge());
-        }
-        return listUser;
+        return userInfoMapper.selectByExample(userInfoExample);
     }
 
     @Override

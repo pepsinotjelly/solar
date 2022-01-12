@@ -119,12 +119,5 @@
         </executions>
       </plugin>
     </plugins>
-<!--      <resources>-->
-<!--          <resource>-->
-<!--              <directory>-->
-<!--                  -->
-<!--              </directory>-->
-<!--          </resource>-->
-<!--      </resources>-->
   </build>
 </project>
