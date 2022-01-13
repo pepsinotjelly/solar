@@ -8,9 +8,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="RecommendService" />
+        <module name="recommend_spi" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="recommend_spi" target="8" />
       <module name="RecommendService" target="1.8" />
     </bytecodeTargetLevel>
   </component>

@@ -3720,3 +3720,8 @@ Caused by: java.lang.IllegalArgumentException: Result Maps collection already co
 2022-01-12 15:57:36.545  INFO 10961 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2022-01-12 15:57:36.909  INFO 10961 --- [main] com.bubble.ApplicationTest               : Started ApplicationTest in 1.987 seconds (JVM running for 2.611)
 2022-01-12 15:57:37.132  INFO 10961 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-01-13 20:27:33.662  INFO 41408 --- [main] com.bubble.ApplicationTest               : Starting ApplicationTest on C02FT9VXMD6R with PID 41408 (started by bytedance in /Users/bytedance/solar/RecommendService)
+2022-01-13 20:27:33.663  INFO 41408 --- [main] com.bubble.ApplicationTest               : No active profile set, falling back to default profiles: default
+2022-01-13 20:27:35.145  INFO 41408 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-01-13 20:27:35.515  INFO 41408 --- [main] com.bubble.ApplicationTest               : Started ApplicationTest in 2.129 seconds (JVM running for 2.765)
+2022-01-13 20:27:35.758  INFO 41408 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
