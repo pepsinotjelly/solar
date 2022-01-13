@@ -4,9 +4,6 @@ import com.bubble.utils.ServiceDemo;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-
-import java.util.List;
 
 /**
  * Hello world!
@@ -17,8 +14,8 @@ import java.util.List;
 public class Application
 {
     public static void main(String[] args) throws Exception{
+        SpringApplication.run(Application.class, args);
         ServiceDemo serviceDemo = new ServiceDemo();
         serviceDemo.start();
-        SpringApplication.run(Application.class, args);
     }
 }
