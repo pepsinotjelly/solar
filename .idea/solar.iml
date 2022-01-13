@@ -7,7 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/recommend_service/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/recommend_service/src/test/java" isTestSource="true" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.8 (pythonProject)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
