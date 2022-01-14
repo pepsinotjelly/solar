@@ -1,5 +1,5 @@
 namespace java com.bubble.thrift
-namespace py thrift
+namespace py com.bubble.thrift
 struct Base {
     1: string client = "";
     2: string logId = "";

@@ -31,6 +31,5 @@ public class ServiceDemo {
             System.out.println("=========================Service ERROR=======================");
             e.printStackTrace();
         }
-
     }
 }

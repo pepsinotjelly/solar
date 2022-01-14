@@ -1,6 +1,6 @@
 include "base.thrift"
 namespace java com.bubble.thrift.test
-namespace py thrift.test
+namespace py com.bubble.thrift.test
 struct HelloRequest {
     1: string sayWhat = "";
     2: i32 times = 0;
