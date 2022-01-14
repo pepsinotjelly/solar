@@ -19,7 +19,7 @@ public class ServiceDemo {
 
     public void start(){
         try {
-            System.out.println("============================Service Start==================");
+            System.out.println("============================SERVICE START============================");
             TProcessor tProcessor = new SayHelloService.Processor<SayHelloService.Iface>(new SayHelloServiceImpl());
             TServerSocket serverTransport = new TServerSocket(SERVER_PORT);
             TServer.Args tArgs = new TServer.Args(serverTransport);
@@ -28,7 +28,7 @@ public class ServiceDemo {
             TServer server = new TSimpleServer(tArgs);
             server.serve();
         }catch (TException e){
-            System.out.println("=========================Service ERROR=======================");
+            System.out.println("============================SERVICE ERROR============================");
             e.printStackTrace();
         }
     }

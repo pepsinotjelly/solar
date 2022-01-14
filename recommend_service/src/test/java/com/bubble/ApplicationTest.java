@@ -10,6 +10,7 @@ public class ApplicationTest{
 
     @Test
     void testSelect() {
+        System.out.println("=====================TEST START======================");
 
     }
 }
