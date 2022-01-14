@@ -15,8 +15,9 @@ from thrift.transport import TSocket
 from thrift.transport import TTransport
 from thrift.protocol import TBinaryProtocol
 
-__HOST = 'localhost'
+# __HOST = 'localhost'
 __PORT = 7090
+__HOST = '10.71.167.104'  # 通过 ifconfig | grep "inet"命令获取host
 try:
     t_socket = TSocket.TSocket(__HOST, __PORT)
     transport = TTransport.TBufferedTransport(t_socket)
@@ -27,8 +28,6 @@ try:
     transport.open()
     res = client.Visit(test_word)
     print(res.answerIs)
-    print()
-    print('ok')
     transport.close()
 
 except Thrift.TException as ex:

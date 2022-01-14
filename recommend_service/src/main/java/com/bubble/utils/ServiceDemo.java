@@ -27,7 +27,7 @@ public class ServiceDemo {
             tArgs.protocolFactory(new TBinaryProtocol.Factory());
             TServer server = new TSimpleServer(tArgs);
             server.serve();
-        }catch (Exception e){
+        }catch (TException e){
             System.out.println("=========================Service ERROR=======================");
             e.printStackTrace();
         }
