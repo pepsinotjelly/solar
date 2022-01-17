@@ -30,4 +30,9 @@ public class UserInfoServiceImpl implements UserInfoService {
     public Integer save(UserInfo userInfo) {
         return userInfoMapper.insert(userInfo);
     }
+
+    @Override
+    public List<UserInfo> getUserInfoById(int userId) {
+        return (List<UserInfo>) userInfoMapper.selectByPrimaryKey(userId);
+    }
 }

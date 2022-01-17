@@ -14,29 +14,36 @@ struct UserInfo {
     10: string modifyTime = "";
 }
 
-struct GetUserInfoRequest {
+struct Commodity {
+}
+struct BatchGetUserInfoRequest {
     1: i32 UserId = 0;
     255: optional base.Base Base;
 }
 
-struct GetUserInfoResponse {
+struct BatchGetUserInfoResponse {
     1: UserInfo userInfo;
     255: base.BaseResp baseResp;
 }
 
-struct LoginRequest {
+struct UserLoginRequest {
     1: i32 userId = 0;
     2: string password = "";
     255: optional base.Base Base;
 }
 
-struct LoginResponse {
+struct UserLoginResponse {
     1: i32 userId = 0;
     2: json Cookie = {};
     255: base.BaseResp BaseResp;
 }
 
 service RecommendService {
-    GetUserInfoResponse GetUserInfo(1: GetUserInfoRequest getUserInfoRequest);
-    LoginResponse Login(1: LoginRequest loginRequest);
+    BatchGetUserInfoResponse BatchGetUserInfo(1: BatchGetUserInfoRequest batchGetUserInfoRequest);
+    UserLoginResponse UserLogin(1: UserLoginRequest userLoginRequest);
+}
+
+struct BatchGetCommodityRequest {
+}
+struct BatchGetCommodityResponse {
 }
