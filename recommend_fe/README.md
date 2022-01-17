@@ -8,6 +8,9 @@
 # install dependencies
 npm install
 
+# 安装 vue 路由模块vue-router和网络请求模块vue-resource
+cnpm install vue-router vue-resource --save
+
 # serve with hot reload at localhost:8080
 npm run dev
 
