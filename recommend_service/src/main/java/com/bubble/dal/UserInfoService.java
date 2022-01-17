@@ -1,4 +1,4 @@
-package com.bubble.service;
+package com.bubble.dal;
 
 import com.bubble.model.UserInfo;
 

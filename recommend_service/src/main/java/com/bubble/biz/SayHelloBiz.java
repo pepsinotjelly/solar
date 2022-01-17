@@ -7,7 +7,7 @@ import com.bubble.thrift.test.HelloResponse;
 /**
  * @Author: sunpengyu.sonia
  * @Date: 2022/1/14 6:25 PM
- * @Desc:
+ * @Desc: For Test
  */
 public class SayHelloBiz {
     public HelloResponse Visit(HelloRequest helloRequest){

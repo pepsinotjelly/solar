@@ -1,6 +1,6 @@
-package com.bubble.service.impl;
+package com.bubble.dal.impl;
 
-import com.bubble.service.UserInfoService;
+import com.bubble.dal.UserInfoService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

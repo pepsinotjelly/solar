@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/recommend_service/recommend_service.iml" filepath="$PROJECT_DIR$/recommend_service/recommend_service.iml" />
       <module fileurl="file://$PROJECT_DIR$/recommend_spi/recommend_spi.iml" filepath="$PROJECT_DIR$/recommend_spi/recommend_spi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/recommend_fe/recommend_ui.iml" filepath="$PROJECT_DIR$/recommend_fe/recommend_ui.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/solar.iml" filepath="$PROJECT_DIR$/.idea/solar.iml" />
     </modules>
   </component>

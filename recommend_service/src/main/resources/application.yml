@@ -10,8 +10,9 @@ spring:
 #    同时MySQL 8.0 以上版本不需要建立 SSL 连接，useSSL=false。
 #    allowPublicKeyRetrieval=true 允许客户端从服务器获取公钥。
 mybatis:
-  # 对应实体类的包名
   type-aliases-package: com.bubble.model
+  # 对应实体类的包名
   mapper-locations: classpath:mybatis/mapper/*.xml
 #  config-location: classpath:mybatis/mybatis-config.xml
-
+server:
+  port: 443
