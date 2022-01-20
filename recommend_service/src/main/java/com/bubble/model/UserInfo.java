@@ -5,8 +5,6 @@ import java.util.Date;
 public class UserInfo {
     private Integer id;
 
-    private String userName;
-
     private Integer gender;
 
     private Integer age;
@@ -19,6 +17,8 @@ public class UserInfo {
 
     private Integer userStatus;
 
+    private Integer isDel;
+
     private Date createTime;
 
     private Date modifyTime;
@@ -29,14 +29,6 @@ public class UserInfo {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
     }
 
     public Integer getGender() {
@@ -85,6 +77,14 @@ public class UserInfo {
 
     public void setUserStatus(Integer userStatus) {
         this.userStatus = userStatus;
+    }
+
+    public Integer getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(Integer isDel) {
+        this.isDel = isDel;
     }
 
     public Date getCreateTime() {

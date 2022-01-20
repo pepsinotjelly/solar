@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class UserInfoExample {
+public class CommodityInfoExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public UserInfoExample() {
+    public CommodityInfoExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -165,363 +165,313 @@ public class UserInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andGenderIsNull() {
-            addCriterion("gender is null");
+        public Criteria andNameIsNull() {
+            addCriterion("name is null");
             return (Criteria) this;
         }
 
-        public Criteria andGenderIsNotNull() {
-            addCriterion("gender is not null");
+        public Criteria andNameIsNotNull() {
+            addCriterion("name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andGenderEqualTo(Integer value) {
-            addCriterion("gender =", value, "gender");
+        public Criteria andNameEqualTo(String value) {
+            addCriterion("name =", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andGenderNotEqualTo(Integer value) {
-            addCriterion("gender <>", value, "gender");
+        public Criteria andNameNotEqualTo(String value) {
+            addCriterion("name <>", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andGenderGreaterThan(Integer value) {
-            addCriterion("gender >", value, "gender");
+        public Criteria andNameGreaterThan(String value) {
+            addCriterion("name >", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andGenderGreaterThanOrEqualTo(Integer value) {
-            addCriterion("gender >=", value, "gender");
+        public Criteria andNameGreaterThanOrEqualTo(String value) {
+            addCriterion("name >=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andGenderLessThan(Integer value) {
-            addCriterion("gender <", value, "gender");
+        public Criteria andNameLessThan(String value) {
+            addCriterion("name <", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andGenderLessThanOrEqualTo(Integer value) {
-            addCriterion("gender <=", value, "gender");
+        public Criteria andNameLessThanOrEqualTo(String value) {
+            addCriterion("name <=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andGenderIn(List<Integer> values) {
-            addCriterion("gender in", values, "gender");
+        public Criteria andNameLike(String value) {
+            addCriterion("name like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andGenderNotIn(List<Integer> values) {
-            addCriterion("gender not in", values, "gender");
+        public Criteria andNameNotLike(String value) {
+            addCriterion("name not like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andGenderBetween(Integer value1, Integer value2) {
-            addCriterion("gender between", value1, value2, "gender");
+        public Criteria andNameIn(List<String> values) {
+            addCriterion("name in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andGenderNotBetween(Integer value1, Integer value2) {
-            addCriterion("gender not between", value1, value2, "gender");
+        public Criteria andNameNotIn(List<String> values) {
+            addCriterion("name not in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andAgeIsNull() {
-            addCriterion("age is null");
+        public Criteria andNameBetween(String value1, String value2) {
+            addCriterion("name between", value1, value2, "name");
             return (Criteria) this;
         }
 
-        public Criteria andAgeIsNotNull() {
-            addCriterion("age is not null");
+        public Criteria andNameNotBetween(String value1, String value2) {
+            addCriterion("name not between", value1, value2, "name");
             return (Criteria) this;
         }
 
-        public Criteria andAgeEqualTo(Integer value) {
-            addCriterion("age =", value, "age");
+        public Criteria andPriceIsNull() {
+            addCriterion("price is null");
             return (Criteria) this;
         }
 
-        public Criteria andAgeNotEqualTo(Integer value) {
-            addCriterion("age <>", value, "age");
+        public Criteria andPriceIsNotNull() {
+            addCriterion("price is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAgeGreaterThan(Integer value) {
-            addCriterion("age >", value, "age");
+        public Criteria andPriceEqualTo(Integer value) {
+            addCriterion("price =", value, "price");
             return (Criteria) this;
         }
 
-        public Criteria andAgeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("age >=", value, "age");
+        public Criteria andPriceNotEqualTo(Integer value) {
+            addCriterion("price <>", value, "price");
             return (Criteria) this;
         }
 
-        public Criteria andAgeLessThan(Integer value) {
-            addCriterion("age <", value, "age");
+        public Criteria andPriceGreaterThan(Integer value) {
+            addCriterion("price >", value, "price");
             return (Criteria) this;
         }
 
-        public Criteria andAgeLessThanOrEqualTo(Integer value) {
-            addCriterion("age <=", value, "age");
+        public Criteria andPriceGreaterThanOrEqualTo(Integer value) {
+            addCriterion("price >=", value, "price");
             return (Criteria) this;
         }
 
-        public Criteria andAgeIn(List<Integer> values) {
-            addCriterion("age in", values, "age");
+        public Criteria andPriceLessThan(Integer value) {
+            addCriterion("price <", value, "price");
             return (Criteria) this;
         }
 
-        public Criteria andAgeNotIn(List<Integer> values) {
-            addCriterion("age not in", values, "age");
+        public Criteria andPriceLessThanOrEqualTo(Integer value) {
+            addCriterion("price <=", value, "price");
             return (Criteria) this;
         }
 
-        public Criteria andAgeBetween(Integer value1, Integer value2) {
-            addCriterion("age between", value1, value2, "age");
+        public Criteria andPriceIn(List<Integer> values) {
+            addCriterion("price in", values, "price");
             return (Criteria) this;
         }
 
-        public Criteria andAgeNotBetween(Integer value1, Integer value2) {
-            addCriterion("age not between", value1, value2, "age");
+        public Criteria andPriceNotIn(List<Integer> values) {
+            addCriterion("price not in", values, "price");
             return (Criteria) this;
         }
 
-        public Criteria andDegreeIsNull() {
-            addCriterion("degree is null");
+        public Criteria andPriceBetween(Integer value1, Integer value2) {
+            addCriterion("price between", value1, value2, "price");
             return (Criteria) this;
         }
 
-        public Criteria andDegreeIsNotNull() {
-            addCriterion("degree is not null");
+        public Criteria andPriceNotBetween(Integer value1, Integer value2) {
+            addCriterion("price not between", value1, value2, "price");
             return (Criteria) this;
         }
 
-        public Criteria andDegreeEqualTo(Integer value) {
-            addCriterion("degree =", value, "degree");
+        public Criteria andFirstLevelLableIsNull() {
+            addCriterion("first_level_lable is null");
             return (Criteria) this;
         }
 
-        public Criteria andDegreeNotEqualTo(Integer value) {
-            addCriterion("degree <>", value, "degree");
+        public Criteria andFirstLevelLableIsNotNull() {
+            addCriterion("first_level_lable is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDegreeGreaterThan(Integer value) {
-            addCriterion("degree >", value, "degree");
+        public Criteria andFirstLevelLableEqualTo(Integer value) {
+            addCriterion("first_level_lable =", value, "firstLevelLable");
             return (Criteria) this;
         }
 
-        public Criteria andDegreeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("degree >=", value, "degree");
+        public Criteria andFirstLevelLableNotEqualTo(Integer value) {
+            addCriterion("first_level_lable <>", value, "firstLevelLable");
             return (Criteria) this;
         }
 
-        public Criteria andDegreeLessThan(Integer value) {
-            addCriterion("degree <", value, "degree");
+        public Criteria andFirstLevelLableGreaterThan(Integer value) {
+            addCriterion("first_level_lable >", value, "firstLevelLable");
             return (Criteria) this;
         }
 
-        public Criteria andDegreeLessThanOrEqualTo(Integer value) {
-            addCriterion("degree <=", value, "degree");
+        public Criteria andFirstLevelLableGreaterThanOrEqualTo(Integer value) {
+            addCriterion("first_level_lable >=", value, "firstLevelLable");
             return (Criteria) this;
         }
 
-        public Criteria andDegreeIn(List<Integer> values) {
-            addCriterion("degree in", values, "degree");
+        public Criteria andFirstLevelLableLessThan(Integer value) {
+            addCriterion("first_level_lable <", value, "firstLevelLable");
             return (Criteria) this;
         }
 
-        public Criteria andDegreeNotIn(List<Integer> values) {
-            addCriterion("degree not in", values, "degree");
+        public Criteria andFirstLevelLableLessThanOrEqualTo(Integer value) {
+            addCriterion("first_level_lable <=", value, "firstLevelLable");
             return (Criteria) this;
         }
 
-        public Criteria andDegreeBetween(Integer value1, Integer value2) {
-            addCriterion("degree between", value1, value2, "degree");
+        public Criteria andFirstLevelLableIn(List<Integer> values) {
+            addCriterion("first_level_lable in", values, "firstLevelLable");
             return (Criteria) this;
         }
 
-        public Criteria andDegreeNotBetween(Integer value1, Integer value2) {
-            addCriterion("degree not between", value1, value2, "degree");
+        public Criteria andFirstLevelLableNotIn(List<Integer> values) {
+            addCriterion("first_level_lable not in", values, "firstLevelLable");
             return (Criteria) this;
         }
 
-        public Criteria andContinentIsNull() {
-            addCriterion("continent is null");
+        public Criteria andFirstLevelLableBetween(Integer value1, Integer value2) {
+            addCriterion("first_level_lable between", value1, value2, "firstLevelLable");
             return (Criteria) this;
         }
 
-        public Criteria andContinentIsNotNull() {
-            addCriterion("continent is not null");
+        public Criteria andFirstLevelLableNotBetween(Integer value1, Integer value2) {
+            addCriterion("first_level_lable not between", value1, value2, "firstLevelLable");
             return (Criteria) this;
         }
 
-        public Criteria andContinentEqualTo(Integer value) {
-            addCriterion("continent =", value, "continent");
+        public Criteria andSecondaryLableIsNull() {
+            addCriterion("secondary_lable is null");
             return (Criteria) this;
         }
 
-        public Criteria andContinentNotEqualTo(Integer value) {
-            addCriterion("continent <>", value, "continent");
+        public Criteria andSecondaryLableIsNotNull() {
+            addCriterion("secondary_lable is not null");
             return (Criteria) this;
         }
 
-        public Criteria andContinentGreaterThan(Integer value) {
-            addCriterion("continent >", value, "continent");
+        public Criteria andSecondaryLableEqualTo(Integer value) {
+            addCriterion("secondary_lable =", value, "secondaryLable");
             return (Criteria) this;
         }
 
-        public Criteria andContinentGreaterThanOrEqualTo(Integer value) {
-            addCriterion("continent >=", value, "continent");
+        public Criteria andSecondaryLableNotEqualTo(Integer value) {
+            addCriterion("secondary_lable <>", value, "secondaryLable");
             return (Criteria) this;
         }
 
-        public Criteria andContinentLessThan(Integer value) {
-            addCriterion("continent <", value, "continent");
+        public Criteria andSecondaryLableGreaterThan(Integer value) {
+            addCriterion("secondary_lable >", value, "secondaryLable");
             return (Criteria) this;
         }
 
-        public Criteria andContinentLessThanOrEqualTo(Integer value) {
-            addCriterion("continent <=", value, "continent");
+        public Criteria andSecondaryLableGreaterThanOrEqualTo(Integer value) {
+            addCriterion("secondary_lable >=", value, "secondaryLable");
             return (Criteria) this;
         }
 
-        public Criteria andContinentIn(List<Integer> values) {
-            addCriterion("continent in", values, "continent");
+        public Criteria andSecondaryLableLessThan(Integer value) {
+            addCriterion("secondary_lable <", value, "secondaryLable");
             return (Criteria) this;
         }
 
-        public Criteria andContinentNotIn(List<Integer> values) {
-            addCriterion("continent not in", values, "continent");
+        public Criteria andSecondaryLableLessThanOrEqualTo(Integer value) {
+            addCriterion("secondary_lable <=", value, "secondaryLable");
             return (Criteria) this;
         }
 
-        public Criteria andContinentBetween(Integer value1, Integer value2) {
-            addCriterion("continent between", value1, value2, "continent");
+        public Criteria andSecondaryLableIn(List<Integer> values) {
+            addCriterion("secondary_lable in", values, "secondaryLable");
             return (Criteria) this;
         }
 
-        public Criteria andContinentNotBetween(Integer value1, Integer value2) {
-            addCriterion("continent not between", value1, value2, "continent");
+        public Criteria andSecondaryLableNotIn(List<Integer> values) {
+            addCriterion("secondary_lable not in", values, "secondaryLable");
             return (Criteria) this;
         }
 
-        public Criteria andConsumptionCapacityIsNull() {
-            addCriterion("consumption_capacity is null");
+        public Criteria andSecondaryLableBetween(Integer value1, Integer value2) {
+            addCriterion("secondary_lable between", value1, value2, "secondaryLable");
             return (Criteria) this;
         }
 
-        public Criteria andConsumptionCapacityIsNotNull() {
-            addCriterion("consumption_capacity is not null");
+        public Criteria andSecondaryLableNotBetween(Integer value1, Integer value2) {
+            addCriterion("secondary_lable not between", value1, value2, "secondaryLable");
             return (Criteria) this;
         }
 
-        public Criteria andConsumptionCapacityEqualTo(Integer value) {
-            addCriterion("consumption_capacity =", value, "consumptionCapacity");
+        public Criteria andTertiaryLabelIsNull() {
+            addCriterion("tertiary_label is null");
             return (Criteria) this;
         }
 
-        public Criteria andConsumptionCapacityNotEqualTo(Integer value) {
-            addCriterion("consumption_capacity <>", value, "consumptionCapacity");
+        public Criteria andTertiaryLabelIsNotNull() {
+            addCriterion("tertiary_label is not null");
             return (Criteria) this;
         }
 
-        public Criteria andConsumptionCapacityGreaterThan(Integer value) {
-            addCriterion("consumption_capacity >", value, "consumptionCapacity");
+        public Criteria andTertiaryLabelEqualTo(Integer value) {
+            addCriterion("tertiary_label =", value, "tertiaryLabel");
             return (Criteria) this;
         }
 
-        public Criteria andConsumptionCapacityGreaterThanOrEqualTo(Integer value) {
-            addCriterion("consumption_capacity >=", value, "consumptionCapacity");
+        public Criteria andTertiaryLabelNotEqualTo(Integer value) {
+            addCriterion("tertiary_label <>", value, "tertiaryLabel");
             return (Criteria) this;
         }
 
-        public Criteria andConsumptionCapacityLessThan(Integer value) {
-            addCriterion("consumption_capacity <", value, "consumptionCapacity");
+        public Criteria andTertiaryLabelGreaterThan(Integer value) {
+            addCriterion("tertiary_label >", value, "tertiaryLabel");
             return (Criteria) this;
         }
 
-        public Criteria andConsumptionCapacityLessThanOrEqualTo(Integer value) {
-            addCriterion("consumption_capacity <=", value, "consumptionCapacity");
+        public Criteria andTertiaryLabelGreaterThanOrEqualTo(Integer value) {
+            addCriterion("tertiary_label >=", value, "tertiaryLabel");
             return (Criteria) this;
         }
 
-        public Criteria andConsumptionCapacityIn(List<Integer> values) {
-            addCriterion("consumption_capacity in", values, "consumptionCapacity");
+        public Criteria andTertiaryLabelLessThan(Integer value) {
+            addCriterion("tertiary_label <", value, "tertiaryLabel");
             return (Criteria) this;
         }
 
-        public Criteria andConsumptionCapacityNotIn(List<Integer> values) {
-            addCriterion("consumption_capacity not in", values, "consumptionCapacity");
+        public Criteria andTertiaryLabelLessThanOrEqualTo(Integer value) {
+            addCriterion("tertiary_label <=", value, "tertiaryLabel");
             return (Criteria) this;
         }
 
-        public Criteria andConsumptionCapacityBetween(Integer value1, Integer value2) {
-            addCriterion("consumption_capacity between", value1, value2, "consumptionCapacity");
+        public Criteria andTertiaryLabelIn(List<Integer> values) {
+            addCriterion("tertiary_label in", values, "tertiaryLabel");
             return (Criteria) this;
         }
 
-        public Criteria andConsumptionCapacityNotBetween(Integer value1, Integer value2) {
-            addCriterion("consumption_capacity not between", value1, value2, "consumptionCapacity");
+        public Criteria andTertiaryLabelNotIn(List<Integer> values) {
+            addCriterion("tertiary_label not in", values, "tertiaryLabel");
             return (Criteria) this;
         }
 
-        public Criteria andUserStatusIsNull() {
-            addCriterion("user_status is null");
+        public Criteria andTertiaryLabelBetween(Integer value1, Integer value2) {
+            addCriterion("tertiary_label between", value1, value2, "tertiaryLabel");
             return (Criteria) this;
         }
 
-        public Criteria andUserStatusIsNotNull() {
-            addCriterion("user_status is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserStatusEqualTo(Integer value) {
-            addCriterion("user_status =", value, "userStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserStatusNotEqualTo(Integer value) {
-            addCriterion("user_status <>", value, "userStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserStatusGreaterThan(Integer value) {
-            addCriterion("user_status >", value, "userStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserStatusGreaterThanOrEqualTo(Integer value) {
-            addCriterion("user_status >=", value, "userStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserStatusLessThan(Integer value) {
-            addCriterion("user_status <", value, "userStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserStatusLessThanOrEqualTo(Integer value) {
-            addCriterion("user_status <=", value, "userStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserStatusIn(List<Integer> values) {
-            addCriterion("user_status in", values, "userStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserStatusNotIn(List<Integer> values) {
-            addCriterion("user_status not in", values, "userStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserStatusBetween(Integer value1, Integer value2) {
-            addCriterion("user_status between", value1, value2, "userStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserStatusNotBetween(Integer value1, Integer value2) {
-            addCriterion("user_status not between", value1, value2, "userStatus");
+        public Criteria andTertiaryLabelNotBetween(Integer value1, Integer value2) {
+            addCriterion("tertiary_label not between", value1, value2, "tertiaryLabel");
             return (Criteria) this;
         }
 

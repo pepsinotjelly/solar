@@ -1,7 +1,7 @@
 package com.bubble.biz;
 
-import com.bubble.model.UserInfo;
 import com.bubble.dal.UserInfoService;
+import com.bubble.model.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;

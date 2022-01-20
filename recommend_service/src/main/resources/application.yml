@@ -16,3 +16,8 @@ mybatis:
 #  config-location: classpath:mybatis/mybatis-config.xml
 server:
   port: 443
+#logging:
+#  file:
+#    path: ./solar
+#  config: classpath:logback-spring.xml
+#  level: error

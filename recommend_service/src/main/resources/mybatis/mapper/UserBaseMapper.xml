@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bubble.mapper.UserInfoMapper">
-  <resultMap id="BaseResultMap" type="com.bubble.model.UserInfo">
-    <result column="id" jdbcType="INTEGER" property="id" />
-    <result column="gender" jdbcType="INTEGER" property="gender" />
-    <result column="age" jdbcType="INTEGER" property="age" />
-    <result column="degree" jdbcType="INTEGER" property="degree" />
-    <result column="continent" jdbcType="INTEGER" property="continent" />
-    <result column="consumption_capacity" jdbcType="INTEGER" property="consumptionCapacity" />
-    <result column="user_status" jdbcType="INTEGER" property="userStatus" />
-    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+<mapper namespace="com.bubble.mapper.UserBaseMapper">
+  <resultMap id="BaseResultMap" type="com.bubble.model.UserBase">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="phone_number" jdbcType="INTEGER" property="phoneNumber" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
   </resultMap>
@@ -72,16 +69,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, gender, age, degree, continent, consumption_capacity, user_status, is_del, create_time, 
-    modify_time
+    id, password, user_name, phone_number, email, create_time, modify_time
   </sql>
-  <select id="selectByExample" parameterType="com.bubble.model.UserInfoExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.bubble.model.UserBaseExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from user_info
+    from user_base
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -89,48 +85,47 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.bubble.model.UserInfoExample">
-    delete from user_info
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_base
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_base
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bubble.model.UserBaseExample">
+    delete from user_base
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.bubble.model.UserInfo">
-    insert into user_info (id, gender, age, 
-      degree, continent, consumption_capacity, 
-      user_status, is_del, create_time, 
+  <insert id="insert" parameterType="com.bubble.model.UserBase">
+    insert into user_base (id, password, user_name, 
+      phone_number, email, create_time, 
       modify_time)
-    values (#{id,jdbcType=INTEGER}, #{gender,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, 
-      #{degree,jdbcType=INTEGER}, #{continent,jdbcType=INTEGER}, #{consumptionCapacity,jdbcType=INTEGER}, 
-      #{userStatus,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{phoneNumber,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{modifyTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.bubble.model.UserInfo">
-    insert into user_info
+  <insert id="insertSelective" parameterType="com.bubble.model.UserBase">
+    insert into user_base
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="gender != null">
-        gender,
+      <if test="password != null">
+        password,
       </if>
-      <if test="age != null">
-        age,
+      <if test="userName != null">
+        user_name,
       </if>
-      <if test="degree != null">
-        degree,
+      <if test="phoneNumber != null">
+        phone_number,
       </if>
-      <if test="continent != null">
-        continent,
-      </if>
-      <if test="consumptionCapacity != null">
-        consumption_capacity,
-      </if>
-      <if test="userStatus != null">
-        user_status,
-      </if>
-      <if test="isDel != null">
-        is_del,
+      <if test="email != null">
+        email,
       </if>
       <if test="createTime != null">
         create_time,
@@ -143,26 +138,17 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="gender != null">
-        #{gender,jdbcType=INTEGER},
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
       </if>
-      <if test="age != null">
-        #{age,jdbcType=INTEGER},
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="degree != null">
-        #{degree,jdbcType=INTEGER},
+      <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=INTEGER},
       </if>
-      <if test="continent != null">
-        #{continent,jdbcType=INTEGER},
-      </if>
-      <if test="consumptionCapacity != null">
-        #{consumptionCapacity,jdbcType=INTEGER},
-      </if>
-      <if test="userStatus != null">
-        #{userStatus,jdbcType=INTEGER},
-      </if>
-      <if test="isDel != null">
-        #{isDel,jdbcType=INTEGER},
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -172,38 +158,29 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.bubble.model.UserInfoExample" resultType="java.lang.Long">
-    select count(*) from user_info
+  <select id="countByExample" parameterType="com.bubble.model.UserBaseExample" resultType="java.lang.Long">
+    select count(*) from user_base
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update user_info
+    update user_base
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.gender != null">
-        gender = #{record.gender,jdbcType=INTEGER},
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
       </if>
-      <if test="record.age != null">
-        age = #{record.age,jdbcType=INTEGER},
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
-      <if test="record.degree != null">
-        degree = #{record.degree,jdbcType=INTEGER},
+      <if test="record.phoneNumber != null">
+        phone_number = #{record.phoneNumber,jdbcType=INTEGER},
       </if>
-      <if test="record.continent != null">
-        continent = #{record.continent,jdbcType=INTEGER},
-      </if>
-      <if test="record.consumptionCapacity != null">
-        consumption_capacity = #{record.consumptionCapacity,jdbcType=INTEGER},
-      </if>
-      <if test="record.userStatus != null">
-        user_status = #{record.userStatus,jdbcType=INTEGER},
-      </if>
-      <if test="record.isDel != null">
-        is_del = #{record.isDel,jdbcType=INTEGER},
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -217,19 +194,50 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update user_info
+    update user_base
     set id = #{record.id,jdbcType=INTEGER},
-      gender = #{record.gender,jdbcType=INTEGER},
-      age = #{record.age,jdbcType=INTEGER},
-      degree = #{record.degree,jdbcType=INTEGER},
-      continent = #{record.continent,jdbcType=INTEGER},
-      consumption_capacity = #{record.consumptionCapacity,jdbcType=INTEGER},
-      user_status = #{record.userStatus,jdbcType=INTEGER},
-      is_del = #{record.isDel,jdbcType=INTEGER},
+      password = #{record.password,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      phone_number = #{record.phoneNumber,jdbcType=INTEGER},
+      email = #{record.email,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bubble.model.UserBase">
+    update user_base
+    <set>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null">
+        phone_number = #{phoneNumber,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bubble.model.UserBase">
+    update user_base
+    set password = #{password,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      phone_number = #{phoneNumber,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

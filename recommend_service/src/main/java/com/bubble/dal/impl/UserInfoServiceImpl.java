@@ -1,12 +1,13 @@
 package com.bubble.dal.impl;
 
 import com.bubble.dal.UserInfoService;
+import com.bubble.mapper.UserInfoMapper;
+import com.bubble.model.UserInfo;
+import com.bubble.model.UserInfoExample;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import com.bubble.model.UserInfo;
-import com.bubble.model.*;
-import com.bubble.mapper.UserInfoMapper;
+
 import java.util.List;
 
 /**
@@ -26,6 +27,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         return userInfoMapper.selectByExample(userInfoExample);
     }
 
+
     @Override
     public Integer save(UserInfo userInfo) {
         return userInfoMapper.insert(userInfo);
@@ -33,6 +35,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public List<UserInfo> getUserInfoById(int userId) {
-        return (List<UserInfo>) userInfoMapper.selectByPrimaryKey(userId);
+        UserInfoExample userInfoExample = new UserInfoExample();
+        userInfoExample.createCriteria().andIdEqualTo(userId);
+        return (List<UserInfo>) userInfoMapper.selectByExample(userInfoExample);
     }
 }

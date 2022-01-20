@@ -1,7 +1,8 @@
 package com.bubble.controller;
 
-import com.bubble.model.UserInfo;
 import com.bubble.dal.UserInfoService;
+import com.bubble.model.UserInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import java.util.List;
  * @Date: 2022/1/7 2:28 PM
  * @Desc: 用户填写、拉取数据
  */
+@Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserController {
