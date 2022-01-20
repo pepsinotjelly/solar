@@ -17,7 +17,6 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.info("=============preHandler===============");
-        System.out.println("=============preHandler===============");
         return super.preHandle(request, response, handler);
     }
 
