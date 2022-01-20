@@ -17,7 +17,7 @@ import org.apache.thrift.transport.TServerSocket;
 public class ServiceDemo {
     public static final int SERVER_PORT = 7090;
 
-    public void start(){
+    public void start() {
         try {
             System.out.println("============================SERVICE START============================");
             TProcessor tProcessor = new SayHelloService.Processor<SayHelloService.Iface>(new SayHelloServiceImpl());
@@ -27,7 +27,7 @@ public class ServiceDemo {
             tArgs.protocolFactory(new TBinaryProtocol.Factory());
             TServer server = new TSimpleServer(tArgs);
             server.serve();
-        }catch (TException e){
+        } catch (TException e) {
             System.out.println("============================SERVICE ERROR============================");
             e.printStackTrace();
         }

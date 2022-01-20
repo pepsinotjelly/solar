@@ -20,7 +20,6 @@ public class Application
         SpringApplication.run(Application.class, args);
 //        ServiceDemo serviceDemo = new ServiceDemo();
 //        serviceDemo.start();
-        ThriftServer server = new ThriftServer();
-        server.start(new Class[]{SayHelloServiceImpl.class},"localhost",7090);
+        ThriftServer.start(SayHelloServiceImpl.class,7090);
     }
 }
