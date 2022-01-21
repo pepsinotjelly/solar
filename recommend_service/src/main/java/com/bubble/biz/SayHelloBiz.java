@@ -10,14 +10,14 @@ import com.bubble.thrift.test.HelloResponse;
  * @Desc: For Test
  */
 public class SayHelloBiz {
-    public HelloResponse Visit(HelloRequest helloRequest){
+    public HelloResponse Visit(HelloRequest helloRequest) {
         String question = helloRequest.getSayWhat();
         HelloResponse helloResponse = new HelloResponse();
         StringBuilder res = new StringBuilder();
-        for(int i = 0;i < helloRequest.times;i ++){
+        for (int i = 0; i < helloRequest.times; i++) {
             res.append("i love you!");
         }
-        helloResponse.setAnswerIs(res.toString() + " to: "+question);
+        helloResponse.setAnswerIs(res.toString() + " to: " + question);
         BaseResp baseResp = new BaseResp();
         baseResp.setStatusCode(0);
         baseResp.setStatusMsg("OK");

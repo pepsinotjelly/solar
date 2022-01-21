@@ -1,13 +1,14 @@
 """
     demo client for test service
 """
-
+import multiprocessing
 import os
 import sys
 
 import com.bubble.thrift.test.SayHelloService
 from com.bubble.thrift.test import SayHelloService
 from com.bubble.thrift.test.ttypes import HelloRequest
+from thrift.protocol import TMultiplexedProtocol
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname('__file__'), os.path.pardir)))
 
@@ -23,8 +24,9 @@ __PORT = 7090
 try:
     t_socket = TSocket.TSocket(__HOST, __PORT)
     transport = TTransport.TBufferedTransport(t_socket)
-    protocal = TBinaryProtocol.TBinaryProtocol(transport)
-    client = SayHelloService.Client(protocal)
+    protocol = TBinaryProtocol.TBinaryProtocol(transport)
+    multiplexProtocol = TMultiplexedProtocol.TMultiplexedProtocol(serviceName='SayHelloService', protocol=protocol)
+    client = SayHelloService.Client(multiplexProtocol)
 
     test_word = HelloRequest(sayWhat='do you love me?', times=3, Base=None)
     transport.open()

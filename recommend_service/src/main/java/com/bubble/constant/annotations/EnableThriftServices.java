@@ -14,6 +14,5 @@ import org.apache.thrift.transport.TServerSocket;
  * @Desc:
  */
 public @interface EnableThriftServices {
-//    public String TARGET_LOCATION = ""; // Service包存放的位置
 
 }

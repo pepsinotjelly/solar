@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
  * @Date: 2022/1/13 8:07 PM
  * @Desc:
  */
-@Component
 public class SayHelloServiceImpl implements SayHelloService.Iface {
     SayHelloBiz sayHelloBiz = new SayHelloBiz();
 
