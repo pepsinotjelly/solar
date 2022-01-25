@@ -12,14 +12,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static sun.misc.Signal.raise;
-
 /**
  * @Author: sunpengyu.sonia
  * @Date: 2022/1/17 12:41 PM
  * @Desc:
  */
-public class UserBiz {
+public class UserInfoBiz {
     @Autowired
     private UserInfoService userInfoService;
 

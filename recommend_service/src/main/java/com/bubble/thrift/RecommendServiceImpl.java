@@ -1,14 +1,8 @@
 package com.bubble.thrift;
 
-import com.bubble.biz.UserBiz;
+import com.bubble.biz.UserInfoBiz;
 import com.bubble.thrift.recommend_service.*;
 import org.apache.thrift.TException;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import com.bubble.model.UserInfo;
 
 /**
  * @Author: sunpengyu.sonia
@@ -16,7 +10,7 @@ import com.bubble.model.UserInfo;
  * @Desc:
  */
 public class RecommendServiceImpl implements RecommendService.Iface {
-    UserBiz userBiz = new UserBiz();
+    UserInfoBiz userBiz = new UserInfoBiz();
 
     @Override
     public GetUserInfoResponse GetUserInfo(GetUserInfoRequest getUserInfoRequest) throws TException {
