@@ -1,5 +1,16 @@
 include "base.thrift"
 namespace java com.bubble.thrift.recommend_service
+namespace py com.bubble.thrift.recommend_service
+
+struct UserBase {
+    1: i32 id;
+    2: string password;
+    3: string userName;
+    4: i32 phoneNumber;
+    5: string email;
+    6: string createTime;
+    7: string modifyTime;
+}
 
 struct UserInfo {
     1: i32 id = 0;
@@ -14,15 +25,26 @@ struct UserInfo {
     10: string modifyTime = "";
 }
 
-struct Commodity {
+struct CommodityInfo {
+    1: i32 id;
+    2: string name;
+    3: i32 price;
+    4: i32 firstLevelLable;
+    5: i32 secondaryLable;
+    6: i32 tertiaryLabel;
+    7: i32 isDel;
+    8: string createTime;
+    9: string modifyTime;
+    10: string feature;
 }
-struct BatchGetUserInfoRequest {
-    1: i32 UserId = 0;
+
+struct GetUserInfoRequest {
+    1: list<i32> UserId = 0;
     255: optional base.Base Base;
 }
 
-struct BatchGetUserInfoResponse {
-    1: UserInfo userInfo;
+struct GetUserInfoResponse {
+    1: list<UserInfo> userInfo;
     255: base.BaseResp baseResp;
 }
 
@@ -33,17 +55,36 @@ struct UserLoginRequest {
 }
 
 struct UserLoginResponse {
-    1: i32 userId = 0;
-    2: json Cookie = {};
+    1: string Reason = "";
+    255: base.BaseResp BaseResp;
+}
+
+struct GetCommodityInfoRequest {
+    1: list<i32> commodityInfoId;
+    255: optional base.Base Base;
+}
+
+struct GetCommodityInfoResponse {
+    1: list<CommodityInfo> commodityInfoList;
+    255: base.BaseResp BaseResp;
+}
+
+struct GetRecommendCommodityInfoRequest {
+    1: list<i32> UserId;
+    255: optional base.Base Base;
+}
+
+struct GetRecommendCommodityInfoResponse {
+    1: list<CommodityInfo> commodityInfoList;
     255: base.BaseResp BaseResp;
 }
 
 service RecommendService {
-    BatchGetUserInfoResponse BatchGetUserInfo(1: BatchGetUserInfoRequest batchGetUserInfoRequest);
+    GetUserInfoResponse GetUserInfo(1:GetUserInfoRequest getUserInfoRequest);
+    GetUserInfoResponse BatchGetUserInfo(1: GetUserInfoRequest getUserInfoRequest);
     UserLoginResponse UserLogin(1: UserLoginRequest userLoginRequest);
-}
-
-struct BatchGetCommodityRequest {
-}
-struct BatchGetCommodityResponse {
+    GetCommodityInfoResponse GetCommodityInfo(1:GetCommodityInfoRequest getCommodityInfoRequest);
+    GetCommodityInfoResponse BatchGetCommodityInfo(1:GetCommodityInfoRequest getCommodityInfoRequest);
+    GetRecommendCommodityInfoResponse GetRecommendCommodityInfo(1:GetRecommendCommodityInfoRequest getRecommendCommodityInfoRequest);
+    GetRecommendCommodityInfoResponse BatchGetRecommendCommodityInfo(1:GetRecommendCommodityInfoRequest getRecommendCommodityInfoRequest );
 }
