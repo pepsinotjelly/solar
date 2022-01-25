@@ -1,5 +1,6 @@
 package com.bubble.thrift;
 
+import com.bubble.biz.CommodityBiz;
 import com.bubble.biz.UserInfoBiz;
 import com.bubble.thrift.recommend_service.*;
 import org.apache.thrift.TException;
@@ -11,6 +12,7 @@ import org.apache.thrift.TException;
  */
 public class RecommendServiceImpl implements RecommendService.Iface {
     UserInfoBiz userBiz = new UserInfoBiz();
+    CommodityBiz commodityBiz = new CommodityBiz();
 
     @Override
     public GetUserInfoResponse GetUserInfo(GetUserInfoRequest getUserInfoRequest) throws TException {
@@ -29,7 +31,7 @@ public class RecommendServiceImpl implements RecommendService.Iface {
 
     @Override
     public GetCommodityInfoResponse GetCommodityInfo(GetCommodityInfoRequest getCommodityInfoRequest) throws TException {
-        return null;
+        return commodityBiz.GetCommodityInfo(getCommodityInfoRequest);
     }
 
     @Override
