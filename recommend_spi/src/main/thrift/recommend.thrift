@@ -2,7 +2,7 @@ include "base.thrift"
 namespace java com.bubble.thrift.recommend_service
 namespace py com.bubble.thrift.recommend_service
 
-struct UserBase {
+struct UserBaseEntity {
     1: i32 id;
     2: string password;
     3: string userName;
@@ -12,7 +12,7 @@ struct UserBase {
     7: string modifyTime;
 }
 
-struct UserInfo {
+struct UserInfoEntity {
     1: i32 id = 0;
     2: string userName = "";
     3: optional i16 gender = 0;
@@ -25,7 +25,7 @@ struct UserInfo {
     10: string modifyTime = "";
 }
 
-struct CommodityInfo {
+struct CommodityInfoEntity {
     1: i32 id;
     2: string name;
     3: i32 price;
@@ -44,7 +44,7 @@ struct GetUserInfoRequest {
 }
 
 struct GetUserInfoResponse {
-    1: list<UserInfo> userInfo;
+    1: list<UserInfoEntity> userInfoEntity;
     255: base.BaseResp baseResp;
 }
 
@@ -65,7 +65,7 @@ struct GetCommodityInfoRequest {
 }
 
 struct GetCommodityInfoResponse {
-    1: list<CommodityInfo> commodityInfoList;
+    1: list<CommodityInfoEntity> commodityInfoEntityList;
     255: base.BaseResp BaseResp;
 }
 
@@ -75,7 +75,7 @@ struct GetRecommendCommodityInfoRequest {
 }
 
 struct GetRecommendCommodityInfoResponse {
-    1: list<CommodityInfo> commodityInfoList;
+    1: list<CommodityInfoEntity> commodityInfoEntityList;
     255: base.BaseResp BaseResp;
 }
 

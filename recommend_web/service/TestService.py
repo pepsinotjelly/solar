@@ -5,7 +5,6 @@ import multiprocessing
 import os
 import sys
 
-import com.bubble.thrift.test.SayHelloService
 from com.bubble.thrift.test import SayHelloService
 from com.bubble.thrift.test.ttypes import HelloRequest
 from thrift.protocol import TMultiplexedProtocol

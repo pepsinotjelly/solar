@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,6 @@ public class UserInfoServiceImpl implements UserInfoService {
         return userInfoMapper.selectByExample(userInfoExample);
     }
 
-
     @Override
     public Integer save(UserInfo userInfo) {
         return userInfoMapper.insert(userInfo);
@@ -37,6 +37,18 @@ public class UserInfoServiceImpl implements UserInfoService {
     public List<UserInfo> getUserInfoById(int userId) {
         UserInfoExample userInfoExample = new UserInfoExample();
         userInfoExample.createCriteria().andIdEqualTo(userId);
-        return (List<UserInfo>) userInfoMapper.selectByExample(userInfoExample);
+        return userInfoMapper.selectByExample(userInfoExample);
+    }
+
+    @Override
+    public List<UserInfo> batchGetUserInfoById(List<Integer> userIdList) {
+        List<UserInfo> resultList = new ArrayList<>();
+        for (int userId : userIdList) {
+            List<UserInfo> userInfoList = getUserInfoById(userId);
+            for (UserInfo userInfo : userInfoList) {
+                resultList.add(userInfo);
+            }
+        }
+        return resultList;
     }
 }
