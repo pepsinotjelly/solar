@@ -14,15 +14,14 @@ struct UserBaseEntity {
 
 struct UserInfoEntity {
     1: i32 id = 0;
-    2: string userName = "";
-    3: optional i16 gender = 0;
-    4: optional i16 age = 0;
-    5: optional i16 degree = 0;
-    6: optional i16 continent = 0;
-    7: optional i32 consumptionCapacity = 0;
-    8: optional i16 userStatus = 0;
-    9: string createTime = "";
-    10: string modifyTime = "";
+    2: optional i16 gender = 0;
+    3: optional i16 age = 0;
+    4: optional i16 degree = 0;
+    5: optional i16 continent = 0;
+    6: optional i32 consumptionCapacity = 0;
+    7: optional i16 userStatus = 0;
+    8: string createTime = "";
+    9: string modifyTime = "";
 }
 
 struct CommodityInfoEntity {

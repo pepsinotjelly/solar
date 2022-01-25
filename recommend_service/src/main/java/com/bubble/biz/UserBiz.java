@@ -24,11 +24,9 @@ public class UserBiz {
     private UserInfoService userInfoService;
 
     public void CheckUserInfoRequest(GetUserInfoRequest request) throws TException {
+        // 检查参数合法性
         if (request.UserId == null || request.getUserId().isEmpty()) {
             throw new TException("Empty UserId Error!");
-        }
-        if (request.getUserId().size() > 1) {
-            throw new TException("UserId not one Error!");
         }
     }
 
@@ -37,6 +35,9 @@ public class UserBiz {
         try {
             // 检查参数
             CheckUserInfoRequest(getUserInfoRequest);
+            if (getUserInfoRequest.getUserId().size() > 1) {
+                throw new TException("UserId not one Error!");
+            }
             GetUserInfoResponse getUserInfoResponse = new GetUserInfoResponse();
             UserInfoEntity userInfoEntity = new UserInfoEntity();
             // 查询数据
@@ -47,15 +48,7 @@ public class UserBiz {
                 throw new TException("SQL ERROR!!!");
             }
             // 为返回的结构体赋值
-            userInfoEntity.setAge(userInfo.getAge().shortValue());
-            userInfoEntity.setContinent(userInfo.getContinent().shortValue());
-            userInfoEntity.setConsumptionCapacity(userInfo.getConsumptionCapacity());
-            userInfoEntity.setDegree(userInfo.getDegree().shortValue());
-            userInfoEntity.setGender(userInfo.getGender().shortValue());
-            userInfoEntity.setId(userInfo.getId());
-            userInfoEntity.setUserStatus(userInfo.getUserStatus().shortValue());
-            userInfoEntity.setCreateTime(userInfo.getCreateTime().toString());
-            userInfoEntity.setModifyTime(userInfo.getModifyTime().toString());
+            UserInfoToEntity(userInfo, userInfoEntity);
             getUserInfoResponse.setUserInfoEntity(new ArrayList<UserInfoEntity>((Collection<? extends UserInfoEntity>) userInfoEntity));
             getUserInfoResponse.setBaseResp(new BaseResp().setStatusCode(0).setStatusMsg("OK"));
             return getUserInfoResponse;
@@ -66,13 +59,44 @@ public class UserBiz {
         }
     }
 
-    public List<UserInfo> BatchGetUserInfo(List<Integer> userIdList) {
-        List<UserInfo> userInfoList = new ArrayList<>();
-        for (Integer userId : userIdList) {
-            for (UserInfo userInfo : userInfoService.getUserInfoById(userId)) {
-                userInfoList.add(userInfo);
+    public GetUserInfoResponse BatchGetUserInfo(GetUserInfoRequest request) {
+        // 批量通过ID获取用户信息
+        try {
+            CheckUserInfoRequest(request);
+            List<UserInfoEntity> resultList = new ArrayList<>();
+            for (int userId : request.getUserId()) {
+                List<UserInfo> userInfoList = userInfoService.getUserInfoById(userId);
+                UserInfo userInfo = userInfoList.get(0);
+                // 检查SQL返回
+                if (userInfo.getId() != request.getUserId().get(0)) {
+                    throw new TException("SQL ERROR!!!");
+                }
+                UserInfoEntity userInfoEntity = new UserInfoEntity();
+                // 为返回的结构体赋值
+                UserInfoToEntity(userInfo, userInfoEntity);
+                resultList.add(userInfoEntity);
             }
+            GetUserInfoResponse getUserInfoResponse = new GetUserInfoResponse();
+            getUserInfoResponse.setUserInfoEntity(resultList);
+            getUserInfoResponse.setBaseResp(new BaseResp().setStatusCode(0).setStatusMsg("OK"));
+            return getUserInfoResponse;
+        } catch (TException e) {
+            GetUserInfoResponse response = new GetUserInfoResponse();
+            response.setBaseResp(new BaseResp().setStatusCode(1).setStatusMsg(e.getMessage()));
+            return response;
         }
-        return userInfoList;
+    }
+
+    private void UserInfoToEntity(UserInfo userInfo, UserInfoEntity userInfoEntity) {
+        // 赋值
+        userInfoEntity.setAge(userInfo.getAge().shortValue());
+        userInfoEntity.setContinent(userInfo.getContinent().shortValue());
+        userInfoEntity.setConsumptionCapacity(userInfo.getConsumptionCapacity());
+        userInfoEntity.setDegree(userInfo.getDegree().shortValue());
+        userInfoEntity.setGender(userInfo.getGender().shortValue());
+        userInfoEntity.setId(userInfo.getId());
+        userInfoEntity.setUserStatus(userInfo.getUserStatus().shortValue());
+        userInfoEntity.setCreateTime(userInfo.getCreateTime().toString());
+        userInfoEntity.setModifyTime(userInfo.getModifyTime().toString());
     }
 }
