@@ -33,6 +33,7 @@ public class UserBiz {
     }
 
     public GetUserInfoResponse GetUserInfo(GetUserInfoRequest getUserInfoRequest) {
+        // 通过ID获取用户信息
         try {
             // 检查参数
             CheckUserInfoRequest(getUserInfoRequest);
@@ -42,7 +43,7 @@ public class UserBiz {
             List<UserInfo> userInfoList = userInfoService.getUserInfoById(getUserInfoRequest.getUserId().get(0));
             UserInfo userInfo = userInfoList.get(0);
             // 检查SQL返回
-            if(userInfo.getId() != getUserInfoRequest.getUserId().get(0)){
+            if (userInfo.getId() != getUserInfoRequest.getUserId().get(0)) {
                 throw new TException("SQL ERROR!!!");
             }
             // 为返回的结构体赋值
