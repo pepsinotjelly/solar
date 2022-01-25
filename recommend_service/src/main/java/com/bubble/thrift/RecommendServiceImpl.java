@@ -25,7 +25,7 @@ public class RecommendServiceImpl implements RecommendService.Iface {
 
     @Override
     public GetUserInfoResponse BatchGetUserInfo(GetUserInfoRequest getUserInfoRequest) throws TException {
-        return null;
+        return userBiz.BatchGetUserInfo(getUserInfoRequest);
     }
 
     @Override
