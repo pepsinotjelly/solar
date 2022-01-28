@@ -30,12 +30,11 @@ class SimilarityCalculator:
         return similarity_scores
 
     # 将商品分组
-    def get_commodity_group(self,commodity_list):
+    def get_commodity_group(self, commodity_list):
         commodity_group = list()
         for commodity in commodity_list:
-
+            pass
         return commodity_group
-
 
     def get_recommend_list(self, user_id):
         # 获取用户信息
@@ -43,7 +42,6 @@ class SimilarityCalculator:
         # 获取对比用户信息
         other_info_list = service.RecommendClient().batch_get_user_info(user_id)
         # 获取相似度排序
-
-
+        pass
 
         # similarity_scores = self.get_cosine_similarity(user_record, record_list)
