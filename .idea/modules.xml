@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/partner_service/partner_service.iml" filepath="$PROJECT_DIR$/partner_service/partner_service.iml" />
       <module fileurl="file://$PROJECT_DIR$/recommend_service/recommend_service.iml" filepath="$PROJECT_DIR$/recommend_service/recommend_service.iml" />
       <module fileurl="file://$PROJECT_DIR$/recommend_spi/recommend_spi.iml" filepath="$PROJECT_DIR$/recommend_spi/recommend_spi.iml" />
       <module fileurl="file://$PROJECT_DIR$/recommend_fe/recommend_ui.iml" filepath="$PROJECT_DIR$/recommend_fe/recommend_ui.iml" />

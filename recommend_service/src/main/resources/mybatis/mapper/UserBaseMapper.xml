@@ -5,10 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="phone_number" jdbcType="INTEGER" property="phoneNumber" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, password, user_name, phone_number, email, create_time, modify_time
+    id, password, user_name, phone_number
   </sql>
   <select id="selectByExample" parameterType="com.bubble.model.UserBaseExample" resultMap="BaseResultMap">
     select
@@ -103,11 +100,9 @@
   </delete>
   <insert id="insert" parameterType="com.bubble.model.UserBase">
     insert into user_base (id, password, user_name, 
-      phone_number, email, create_time, 
-      modify_time)
+      phone_number)
     values (#{id,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{phoneNumber,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{modifyTime,jdbcType=TIMESTAMP})
+      #{phoneNumber,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.bubble.model.UserBase">
     insert into user_base
@@ -124,15 +119,6 @@
       <if test="phoneNumber != null">
         phone_number,
       </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="modifyTime != null">
-        modify_time,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -145,16 +131,7 @@
         #{userName,jdbcType=VARCHAR},
       </if>
       <if test="phoneNumber != null">
-        #{phoneNumber,jdbcType=INTEGER},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifyTime != null">
-        #{modifyTime,jdbcType=TIMESTAMP},
+        #{phoneNumber,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -177,16 +154,7 @@
         user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
       <if test="record.phoneNumber != null">
-        phone_number = #{record.phoneNumber,jdbcType=INTEGER},
-      </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.modifyTime != null">
-        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+        phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -198,10 +166,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       password = #{record.password,jdbcType=VARCHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
-      phone_number = #{record.phoneNumber,jdbcType=INTEGER},
-      email = #{record.email,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
+      phone_number = #{record.phoneNumber,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -216,16 +181,7 @@
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
       <if test="phoneNumber != null">
-        phone_number = #{phoneNumber,jdbcType=INTEGER},
-      </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifyTime != null">
-        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -234,10 +190,7 @@
     update user_base
     set password = #{password,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
-      phone_number = #{phoneNumber,jdbcType=INTEGER},
-      email = #{email,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      phone_number = #{phoneNumber,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -6,12 +6,7 @@
     <result column="gender" jdbcType="INTEGER" property="gender" />
     <result column="age" jdbcType="INTEGER" property="age" />
     <result column="degree" jdbcType="INTEGER" property="degree" />
-    <result column="continent" jdbcType="INTEGER" property="continent" />
-    <result column="consumption_capacity" jdbcType="INTEGER" property="consumptionCapacity" />
     <result column="user_status" jdbcType="INTEGER" property="userStatus" />
-    <result column="is_del" jdbcType="INTEGER" property="isDel" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,8 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, gender, age, degree, continent, consumption_capacity, user_status, is_del, create_time, 
-    modify_time
+    id, gender, age, degree, user_status
   </sql>
   <select id="selectByExample" parameterType="com.bubble.model.UserInfoExample" resultMap="BaseResultMap">
     select
@@ -97,13 +91,9 @@
   </delete>
   <insert id="insert" parameterType="com.bubble.model.UserInfo">
     insert into user_info (id, gender, age, 
-      degree, continent, consumption_capacity, 
-      user_status, is_del, create_time, 
-      modify_time)
+      degree, user_status)
     values (#{id,jdbcType=INTEGER}, #{gender,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, 
-      #{degree,jdbcType=INTEGER}, #{continent,jdbcType=INTEGER}, #{consumptionCapacity,jdbcType=INTEGER}, 
-      #{userStatus,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{modifyTime,jdbcType=TIMESTAMP})
+      #{degree,jdbcType=INTEGER}, #{userStatus,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.bubble.model.UserInfo">
     insert into user_info
@@ -120,23 +110,8 @@
       <if test="degree != null">
         degree,
       </if>
-      <if test="continent != null">
-        continent,
-      </if>
-      <if test="consumptionCapacity != null">
-        consumption_capacity,
-      </if>
       <if test="userStatus != null">
         user_status,
-      </if>
-      <if test="isDel != null">
-        is_del,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="modifyTime != null">
-        modify_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -152,23 +127,8 @@
       <if test="degree != null">
         #{degree,jdbcType=INTEGER},
       </if>
-      <if test="continent != null">
-        #{continent,jdbcType=INTEGER},
-      </if>
-      <if test="consumptionCapacity != null">
-        #{consumptionCapacity,jdbcType=INTEGER},
-      </if>
       <if test="userStatus != null">
         #{userStatus,jdbcType=INTEGER},
-      </if>
-      <if test="isDel != null">
-        #{isDel,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifyTime != null">
-        #{modifyTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -193,23 +153,8 @@
       <if test="record.degree != null">
         degree = #{record.degree,jdbcType=INTEGER},
       </if>
-      <if test="record.continent != null">
-        continent = #{record.continent,jdbcType=INTEGER},
-      </if>
-      <if test="record.consumptionCapacity != null">
-        consumption_capacity = #{record.consumptionCapacity,jdbcType=INTEGER},
-      </if>
       <if test="record.userStatus != null">
         user_status = #{record.userStatus,jdbcType=INTEGER},
-      </if>
-      <if test="record.isDel != null">
-        is_del = #{record.isDel,jdbcType=INTEGER},
-      </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.modifyTime != null">
-        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -222,12 +167,7 @@
       gender = #{record.gender,jdbcType=INTEGER},
       age = #{record.age,jdbcType=INTEGER},
       degree = #{record.degree,jdbcType=INTEGER},
-      continent = #{record.continent,jdbcType=INTEGER},
-      consumption_capacity = #{record.consumptionCapacity,jdbcType=INTEGER},
-      user_status = #{record.userStatus,jdbcType=INTEGER},
-      is_del = #{record.isDel,jdbcType=INTEGER},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
+      user_status = #{record.userStatus,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
