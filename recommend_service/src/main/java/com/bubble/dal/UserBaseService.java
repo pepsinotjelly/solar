@@ -1,6 +1,6 @@
 package com.bubble.dal;
 
-import com.bubble.model.UserInfo;
+import com.bubble.model.UserBase;
 
 import java.util.List;
 
@@ -10,6 +10,9 @@ import java.util.List;
  * @Desc:
  */
 public interface UserBaseService {
-    List<UserInfo> getList();
-    Integer save(UserInfo userInfo);
+    List<UserBase> getList();
+    Integer register(UserBase userBase);
+    Integer login(UserBase userBase);
+    Integer insert(UserBase userBase);
+
 }

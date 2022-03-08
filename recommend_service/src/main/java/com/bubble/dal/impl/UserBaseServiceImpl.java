@@ -2,7 +2,7 @@ package com.bubble.dal.impl;
 
 import com.bubble.dal.UserBaseService;
 import com.bubble.mapper.UserBaseMapper;
-import com.bubble.model.UserInfo;
+import com.bubble.model.UserBase;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,13 +19,25 @@ public class UserBaseServiceImpl implements UserBaseService {
     private UserBaseMapper userBaseMapper;
 
     @Override
-    public List<UserInfo> getList() {
+    public List<UserBase> getList() {
         return null;
     }
 
     @Override
-    public Integer save(UserInfo userInfo) {
+    public Integer register(UserBase userBase) {
+        //TODO check_data
+        userBaseMapper.insert(userBase);
+        return 0;
+    }
+
+    @Override
+    public Integer login(UserBase userBase) {
         return null;
     }
 
+    @Override
+    public Integer insert(UserBase userBase) {
+        userBaseMapper.insert(userBase);
+        return 0;
+    }
 }

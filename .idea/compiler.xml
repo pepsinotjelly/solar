@@ -9,9 +9,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="recommend_spi" />
         <module name="recommend_service" />
+        <module name="partner_service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="partner_service" target="1.7" />
       <module name="recommend_service" target="1.8" />
       <module name="recommend_spi" target="8" />
     </bytecodeTargetLevel>

@@ -1,7 +1,5 @@
 package com.bubble.model;
 
-import java.util.Date;
-
 public class UserBase {
     private Integer id;
 
@@ -9,13 +7,7 @@ public class UserBase {
 
     private String userName;
 
-    private Integer phoneNumber;
-
-    private String email;
-
-    private Date createTime;
-
-    private Date modifyTime;
+    private String phoneNumber;
 
     public Integer getId() {
         return id;
@@ -41,35 +33,11 @@ public class UserBase {
         this.userName = userName == null ? null : userName.trim();
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getModifyTime() {
-        return modifyTime;
-    }
-
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber == null ? null : phoneNumber.trim();
     }
 }

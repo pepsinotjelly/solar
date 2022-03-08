@@ -1,7 +1,6 @@
 package com.bubble.dal;
 
 import com.bubble.model.UserInfo;
-import org.hsqldb.rights.User;
 
 import java.util.List;
 

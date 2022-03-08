@@ -42,7 +42,7 @@ public class UserInfoBiz {
             List<UserInfo> userInfoList = userInfoService.getUserInfoById(getUserInfoRequest.getUserId().get(0));
             UserInfo userInfo = userInfoList.get(0);
             // 检查SQL返回
-            if (userInfo.getId() != getUserInfoRequest.getUserId().get(0)) {
+            if (userInfo.getId() != (long)getUserInfoRequest.getUserId().get(0)) {
                 throw new TException("SQL ERROR!!!");
             }
             // 为返回的结构体赋值
@@ -66,7 +66,7 @@ public class UserInfoBiz {
                 List<UserInfo> userInfoList = userInfoService.getUserInfoById(userId);
                 UserInfo userInfo = userInfoList.get(0);
                 // 检查SQL返回
-                if (userInfo.getId() != request.getUserId().get(0)) {
+                if (userInfo.getId() != (long)request.getUserId().get(0)) {
                     throw new TException("SQL ERROR!!!");
                 }
                 UserInfoEntity userInfoEntity = new UserInfoEntity();
@@ -86,15 +86,11 @@ public class UserInfoBiz {
     }
 
     private void UserInfoToEntity(UserInfo userInfo, UserInfoEntity userInfoEntity) {
-        // 赋值
+         //赋值
         userInfoEntity.setAge(userInfo.getAge().shortValue());
-        userInfoEntity.setContinent(userInfo.getContinent().shortValue());
-        userInfoEntity.setConsumptionCapacity(userInfo.getConsumptionCapacity());
         userInfoEntity.setDegree(userInfo.getDegree().shortValue());
         userInfoEntity.setGender(userInfo.getGender().shortValue());
         userInfoEntity.setId(userInfo.getId());
         userInfoEntity.setUserStatus(userInfo.getUserStatus().shortValue());
-        userInfoEntity.setCreateTime(userInfo.getCreateTime().toString());
-        userInfoEntity.setModifyTime(userInfo.getModifyTime().toString());
     }
 }
