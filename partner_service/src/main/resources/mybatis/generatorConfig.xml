@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="mysqlTables" targetRuntime="MyBatis3">
+        <!--控制生成实体的注释内容-->
+        <commentGenerator>
+            <property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--目标数据库配置-->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL='jdbc:mysql://localhost:3306/solar?serverTimezone=UTC&amp;useSSL=false&amp;userUnicode=true&amp;characterEncoding=UTF-8&amp;allowPublicKeyRetrieval=true'
+                        userId="root" password="Ss7758258!"/>
+        <!-- 解析和计算数据库列类型和java类型的映射关系-->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- 控制实体（model）类的代码生成行为-->
+        <javaModelGenerator targetPackage="com.bubble.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+            <property name="immutable" value="false"/>
+        </javaModelGenerator>
+        <!--控制xml映射文件的代码生成-->
+        <sqlMapGenerator targetPackage="mapper"  targetProject="src/main/resources/mybatis">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+        <!-- 控制mapper接口的代码生成行为-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.bubble.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+        <!--配置要生成代码的数据库表格，定制一些代码行为等-->
+        <!--                <table tableName="t_user" domainObjectName="User" enableCountByExample="false"-->
+        <!--                        enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+        <!--                        selectByExampleQueryId="false"/>-->
+<!--        <table tableName="user_info_b" domainObjectName="UserInfo" />-->
+        <table tableName="user_base_b" domainObjectName="UserBaseB" />
+<!--        <table tableName="user_recommend_b" domainObjectName="UserRecommendB" />-->
+        <!--        <table tableName="item_info_b" domainObjectName="ItemInfoB"/>-->
+        <table tableName="item_base_b" domainObjectName="ItemBaseB"/>
+        <table tableName="rating_record_b" domainObjectName="ScoreRecordB" />
+    </context>
+</generatorConfiguration>
