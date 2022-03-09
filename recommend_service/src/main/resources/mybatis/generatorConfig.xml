@@ -41,6 +41,6 @@
         <table tableName="user_recommend" domainObjectName="UserRecommend" />
 <!--        <table tableName="item_info" domainObjectName="ItemInfo"/>-->
         <table tableName="item_base" domainObjectName="ItemBase"/>
-        <table tableName="rating_record" domainObjectName="ScoreRecord" />
+        <table tableName="rating_record" domainObjectName="RatingRecord" />
     </context>
 </generatorConfiguration>
