@@ -33,14 +33,14 @@
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
         <!--配置要生成代码的数据库表格，定制一些代码行为等-->
-<!--                <table tableName="t_user" domainObjectName="User" enableCountByExample="false"-->
-<!--                        enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
-<!--                        selectByExampleQueryId="false"/>-->
-        <table tableName="user_info" domainObjectName="UserInfo" />
-        <table tableName="user_base" domainObjectName="UserBase" />
-        <table tableName="user_recommend" domainObjectName="UserRecommend" />
-<!--        <table tableName="item_info" domainObjectName="ItemInfo"/>-->
-        <table tableName="item_base" domainObjectName="ItemBase"/>
-        <table tableName="rating_record" domainObjectName="RatingRecord" />
+        <!--                <table tableName="t_user" domainObjectName="User" enableCountByExample="false"-->
+        <!--                        enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+        <!--                        selectByExampleQueryId="false"/>-->
+<!--        <table tableName="user_info_b" domainObjectName="UserInfo" />-->
+        <table tableName="user_base_b" domainObjectName="UserBaseB" />
+<!--        <table tableName="user_recommend_b" domainObjectName="UserRecommendB" />-->
+        <!--        <table tableName="item_info_b" domainObjectName="ItemInfoB"/>-->
+        <table tableName="item_base_b" domainObjectName="ItemBaseB"/>
+        <table tableName="rating_record_b" domainObjectName="RatingRecordB" />
     </context>
 </generatorConfiguration>

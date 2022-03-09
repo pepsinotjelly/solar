@@ -53,7 +53,6 @@ public class TestController {
             userBase.setPassword("user_" + i);
             userBase.setPhoneNumber("phone_number_" + i);
             userBaseService.insert(userBase);
-//            Thread.sleep(100);
         }
         return "DONE";
     }
@@ -64,71 +63,73 @@ public class TestController {
         String filename = "recommend_service/src/main/java/com/bubble/controller/movies.csv";
         File file = new File(filename);
         CSVReader reader = null;
-        try{
+        try {
             reader = new CSVReader(new FileReader(filename));
             String[] lines;
             reader.readNext();
-            while((lines = reader.readNext()) != null){
+            while ((lines = reader.readNext()) != null) {
                 ItemBase itemBase = new ItemBase();
-                System.out.println(lines[0]+"============"+lines[1]+"============"+lines[2]);
+                System.out.println(lines[0] + "============" + lines[1] + "============" + lines[2]);
                 itemBase.setId(Integer.parseInt(lines[0]));
 
                 itemBase.setTitle(lines[1]);
                 itemBase.setGenres(lines[2]);
                 itemBaseService.insert(itemBase);
             }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-            return "DONE";
-        }
-    @GetMapping(value = "/initScoreRecord")
-    public String initScoreRecord() throws Exception {
-        System.out.println("========================initScoreRecord===========================");
-        String filename = "recommend_service/src/main/java/com/bubble/controller/ratings.csv";
-        CSVReader reader = null;
-        try{
-            reader = new CSVReader(new FileReader(filename));
-            String[] lines;
-            reader.readNext();
-            while((lines = reader.readNext()) != null){
-                ScoreRecord scoreRecord = new ScoreRecord();
-                System.out.println(lines[0]+"============"+lines[1]+"============"+lines[2]);
-                scoreRecord.setUserId(Integer.parseInt(lines[0]));
-                scoreRecord.setItemId(Integer.parseInt(lines[1]));
-                scoreRecord.setRating(Double.parseDouble(lines[2]));
-                scoreRecordService.insert(scoreRecord);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return "DONE";
-    }
-    @GetMapping(value = "/initScoreRecordTags")
-    public String initScoreRecordTags() throws Exception {
-        System.out.println("========================initScoreRecordTags===========================");
-        String filename = "recommend_service/src/main/java/com/bubble/controller/tags.csv";
-        CSVReader reader = null;
-        try{
-            reader = new CSVReader(new FileReader(filename));
-            String[] lines;
-            reader.readNext();
-            while((lines = reader.readNext()) != null){
-                ScoreRecord scoreRecord = new ScoreRecord();
-                System.out.println(lines[0]+"============"+lines[1]+"============"+lines[2]);
-                scoreRecord.setUserId(Integer.parseInt(lines[0]));
-                scoreRecord.setItemId(Integer.parseInt(lines[1]));
-                scoreRecord.setRating(Double.parseDouble(lines[2]));
-                scoreRecordService.insert(scoreRecord);
-            }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "DONE";
     }
 
-        @GetMapping(value = "/list")
-        public List<UserBase> getUserList () throws Exception {
-            return userBaseService.getList();
+    @GetMapping(value = "/initScoreRecord")
+    public String initScoreRecord() throws Exception {
+        System.out.println("========================initScoreRecord===========================");
+        String filename = "recommend_service/src/main/java/com/bubble/controller/ratings.csv";
+        CSVReader reader = null;
+        try {
+            reader = new CSVReader(new FileReader(filename));
+            String[] lines;
+            reader.readNext();
+            while ((lines = reader.readNext()) != null) {
+                ScoreRecord scoreRecord = new ScoreRecord();
+                System.out.println(lines[0] + "============" + lines[1] + "============" + lines[2]);
+                scoreRecord.setUserId(Integer.parseInt(lines[0]));
+                scoreRecord.setItemId(Integer.parseInt(lines[1]));
+                scoreRecord.setRating(Double.parseDouble(lines[2]));
+                scoreRecordService.insert(scoreRecord);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return "DONE";
     }
+
+    @GetMapping(value = "/initScoreRecordTags")
+    public String initScoreRecordTags() throws Exception {
+        System.out.println("========================initScoreRecordTags===========================");
+        String filename = "recommend_service/src/main/java/com/bubble/controller/tags.csv";
+        CSVReader reader = null;
+        try {
+            reader = new CSVReader(new FileReader(filename));
+            String[] lines;
+            reader.readNext();
+            while ((lines = reader.readNext()) != null) {
+                ScoreRecord scoreRecord = new ScoreRecord();
+                System.out.println(lines[0] + "============" + lines[1] + "============" + lines[2]);
+                scoreRecord.setUserId(Integer.parseInt(lines[0]));
+                scoreRecord.setItemId(Integer.parseInt(lines[1]));
+                scoreRecord.setRating(Double.parseDouble(lines[2]));
+                scoreRecordService.insert(scoreRecord);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "DONE";
+    }
+
+    @GetMapping(value = "/list")
+    public List<UserBase> getUserList() throws Exception {
+        return userBaseService.getList();
+    }
+}
