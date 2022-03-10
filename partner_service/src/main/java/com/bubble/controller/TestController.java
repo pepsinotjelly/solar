@@ -1,6 +1,5 @@
 package com.bubble.controller;
 
-import com.bubble.service.ItemBaseBService;
 import com.bubble.service.UserBaseService;
 import com.bubble.utils.DataProcessor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/test")
 public class TestController {
-//    @Autowired
-//    private ItemBaseBService itemBaseBService;
     @Autowired
     private UserBaseService userBaseService;
 
