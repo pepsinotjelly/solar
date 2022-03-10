@@ -1,6 +1,6 @@
-package com.bubble.dal.impl;
+package com.bubble.service.impl;
 
-import com.bubble.dal.UserRecommendService;
+import com.bubble.service.UserRecommendService;
 import com.bubble.mapper.UserRecommendMapper;
 import com.bubble.model.UserRecommend;
 import com.bubble.model.UserRecommendExample;

@@ -1,6 +1,6 @@
-package com.bubble.dal.impl;
+package com.bubble.service.impl;
 
-import com.bubble.dal.UserInfoService;
+import com.bubble.service.UserInfoService;
 import com.bubble.mapper.UserInfoMapper;
 import com.bubble.model.UserInfo;
 import com.bubble.model.UserInfoExample;

@@ -1,6 +1,6 @@
-package com.bubble.dal.impl;
+package com.bubble.service.impl;
 
-import com.bubble.dal.UserBaseService;
+import com.bubble.service.UserBaseService;
 import com.bubble.mapper.UserBaseMapper;
 import com.bubble.model.UserBase;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.bubble.utils.client;
+package com.bubble.thrift;
 
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TMultiplexedProtocol;

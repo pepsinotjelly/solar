@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * Hello world!
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.bubble")
 @MapperScan("com.bubble.mapper")
 public class Application {
     public static void main(String[] args) throws Exception {

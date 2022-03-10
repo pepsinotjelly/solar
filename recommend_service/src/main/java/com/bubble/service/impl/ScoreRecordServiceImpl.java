@@ -1,6 +1,6 @@
-package com.bubble.dal.impl;
+package com.bubble.service.impl;
 
-import com.bubble.dal.ScoreRecordService;
+import com.bubble.service.ScoreRecordService;
 import com.bubble.mapper.ScoreRecordMapper;
 import com.bubble.model.ScoreRecord;
 import org.springframework.stereotype.Service;

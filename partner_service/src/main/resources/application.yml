@@ -16,7 +16,7 @@ mybatis:
 #  config-location: classpath:mybatis/mybatis-config.xml
 # 调试端口
 server:
-  port: 443
+  port: 8080
 #logging:
 #  file:
 #    path: ./solar

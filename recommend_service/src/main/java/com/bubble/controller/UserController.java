@@ -1,6 +1,6 @@
 package com.bubble.controller;
 
-import com.bubble.dal.UserBaseService;
+import com.bubble.service.UserBaseService;
 //import com.bubble.dal.UserInfoService;
 import com.bubble.utils.IdWorker;
 import lombok.extern.slf4j.Slf4j;

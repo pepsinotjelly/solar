@@ -1,7 +1,6 @@
-package com.bubble.dal;
+package com.bubble.service;
 
 import com.bubble.model.ScoreRecord;
-import com.bubble.model.UserBase;
 
 import java.util.List;
 

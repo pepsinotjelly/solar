@@ -1,4 +1,4 @@
-package com.bubble.utils.client;
+package com.bubble.thrift;
 
 public class ThriftProxyFactory {
 

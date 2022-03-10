@@ -1,4 +1,4 @@
-package com.bubble.dal;
+package com.bubble.service;
 
 import com.bubble.model.UserRecommend;
 
