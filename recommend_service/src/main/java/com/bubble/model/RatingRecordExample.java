@@ -3,14 +3,14 @@ package com.bubble.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScoreRecordExample {
+public class RatingRecordExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public ScoreRecordExample() {
+    public RatingRecordExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

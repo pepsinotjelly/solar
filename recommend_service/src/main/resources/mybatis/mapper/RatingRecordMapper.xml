@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bubble.mapper.ScoreRecordMapper">
-  <resultMap id="BaseResultMap" type="com.bubble.model.ScoreRecord">
+<mapper namespace="com.bubble.mapper.RatingRecordMapper">
+  <resultMap id="BaseResultMap" type="com.bubble.model.RatingRecord">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="item_id" jdbcType="INTEGER" property="itemId" />
@@ -68,7 +68,7 @@
   <sql id="Base_Column_List">
     id, user_id, item_id, rating
   </sql>
-  <select id="selectByExample" parameterType="com.bubble.model.ScoreRecordExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.bubble.model.RatingRecordExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -92,19 +92,19 @@
     delete from rating_record
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.bubble.model.ScoreRecordExample">
+  <delete id="deleteByExample" parameterType="com.bubble.model.RatingRecordExample">
     delete from rating_record
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.bubble.model.ScoreRecord">
+  <insert id="insert" parameterType="com.bubble.model.RatingRecord">
     insert into rating_record (id, user_id, item_id, 
       rating)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, 
       #{rating,jdbcType=DOUBLE})
   </insert>
-  <insert id="insertSelective" parameterType="com.bubble.model.ScoreRecord">
+  <insert id="insertSelective" parameterType="com.bubble.model.RatingRecord">
     insert into rating_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -135,7 +135,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.bubble.model.ScoreRecordExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.bubble.model.RatingRecordExample" resultType="java.lang.Long">
     select count(*) from rating_record
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -171,7 +171,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bubble.model.ScoreRecord">
+  <update id="updateByPrimaryKeySelective" parameterType="com.bubble.model.RatingRecord">
     update rating_record
     <set>
       <if test="userId != null">
@@ -186,7 +186,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bubble.model.ScoreRecord">
+  <update id="updateByPrimaryKey" parameterType="com.bubble.model.RatingRecord">
     update rating_record
     set user_id = #{userId,jdbcType=INTEGER},
       item_id = #{itemId,jdbcType=INTEGER},

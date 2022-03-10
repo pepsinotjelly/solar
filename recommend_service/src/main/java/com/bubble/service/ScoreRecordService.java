@@ -1,7 +1,5 @@
 package com.bubble.service;
 
-import com.bubble.model.ScoreRecord;
-
 import java.util.List;
 
 public interface ScoreRecordService {

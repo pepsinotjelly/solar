@@ -8,5 +8,5 @@ import java.util.List;
 public interface UserRecommendService {
     List<UserRecommend> getUserRecommendList(int userId);
     int updateUserRecommend(int userId, List<UserRecommend> userRecommendList);
-    List<ItemBase> getRecommendList() throws Exception;
+    List<ItemBase> getRecommendList(List<Integer> userIdList) throws Exception;
 }

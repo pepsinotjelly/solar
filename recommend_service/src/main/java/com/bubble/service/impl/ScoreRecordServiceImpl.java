@@ -1,8 +1,6 @@
 package com.bubble.service.impl;
 
 import com.bubble.service.ScoreRecordService;
-import com.bubble.mapper.ScoreRecordMapper;
-import com.bubble.model.ScoreRecord;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

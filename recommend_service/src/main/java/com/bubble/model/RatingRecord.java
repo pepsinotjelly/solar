@@ -1,6 +1,6 @@
 package com.bubble.model;
 
-public class ScoreRecord {
+public class RatingRecord {
     private Integer id;
 
     private Integer userId;
