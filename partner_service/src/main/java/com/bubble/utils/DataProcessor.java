@@ -43,7 +43,7 @@ public class DataProcessor {
         return result;
     }
 
-    // 一维向量元素格式化（开方）
+    // 一维向量二次方元素格式化为一次方（开方）
     public Double[] getVectorSqrt(Double[] A) {
         if (A == null || A.length == 0) return null;
         Double[] result = new Double[A.length];
@@ -53,7 +53,7 @@ public class DataProcessor {
         return result;
     }
 
-    // 余弦相似度
+    // 计算余弦相似度
     public Double[] getCosineSimilarity(Double[] A, Double[] B, Double[] AB) {
         if (A == null || A.length == 0) return null;
         if (AB == null || AB.length == 0) return null;
