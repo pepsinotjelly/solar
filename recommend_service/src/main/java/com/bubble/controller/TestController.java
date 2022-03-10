@@ -2,7 +2,8 @@ package com.bubble.controller;
 
 //import com.bubble.dal.UserInfoService;
 
-import com.bubble.biz.ItemBaseBiz;
+import com.bubble.model.ItemBase;
+import com.bubble.service.ItemBaseService;
 import com.bubble.service.UserBaseService;
 import com.bubble.model.UserBase;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ public class TestController {
     @Autowired
     private UserBaseService userBaseService;
     @Autowired
-    private ItemBaseBiz itemBaseBiz;
+    private ItemBaseService itemBaseService;
 
     @GetMapping("/test")
     public String test() {
@@ -39,7 +40,12 @@ public class TestController {
 
     @GetMapping(value = "/syncItemBase")
     public String syncItemBase() throws Exception {
-        Boolean result = itemBaseBiz.SyncItemBase();
+        Boolean result = itemBaseService.SyncItemBase();
         return result.toString();
+    }
+
+    @GetMapping(value = "/getRecommendList")
+    public List<ItemBase> getRecommendList() throws Exception {
+        return null;
     }
 }

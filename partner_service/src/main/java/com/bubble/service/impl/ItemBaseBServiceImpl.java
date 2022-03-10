@@ -22,9 +22,9 @@ public class ItemBaseBServiceImpl implements ItemBaseBService {
 
     @Override
     public List<ItemBaseB> BatchGetItemBaseB(int startPosition, int endPosition) {
-        ItemBaseBExample itemBaseBExample = new ItemBaseBExample();
-        itemBaseBExample.createCriteria().andIdBetween(startPosition, endPosition);
-        List<ItemBaseB> itemBaseBList = itemBaseBMapper.selectByExample(itemBaseBExample);
+        ItemBaseBExample example = new ItemBaseBExample();
+        example.createCriteria().andIdBetween(startPosition, endPosition);
+        List<ItemBaseB> itemBaseBList = itemBaseBMapper.selectByExample(example);
         return itemBaseBList;
     }
 
@@ -35,18 +35,9 @@ public class ItemBaseBServiceImpl implements ItemBaseBService {
         return itemBaseBMapper.selectByExample(example);
     }
 
-    @Override
-    public Integer insert(ItemBaseB itemBaseB) {
-        return itemBaseBMapper.insert(itemBaseB);
-    }
 
     @Override
-    public Integer update(ItemBaseB itemBaseB) {
-        return itemBaseBMapper.updateByPrimaryKey(itemBaseB);
-    }
-
-    @Override
-    public boolean SyncItemBase(SyncItemBaseRequest syncItemBaseRequest) throws TException {
+    public SyncItemBaseResponse SyncItemBase(SyncItemBaseRequest syncItemBaseRequest) throws TException {
         //  读取信息
         SyncItemBaseResponse response = new SyncItemBaseResponse();
         List<ItemBaseEntity> entityList = syncItemBaseRequest.getItemInfoEntityList();
@@ -54,7 +45,7 @@ public class ItemBaseBServiceImpl implements ItemBaseBService {
         if (entityList == null) {
             response.setDone(false);
             response.setBaseResp(new BaseResp().setStatusCode(10003));
-            return false;
+            return response;
         }
         for (ItemBaseEntity entity : entityList) {
             ItemBaseB itemBaseB = new ItemBaseB();
@@ -67,12 +58,16 @@ public class ItemBaseBServiceImpl implements ItemBaseBService {
         for (ItemBaseB itemBaseB : itemBaseBList) {
             List<ItemBaseB> currentItem = this.getItemBaseB(itemBaseB.getId());
             if (currentItem == null || currentItem.isEmpty()) {
-                this.insert(itemBaseB);
+                itemBaseBMapper.insert(itemBaseB);
             } else {
-                this.update(itemBaseB);
+                itemBaseBMapper.updateByPrimaryKey(itemBaseB);
             }
         }
         // 构造返回值
-        return true;
+        response.setDone(true);
+        BaseResp baseResp = new BaseResp();
+        baseResp.setStatusCode(0);
+        response.setBaseResp(baseResp);
+        return response;
     }
 }

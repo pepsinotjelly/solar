@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+
 @Service
 public class ScoreRecordServiceImpl implements ScoreRecordService {
     @Resource
     ScoreRecordMapper scoreRecordMapper;
+
     @Override
     public List<ScoreRecord> getList() {
         return null;

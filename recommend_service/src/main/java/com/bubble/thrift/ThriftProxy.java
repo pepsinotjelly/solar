@@ -37,7 +37,7 @@ public class ThriftProxy implements InvocationHandler {
                     try {
                         int index = hostPort.indexOf(":");
                         String host = hostPort.substring(0, index);
-                        String port = hostPort.substring(index+1, hostPort.length());
+                        String port = hostPort.substring(index + 1, hostPort.length());
                         socket = new TSocket(host, Integer.valueOf(port));
 
                         TProtocol tProtocol = new TBinaryProtocol(socket);

@@ -1,5 +1,6 @@
 package com.bubble.controller;
 
+import com.bubble.service.ItemBaseService;
 import com.bubble.service.UserBaseService;
 //import com.bubble.dal.UserInfoService;
 import com.bubble.utils.IdWorker;
@@ -17,12 +18,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-//    private UserInfoService userInfoService;
-    private UserBaseService userBaseService;
-    private IdWorker idWorker;
-    //TODO
-    //
+    private ItemBaseService itemBaseService;
 
+    @GetMapping(value = "/syncItemBase")
+    public String syncItemBase() throws Exception {
+        Boolean result = itemBaseService.SyncItemBase();
+        return result.toString();
+    }
     @GetMapping("/test")
     public String test() {
         return "OK";
