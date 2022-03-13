@@ -15,6 +15,10 @@ keyring = paillier.PaillierPrivateKeyring()  # 获取一个钥匙圈
 keyring.add(private_key)  # 加入钥匙圈中
 
 public_key1, private_key1 = paillier.generate_paillier_keypair(keyring)
+print(public_key1.nsquare)
+print("=========================")
+print(private_key1)
+print("=======================")
 
 public_key2, private_key2 = paillier.generate_paillier_keypair(keyring)
 

@@ -28,7 +28,7 @@ public class RatingRecordServiceImpl implements RatingRecordService {
         GetRecommendInfoResponse response = new GetRecommendInfoResponse();
         //  解析request获取En(A)、其他相关信息
         List<String> AList = request.getAList();
-        Double[][] EnA = new Double[M][N];
+        double[][] EnA = new double[M][N];
         int i = 0;
         for (String code : AList) {
             EnA[i/M][i%M] = Double.parseDouble(code);
@@ -39,25 +39,25 @@ public class RatingRecordServiceImpl implements RatingRecordService {
         ratingRecordBExample.createCriteria().andItemIdBetween(request.getStartPosition(), request.getEndPosition());
         List<RatingRecordB> ratingRecordBList = ratingRecordBMapper.selectByExample(ratingRecordBExample);
         // 初始化矩阵 B
-        Double[][] B = new Double[ratingRecordBList.size()][N];
+        double[][] B = new double[ratingRecordBList.size()][N];
         for(RatingRecordB recordB : ratingRecordBList){
             B[recordB.getUserId()][recordB.getItemId() - request.getStartPosition()] = recordB.getRating();
         }
         //  计算En(AB)，En(BB)
         DataProcessor dataProcessor = DataProcessor.getDataProcessor();
-        Double[][] AB = dataProcessor.getAMulB(EnA,B);
-        Double[][] BB = dataProcessor.getAMulB(B,B);
+        double[][] AB = dataProcessor.getAMulB(EnA,B);
+        double[][] BB = dataProcessor.getAMulB(B,B);
         //  压缩矩阵
-        Double[] AB_press = dataProcessor.getVectorCompression(AB);
-        Double[] BB_press = dataProcessor.getVectorCompression(BB);
+        double[] AB_press = dataProcessor.getVectorCompression(AB);
+        double[] BB_press = dataProcessor.getVectorCompression(BB);
         //  构造返回值
         List<String> AB_result = new ArrayList<>();
         List<String> BB_result = new ArrayList<>();
         for(i = 0;i < AB_press.length;i ++){
-            AB_result.add(AB_press[i].toString());
+            AB_result.add(Double.toString(AB_press[i]));
         }
         for(i = 0;i < BB_press.length;i ++){
-            BB_result.add(BB_press[i].toString());
+            BB_result.add(Double.toString(BB_press[i]));
         }
         response.setABList(AB_result);
         response.setBBList(BB_result);

@@ -105,6 +105,13 @@
       <version>0.11.0</version>
       <type>pom</type>
     </dependency>
+    <dependency>
+      <groupId>com.utdallas.edu</groupId>
+      <artifactId>paillier-threshold</artifactId>
+      <version>1.0.0</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/resources/lib/paillier.jar</systemPath>
+    </dependency>
 
   </dependencies>
 
