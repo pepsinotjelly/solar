@@ -31,8 +31,16 @@ struct GetRecommendInfoResponse {
     255: base.BaseResp BaseResp;
 }
 
+struct GetItemIdRequest {
+    1: list<string> idList;
+}
+struct GetItemIdResponse {
+    1: list<string> itemIdList;
+    255: base.BaseResp BaseResp;
+}
 
 service RecommendService {
     GetRecommendInfoResponse GetRecommendInfo(1:GetRecommendInfoRequest getRecommendInfoRequest);
     SyncItemBaseResponse SyncItemBase(1: SyncItemBaseRequest syncItemBaseRequest);
+    GetItemIdResponse GetItemId(1: GetItemIdRequest getItemIdRequest);
 }

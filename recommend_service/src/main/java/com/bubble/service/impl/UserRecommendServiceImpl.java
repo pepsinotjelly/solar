@@ -11,11 +11,12 @@ import com.bubble.thrift.recommend_service.GetRecommendInfoResponse;
 import com.bubble.thrift.recommend_service.RecommendService;
 import com.bubble.utils.DataProcessor;
 import com.bubble.utils.IdWorker;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class UserRecommendServiceImpl implements UserRecommendService {
     @Resource
     UserRecommendMapper userRecommendMapper;
@@ -44,20 +45,33 @@ public class UserRecommendServiceImpl implements UserRecommendService {
         }
         int N = max - min;
         int M = userIdList.size();
-        Double[][] A = new Double[M][N];
+        double[][] A = new double[M][N];
         for(RatingRecord record : recordList){
-            A[record.getUserId()%M][record.getItemId()-min] = record.getRating();
+            A[record.getUserId()/N][record.getItemId()%N] = record.getRating();
         }
         //  计算AA
         DataProcessor dataProcessor = DataProcessor.getDataProcessor();
-        Double[][] AA = dataProcessor.getAMulB(A,A);
-        Double[] A_one_line = dataProcessor.getVectorCompression(AA);
-        //  加密
+        double[][] AA = dataProcessor.getAMulB(A,A);
+        double[] A_one_line = dataProcessor.getVectorCompression(AA);
+//        // 明文基础上进行数据掩盖
+//        Double[][] masking_1 = dataProcessor.getMaskingMatrix(M,N);
+//        for(int i = 0;i < M;i ++){
+//            for(int j = 0;j < N;j ++){
+//                AA[i][j] = (AA[i][j] + masking_1[i][j]) % 5;
+//            }
+//        }
+//        //  加密
+//        //  密文基础上去除掩盖
+//        for(int i = 0;i < M;i ++){
+//            for(int j = 0;j < N;j ++){
+//                AA[i][j] = (AA[i][j] - masking_1[i][j] + 5) % 5;
+//            }
+//        }
         //  数据转换
         List<String> AList = new ArrayList<>();
-        for(Double[] a_list: A){
-            for(Double a : a_list){
-                AList.add(a.toString());
+        for(double[] a_list: A){
+            for(double a : a_list){
+                AList.add(Double.toString(a));
             }
         }
         //  获取AB、BB
@@ -68,18 +82,29 @@ public class UserRecommendServiceImpl implements UserRecommendService {
         GetRecommendInfoResponse response = client.GetRecommendInfo(request);
         List<String> EnAB = response.getABList();
         List<String> EnBB = response.getBBList();
+//        //  密文基础上进行数据掩盖
+//        Double[] masking_2 = dataProcessor.getMaskingMatrix(M);
+//        for(int i = 0;i < M;i ++){
+//            //TODO 调用密文加减法计算函数
+//        }
+
         //  解密AB、BB
+
         List<String> DeAB = new ArrayList<>();
         List<String> DeBB = new ArrayList<>();
+//        //  明文基础上去除数据掩盖
+//        for(int i = 0;i < M;i ++){
+//            //TODO 调用密文加减法计算函数
+//        }
         //  数据类型转换
-        Double[] BB = new Double[M];
-        Double[] AB = new Double[M];
+        double[] BB = new double[M];
+        double[] AB = new double[M];
         for(int i = 0;i < M;i ++){
             BB[i] = Double.parseDouble(EnBB.get(i));
             AB[i] = Double.parseDouble(EnAB.get(i));
         }
         //  计算余弦相似度
-        Double[] cosineSimilarity = dataProcessor.getCosineSimilarity(A_one_line, BB, AB);
+        double[] cosineSimilarity = dataProcessor.getCosineSimilarity(A_one_line, BB, AB);
         //  获取排序结果
         int[] sortList = dataProcessor.Arraysort(cosineSimilarity,true);
         //  获取Item列表

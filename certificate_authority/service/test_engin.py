@@ -1,7 +1,6 @@
 import math
 import random
 
-import engin.similarity_calculator as es
 import numpy as np
 
 

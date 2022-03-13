@@ -117,5 +117,14 @@
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.12" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.14" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.13" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: com.utdallas.edu:paillier-threshold:1.0.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/main/resources/lib/paillier.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
