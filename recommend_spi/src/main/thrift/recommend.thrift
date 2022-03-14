@@ -28,6 +28,8 @@ struct GetRecommendInfoRequest {
 struct GetRecommendInfoResponse {
     1: list<string> ABList;
     2: list<string> BBList;
+    3: i32 M;
+    4: i32 N;
     255: base.BaseResp BaseResp;
 }
 

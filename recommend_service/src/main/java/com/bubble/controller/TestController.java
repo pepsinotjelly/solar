@@ -52,7 +52,6 @@ public class TestController {
     public List<ItemBase> getRecommendList() throws Exception {
         List<Integer> lists = new ArrayList<>();
         lists.add(1);
-        lists.add(2);
         return userRecommendService.getRecommendList(lists);
     }
 

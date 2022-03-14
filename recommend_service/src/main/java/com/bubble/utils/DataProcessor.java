@@ -25,17 +25,38 @@ public class DataProcessor {
         if (B == null || B.length == 0 || B[0].length == 0) return null;
         double[][] A_mul_B = new double[A.length][B[0].length];
         for (double[] user : A) {
+            int k = 0;
             for (int i = 0; i < user.length; i++) {
                 for (int j = 0; j < B[0].length; j++) {
-                    A_mul_B[i][j] = user[i] * B[i][j];
+                    A_mul_B[k][j] = user[i] * B[i][j];
                 }
-
             }
+            k++;
         }
 
         return A_mul_B;
     }
 
+    public double[][] getAMulB(double[] A, double[][] B) {
+        if (A == null || A.length == 0) return null;
+        if (B == null || B.length == 0 || B[0].length == 0) return null;
+        double[][] A_mul_B = new double[B.length][B[0].length];
+        for (int i = 0; i < B.length; i++) {
+            for (int j = 0; j < B[0].length; j++) {
+                A_mul_B[i][j] = A[j] * B[i][j];
+            }
+        }
+        return A_mul_B;
+    }
+    public double[] getAMulB(double[] A, double[] B) {
+        if (A == null || A.length == 0) return null;
+        if (B == null || B.length == 0) return null;
+        double[] A_mul_B = new double[B.length];
+        for (int i = 0; i < B.length; i++) {
+                A_mul_B[i] = A[i] * B[i];
+        }
+        return A_mul_B;
+    }
     //  二维向量压缩成一维
     public double[] getVectorCompression(double[][] A) {
         if (A == null || A.length == 0 || A[0].length == 0) return null;

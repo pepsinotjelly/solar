@@ -7,7 +7,7 @@ public class UserBaseB {
 
     private String userName;
 
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     public Integer getId() {
         return id;
@@ -33,11 +33,11 @@ public class UserBaseB {
         this.userName = userName == null ? null : userName.trim();
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber == null ? null : phoneNumber.trim();
     }
 }

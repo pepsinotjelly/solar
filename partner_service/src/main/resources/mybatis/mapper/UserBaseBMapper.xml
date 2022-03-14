@@ -5,7 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="phone_number" jdbcType="INTEGER" property="phoneNumber" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -102,7 +102,7 @@
     insert into user_base_b (id, password, user_name, 
       phone_number)
     values (#{id,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{phoneNumber,jdbcType=INTEGER})
+      #{phoneNumber,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.bubble.model.UserBaseB">
     insert into user_base_b
@@ -131,7 +131,7 @@
         #{userName,jdbcType=VARCHAR},
       </if>
       <if test="phoneNumber != null">
-        #{phoneNumber,jdbcType=INTEGER},
+        #{phoneNumber,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -154,7 +154,7 @@
         user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
       <if test="record.phoneNumber != null">
-        phone_number = #{record.phoneNumber,jdbcType=INTEGER},
+        phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -166,7 +166,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       password = #{record.password,jdbcType=VARCHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
-      phone_number = #{record.phoneNumber,jdbcType=INTEGER}
+      phone_number = #{record.phoneNumber,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -181,7 +181,7 @@
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
       <if test="phoneNumber != null">
-        phone_number = #{phoneNumber,jdbcType=INTEGER},
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -190,7 +190,7 @@
     update user_base_b
     set password = #{password,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
-      phone_number = #{phoneNumber,jdbcType=INTEGER}
+      phone_number = #{phoneNumber,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

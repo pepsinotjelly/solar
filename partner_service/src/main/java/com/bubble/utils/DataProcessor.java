@@ -29,7 +29,26 @@ public class DataProcessor {
 
             }
         }
-
+        return A_mul_B;
+    }
+    public double[][] getAMulB(double[] A, double[][] B) {
+        if (A == null || A.length == 0) return null;
+        if (B == null || B.length == 0 || B[0].length == 0) return null;
+        double[][] A_mul_B = new double[B.length][B[0].length];
+        for (int i = 0; i < B.length; i++) {
+            for (int j = 0; j < B[0].length; j++) {
+                A_mul_B[i][j] = A[j] * B[i][j];
+            }
+        }
+        return A_mul_B;
+    }
+    public double[] getAMulB(double[] A, double[] B) {
+        if (A == null || A.length == 0) return null;
+        if (B == null || B.length == 0) return null;
+        double[] A_mul_B = new double[B.length];
+        for (int i = 0; i < B.length; i++) {
+            A_mul_B[i] = A[i] * B[i];
+        }
         return A_mul_B;
     }
 

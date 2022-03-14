@@ -40,7 +40,7 @@
         <table tableName="user_base_b" domainObjectName="UserBaseB" />
 <!--        <table tableName="user_recommend_b" domainObjectName="UserRecommendB" />-->
         <!--        <table tableName="item_info_b" domainObjectName="ItemInfoB"/>-->
-        <table tableName="item_base_b" domainObjectName="ItemBaseB"/>
-        <table tableName="rating_record_b" domainObjectName="RatingRecordB" />
+<!--        <table tableName="item_base_b" domainObjectName="ItemBaseB"/>-->
+<!--        <table tableName="rating_record_b" domainObjectName="RatingRecordB" />-->
     </context>
 </generatorConfiguration>
