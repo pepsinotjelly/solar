@@ -7,8 +7,6 @@ public class ItemBase {
 
     private String genres;
 
-    private String time;
-
     public Integer getId() {
         return id;
     }
@@ -31,13 +29,5 @@ public class ItemBase {
 
     public void setGenres(String genres) {
         this.genres = genres == null ? null : genres.trim();
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time == null ? null : time.trim();
     }
 }

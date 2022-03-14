@@ -49,10 +49,10 @@ public class TestController {
     }
 
     @GetMapping(value = "/getRecommendList")
-    public List<ItemBase> getRecommendList() throws Exception {
+    public List<String> getRecommendList() throws Exception {
         List<Integer> lists = new ArrayList<>();
         lists.add(1);
-        return userRecommendService.getRecommendList(lists);
+        return userRecommendService.getSimilarityList(lists);
     }
 
 }

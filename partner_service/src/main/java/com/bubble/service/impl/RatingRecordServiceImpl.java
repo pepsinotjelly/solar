@@ -6,7 +6,10 @@ import com.bubble.service.RatingRecordService;
 import com.bubble.thrift.BaseResp;
 import com.bubble.thrift.recommend_service.GetRecommendInfoRequest;
 import com.bubble.thrift.recommend_service.GetRecommendInfoResponse;
+import com.bubble.thrift.recommend_service.GetRecommendItemIdRequest;
+import com.bubble.thrift.recommend_service.GetRecommendItemIdResponse;
 import com.bubble.utils.DataProcessor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.math3.FieldElement;
 import org.apache.commons.math3.linear.OpenMapRealMatrix;
 import org.apache.commons.math3.linear.SparseFieldMatrix;
@@ -15,9 +18,11 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class RatingRecordServiceImpl implements RatingRecordService {
     @Resource
@@ -25,18 +30,15 @@ public class RatingRecordServiceImpl implements RatingRecordService {
 
     @Override
     public GetRecommendInfoResponse GetRecommendInfo(GetRecommendInfoRequest request) throws TException {
-        // TODO MN信息的同步
+        log.info("GetRecommendInfoRequest :: "+request.toString());
+        // 同步矩阵信息
         int N = request.getAListSize();
-//        int M = request.getAListSize()/N;
         GetRecommendInfoResponse response = new GetRecommendInfoResponse();
         //  解析request获取En(A)、其他相关信息
         List<String> AList = request.getAList();
-//        double[] EnA = new double[N];
-
         OpenMapRealMatrix AMatrix = new OpenMapRealMatrix(1, AList.size());
         for (int i = 0; i < N; i++) {
-            AMatrix.setEntry(0, i,Double.parseDouble(AList.get(i)));
-//            EnA[i] = Double.parseDouble(AList.get(i));
+            AMatrix.setEntry(0, i, Double.parseDouble(AList.get(i)));
         }
         //  数据查询获取B
         RatingRecordBExample ratingRecordBExample = new RatingRecordBExample();
@@ -50,20 +52,18 @@ public class RatingRecordServiceImpl implements RatingRecordService {
             max = recordB.getUserId() > max ? recordB.getUserId() : max;
         }
         int M = max - min + 1;
+        String[] user_list = new String[M];
+        List<String> userIndex = new ArrayList<>();
         OpenMapRealMatrix BMatrix = new OpenMapRealMatrix(M, N);
-//        double[][] B = new double[ratingRecordBList.size()][N];// 溢出
         for (RatingRecordB recordB : ratingRecordBList) {
             BMatrix.addToEntry(recordB.getUserId() - min, recordB.getItemId() - request.getStartPosition(), recordB.getRating());
+            user_list[recordB.getUserId() - min] = recordB.getUserId().toString();
         }
+        userIndex.addAll(Arrays.asList(user_list));
         //  计算En(AB)，En(BB)
-        DataProcessor dataProcessor = DataProcessor.getDataProcessor();
         OpenMapRealMatrix ABMatrix = (OpenMapRealMatrix) AMatrix.multiply(BMatrix.transpose());
         OpenMapRealMatrix BBMatrix = (OpenMapRealMatrix) BMatrix.multiply(BMatrix.transpose());
-//        double[][] AB = dataProcessor.getAMulB(EnA, B);
-//        double[][] BB = dataProcessor.getAMulB(B, B);
         //  压缩矩阵
-//        double[] AB_press = dataProcessor.getVectorCompression(AB);
-//        double[] BB_press = dataProcessor.getVectorCompression(BB);
         //  构造返回值
         List<String> AB_result = new ArrayList<>();
         List<String> BB_result = new ArrayList<>();
@@ -72,15 +72,61 @@ public class RatingRecordServiceImpl implements RatingRecordService {
         }
         for (int i = 0; i < M; i++) {
             double[] row = BBMatrix.getRow(i);
-            for(int j = 0;j < M;j ++){
+            for (int j = 0; j < M; j++) {
                 BB_result.add(Double.toString(row[j]));
             }
         }
         response.setABList(AB_result);
         response.setBBList(BB_result);
+        response.setIndexList(userIndex);
         response.setM(M);
         response.setN(M);
         response.setBaseResp(new BaseResp().setStatusCode(0).setStatusMsg("done"));
+        return response;
+    }
+
+    @Override
+    public GetRecommendItemIdResponse GetRecommendItemId(GetRecommendItemIdRequest request) throws TException {
+        log.info("GetRecommendItemIdRequest :: "+request.toString());
+        GetRecommendItemIdResponse response = new GetRecommendItemIdResponse();
+        //  解析请求-获取索引表、相似度
+        List<String> cosineSimilarityList = request.getCosineSimilarityList();
+        List<String> indexList = request.getIndexList();
+        //  类型转换
+        List<Integer> userIndex = new ArrayList<>();
+        for (String s : indexList) {
+            userIndex.add(Integer.parseInt(s));
+        }
+        RatingRecordBExample example = new RatingRecordBExample();
+        example.createCriteria().andUserIdIn(userIndex);
+        List<RatingRecordB> ratingRecordBList = ratingRecordBMapper.selectByExample(example);
+        //  获取边界值
+        List<String> itemList = new ArrayList<>();
+        for (RatingRecordB record : ratingRecordBList) {
+            if (!itemList.contains(record.getItemId().toString())) {
+                itemList.add(record.getItemId().toString());
+            }
+        }
+        int M = indexList.size(); //  用户数量
+        int N = itemList.size();  //  item数量
+        OpenMapRealMatrix scoreMatrix = new OpenMapRealMatrix(M, N);
+        for (RatingRecordB record : ratingRecordBList) {
+            scoreMatrix.setEntry(itemList.indexOf(record.getItemId().toString()), indexList.indexOf(record.getUserId().toString()), record.getRating());
+        }
+        //  余弦相似度矩阵
+        OpenMapRealMatrix simMatrix = new OpenMapRealMatrix(1, M);
+        for(int i = 0;i < M;i ++){
+            simMatrix.setEntry(0,i,Integer.parseInt(cosineSimilarityList.get(i)));
+        }
+        //  商品评估得分矩阵
+        OpenMapRealMatrix itemSimMatrix = (OpenMapRealMatrix) simMatrix.multiply(scoreMatrix.transpose());
+        List<String> itemSim = new ArrayList<>();
+        for(int i = 0;i < N;i ++){
+            itemSim.add(Double.toString(itemSimMatrix.getEntry(0,i)));
+        }
+        response.setRatingList(itemSim);
+        response.setItemIdList(itemList);
+        response.setBaseResp(new BaseResp().setStatusMsg("DONE").setStatusCode(0));
         return response;
     }
 }
