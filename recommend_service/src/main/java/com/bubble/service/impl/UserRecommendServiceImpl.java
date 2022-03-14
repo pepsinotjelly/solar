@@ -71,7 +71,9 @@ public class UserRecommendServiceImpl implements UserRecommendService {
         request.setAList(AList);
         request.setEndPosition(max);
         request.setStartPosition(min);
+        log.info("start requesting");
         GetRecommendInfoResponse response = client.GetRecommendInfo(request);
+        log.info("GetRecommendInfoResponse :: "+ response);
         //获取AB、BB
         List<String> EnAB = response.getABList();
         List<String> EnBB = response.getBBList();

@@ -40,11 +40,13 @@ public class RatingRecordServiceImpl implements RatingRecordService {
         for (int i = 0; i < N; i++) {
             AMatrix.setEntry(0, i, Double.parseDouble(AList.get(i)));
         }
+        log.info("数据查询获取B");
         //  数据查询获取B
         RatingRecordBExample ratingRecordBExample = new RatingRecordBExample();
         ratingRecordBExample.createCriteria().andItemIdBetween(request.getStartPosition(), request.getEndPosition());
         List<RatingRecordB> ratingRecordBList = ratingRecordBMapper.selectByExample(ratingRecordBExample);
         // 初始化矩阵 B
+        log.info("初始化矩阵 B");
         int min = Integer.MAX_VALUE;
         int max = 0;
         for (RatingRecordB recordB : ratingRecordBList) {
@@ -55,16 +57,18 @@ public class RatingRecordServiceImpl implements RatingRecordService {
         String[] user_list = new String[M];
         List<String> userIndex = new ArrayList<>();
         OpenMapRealMatrix BMatrix = new OpenMapRealMatrix(M, N);
+        log.info("OpenMapRealMatrix BMatrix");
         for (RatingRecordB recordB : ratingRecordBList) {
             BMatrix.addToEntry(recordB.getUserId() - min, recordB.getItemId() - request.getStartPosition(), recordB.getRating());
             user_list[recordB.getUserId() - min] = recordB.getUserId().toString();
         }
         userIndex.addAll(Arrays.asList(user_list));
         //  计算En(AB)，En(BB)
+        log.info("计算En(AB)，En(BB)");
         OpenMapRealMatrix ABMatrix = (OpenMapRealMatrix) AMatrix.multiply(BMatrix.transpose());
         OpenMapRealMatrix BBMatrix = (OpenMapRealMatrix) BMatrix.multiply(BMatrix.transpose());
-        //  压缩矩阵
         //  构造返回值
+        log.info("构造返回值");
         List<String> AB_result = new ArrayList<>();
         List<String> BB_result = new ArrayList<>();
         for (int i = 0; i < M; i++) {
@@ -76,12 +80,14 @@ public class RatingRecordServiceImpl implements RatingRecordService {
                 BB_result.add(Double.toString(row[j]));
             }
         }
+        log.info("response");
         response.setABList(AB_result);
         response.setBBList(BB_result);
         response.setIndexList(userIndex);
         response.setM(M);
         response.setN(M);
         response.setBaseResp(new BaseResp().setStatusCode(0).setStatusMsg("done"));
+        log.info("set base resp");
         return response;
     }
 
