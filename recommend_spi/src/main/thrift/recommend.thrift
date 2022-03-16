@@ -50,4 +50,6 @@ service RecommendService {
     GetRecommendInfoResponse GetRecommendInfo(1:GetRecommendInfoRequest getRecommendInfoRequest);
     SyncItemBaseResponse SyncItemBase(1: SyncItemBaseRequest syncItemBaseRequest);
     GetItemIdResponse GetItemId(1: GetItemIdRequest getItemIdRequest);
+    GetRecommendInfoResponse GetPlainRecommendInfo(1:GetRecommendInfoRequest getRecommendInfoRequest);
+    GetItemIdResponse GetPlainItemId(1: GetItemIdRequest getItemIdRequest);
 }
