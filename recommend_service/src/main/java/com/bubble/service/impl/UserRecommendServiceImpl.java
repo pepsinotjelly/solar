@@ -200,7 +200,7 @@ public class UserRecommendServiceImpl implements UserRecommendService {
         return recommendIdList;
     }
 
-
+    @Override
     public List<String> getPlainSimilarityList(List<Integer> userIdList) throws Exception {
         List<String> cosineSimilarityList = new ArrayList<>();
         // TODO
@@ -225,9 +225,6 @@ public class UserRecommendServiceImpl implements UserRecommendService {
         //  计算AA
         OpenMapRealMatrix AAMatrix = new OpenMapRealMatrix(1, 1);
         AAMatrix = (OpenMapRealMatrix) AMatrix.multiply(AMatrix.transpose());
-        // 明文基础上进行数据掩盖
-        //  加密
-        //  密文基础上去除掩盖
         //  数据转换
         List<String> AList = new ArrayList<>();
         for (double a : AMatrix.getRow(0)) {
@@ -238,16 +235,10 @@ public class UserRecommendServiceImpl implements UserRecommendService {
         request.setAList(AList);
         request.setEndPosition(max);
         request.setStartPosition(min);
-        GetRecommendInfoResponse response = client.GetRecommendInfo(request);
+        GetRecommendInfoResponse response = client.GetPlainRecommendInfo(request);
         //获取AB、BB
         List<String> EnAB = response.getABList();
         List<String> EnBB = response.getBBList();
-        //  密文基础上进行数据掩盖
-        //TODO 调用密文加减法计算函数
-        //  解密AB、BB
-        //  明文基础上去除数据掩盖
-        //TODO 调用密文加减法计算函数
-
         //  数据类型转换
         int N_user = response.getN();
         int M_user = response.getM();
@@ -295,7 +286,7 @@ public class UserRecommendServiceImpl implements UserRecommendService {
             partCosineSimilarity.add(Double.toString(cosineMatrix.getRow(0)[topList[i]]));
         }
         //  获取Item列表
-        List<Integer> itemIdList = getRecommendList(partCosineSimilarity, finalIndex);
+        List<Integer> itemIdList = getPlainRecommendList(partCosineSimilarity, finalIndex);
         //  过滤数据（去除用户看过的）
         for (RatingRecord r : userWatchedRecordList) {
             if (itemIdList.contains(r.getItemId())) {
@@ -316,7 +307,7 @@ public class UserRecommendServiceImpl implements UserRecommendService {
         return demo;
     }
 
-
+    @Override
     public List<Integer> getPlainRecommendList(List<String> cosineSimilarity, List<String> Index) throws Exception {
         List<Integer> recommendIdList = new ArrayList<>();
         //  加密余弦相似度
@@ -325,7 +316,7 @@ public class UserRecommendServiceImpl implements UserRecommendService {
         GetItemIdRequest request = new GetItemIdRequest();
         request.setIndexList(Index);
         request.setCosineSimilarityList(cosineSimilarity);
-        GetItemIdResponse response = client.GetItemId(request);
+        GetItemIdResponse response = client.GetPlainItemId(request);
         //  获取商品推荐数据itemIdList、预计评平分数据ratingList
         List<String> itemIdList = response.getItemIdList();
         List<String> ratingList = response.getRatingList();

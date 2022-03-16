@@ -164,7 +164,7 @@ public class RatingRecordServiceImpl implements RatingRecordService {
         return response;
     }
 
-
+    @Override
     public GetRecommendInfoResponse GetPlainRecommendInfo(GetRecommendInfoRequest request) throws TException {
         log.info("GetRecommendInfoRequest :: " + request.toString());
         // 同步矩阵信息
@@ -214,6 +214,50 @@ public class RatingRecordServiceImpl implements RatingRecordService {
         response.setN(M);
         response.setBaseResp(new BaseResp().setStatusCode(0).setStatusMsg("done"));
         log.info("RESPONSE SENT :: GetRecommendInfoResponse");
+        return response;
+    }
+    @Override
+    public GetItemIdResponse GetPlainRecommendItemId(GetItemIdRequest request) throws TException {
+        log.info("GetPlainItemIdRequest :: "+request.toString());
+        GetItemIdResponse response = new GetItemIdResponse();
+        //  解析请求-获取索引表、相似度
+        List<String> cosineSimilarityList = request.getCosineSimilarityList();
+        List<String> indexList = request.getIndexList();
+        //  类型转换
+        List<Integer> userIndex = new ArrayList<>();
+        for (String s : indexList) {
+            userIndex.add(Integer.parseInt(s));
+        }
+        RatingRecordBExample example = new RatingRecordBExample();
+        example.createCriteria().andUserIdIn(userIndex);
+        List<RatingRecordB> ratingRecordBList = ratingRecordBMapper.selectByExample(example);
+        //  获取边界值
+        List<String> itemList = new ArrayList<>();
+        for (RatingRecordB record : ratingRecordBList) {
+            if (!itemList.contains(record.getItemId().toString())) {
+                itemList.add(record.getItemId().toString());
+            }
+        }
+        int M = indexList.size(); //  用户数量
+        int N = itemList.size();  //  item数量
+        OpenMapRealMatrix scoreMatrix = new OpenMapRealMatrix(M, N);
+        for (RatingRecordB record : ratingRecordBList) {
+            scoreMatrix.setEntry(itemList.indexOf(record.getItemId().toString()), indexList.indexOf(record.getUserId().toString()), record.getRating());
+        }
+        //  余弦相似度矩阵
+        OpenMapRealMatrix simMatrix = new OpenMapRealMatrix(1, M);
+        for(int i = 0;i < M;i ++){
+            simMatrix.setEntry(0,i,Integer.parseInt(cosineSimilarityList.get(i)));
+        }
+        //  商品评估得分矩阵
+        OpenMapRealMatrix itemSimMatrix = (OpenMapRealMatrix) simMatrix.multiply(scoreMatrix.transpose());
+        List<String> itemSim = new ArrayList<>();
+        for(int i = 0;i < N;i ++){
+            itemSim.add(Double.toString(itemSimMatrix.getEntry(0,i)));
+        }
+        response.setRatingList(itemSim);
+        response.setItemIdList(itemList);
+        response.setBaseResp(new BaseResp().setStatusMsg("DONE").setStatusCode(0));
         return response;
     }
 }
