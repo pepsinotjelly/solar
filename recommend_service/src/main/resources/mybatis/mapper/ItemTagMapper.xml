@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bubble.mapper.ItemBaseMapper">
-  <resultMap id="BaseResultMap" type="com.bubble.model.ItemBase">
+<mapper namespace="com.bubble.mapper.ItemTagMapper">
+  <resultMap id="BaseResultMap" type="com.bubble.model.ItemTag">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="item_id" jdbcType="INTEGER" property="itemId" />
+    <result column="tag_id" jdbcType="INTEGER" property="tagId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -64,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, title
+    id, item_id, tag_id
   </sql>
-  <select id="selectByExample" parameterType="com.bubble.model.ItemBaseExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.bubble.model.ItemTagExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from item_base
+    from item_tag
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -83,56 +84,67 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from item_base
+    from item_tag
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from item_base
+    delete from item_tag
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.bubble.model.ItemBaseExample">
-    delete from item_base
+  <delete id="deleteByExample" parameterType="com.bubble.model.ItemTagExample">
+    delete from item_tag
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.bubble.model.ItemBase">
-    insert into item_base (id, title)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.bubble.model.ItemTag">
+    insert into item_tag (id, item_id, tag_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.bubble.model.ItemBase">
-    insert into item_base
+  <insert id="insertSelective" parameterType="com.bubble.model.ItemTag">
+    insert into item_tag
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="title != null">
-        title,
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="tagId != null">
+        tag_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="tagId != null">
+        #{tagId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.bubble.model.ItemBaseExample" resultType="java.lang.Long">
-    select count(*) from item_base
+  <select id="countByExample" parameterType="com.bubble.model.ItemTagExample" resultType="java.lang.Long">
+    select count(*) from item_tag
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update item_base
+    update item_tag
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.title != null">
-        title = #{record.title,jdbcType=VARCHAR},
+      <if test="record.itemId != null">
+        item_id = #{record.itemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.tagId != null">
+        tag_id = #{record.tagId,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -140,25 +152,30 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update item_base
+    update item_tag
     set id = #{record.id,jdbcType=INTEGER},
-      title = #{record.title,jdbcType=VARCHAR}
+      item_id = #{record.itemId,jdbcType=INTEGER},
+      tag_id = #{record.tagId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bubble.model.ItemBase">
-    update item_base
+  <update id="updateByPrimaryKeySelective" parameterType="com.bubble.model.ItemTag">
+    update item_tag
     <set>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
+      <if test="itemId != null">
+        item_id = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="tagId != null">
+        tag_id = #{tagId,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bubble.model.ItemBase">
-    update item_base
-    set title = #{title,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="com.bubble.model.ItemTag">
+    update item_tag
+    set item_id = #{itemId,jdbcType=INTEGER},
+      tag_id = #{tagId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

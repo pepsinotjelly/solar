@@ -1,9 +1,7 @@
 package com.bubble.controller;
 
-import com.bubble.service.ItemBaseService;
-import com.bubble.service.UserBaseService;
+import com.bubble.service.ItemService;
 //import com.bubble.dal.UserInfoService;
-import com.bubble.utils.IdWorker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    private ItemBaseService itemBaseService;
+    private ItemService itemBaseService;
 
     @GetMapping(value = "/syncItemBase")
     public String syncItemBase() throws Exception {

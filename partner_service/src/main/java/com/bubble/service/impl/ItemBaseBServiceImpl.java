@@ -51,7 +51,6 @@ public class ItemBaseBServiceImpl implements ItemBaseBService {
             ItemBaseB itemBaseB = new ItemBaseB();
             itemBaseB.setId(entity.getId());
             itemBaseB.setName(entity.getTitle());
-            itemBaseB.setGenres(entity.getGenres());
             itemBaseBList.add(itemBaseB);
         }
         //  对比数据库中信息,写入数据库

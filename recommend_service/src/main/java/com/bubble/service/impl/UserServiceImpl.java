@@ -1,6 +1,6 @@
 package com.bubble.service.impl;
 
-import com.bubble.service.UserBaseService;
+import com.bubble.service.UserService;
 import com.bubble.mapper.UserBaseMapper;
 import com.bubble.model.UserBase;
 import org.springframework.stereotype.Service;
@@ -14,14 +14,9 @@ import java.util.List;
  * @Desc:
  */
 @Service
-public class UserBaseServiceImpl implements UserBaseService {
+public class UserServiceImpl implements UserService {
     @Resource
     private UserBaseMapper userBaseMapper;
-
-    @Override
-    public List<UserBase> getList() {
-        return null;
-    }
 
     @Override
     public Integer register(UserBase userBase) {
@@ -35,9 +30,4 @@ public class UserBaseServiceImpl implements UserBaseService {
         return null;
     }
 
-    @Override
-    public Integer insert(UserBase userBase) {
-        userBaseMapper.insert(userBase);
-        return 0;
-    }
 }

@@ -61,35 +61,4 @@ public class CryptoSystem {
         log.info("DECRYPTION DONE");
         return DeCodeA;
     }
-
-    public List<String> test123(){
-        // Number of total operations
-        int numberOfTests=5;
-        //Length of the p, note that n=p.q
-        int lengthp=112;
-
-        Paillier esystem= new Paillier();
-        Random rd=new Random();
-        PaillierPrivateKey key=KeyGen.PaillierKey(lengthp,122333356);
-        esystem.setDecryptEncrypt(key);
-        //let's test our algorithm by encrypting and decrypting few instances
-        List<String> res = new ArrayList<>();
-
-
-        for(int i=0; i<numberOfTests; i++)
-        {
-            BigInteger m1=BigInteger.valueOf(Math.abs(rd.nextLong()));
-            BigInteger m2=BigInteger.valueOf(Math.abs(rd.nextLong()));
-            BigInteger c1=esystem.encrypt(m1);
-            BigInteger c2=esystem.encrypt(m2);
-            BigInteger c3=esystem.multiply(c1,m2);
-            c1=esystem.add(c1,c2);
-            c1=esystem.add(c1,c3);
-            res.add(c1.toString());
-
-            BigInteger e1 = esystem.decrypt(c1);
-            res.add(e1.toString());
-        }
-        return res;
-    }
 }

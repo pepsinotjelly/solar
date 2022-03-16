@@ -5,7 +5,7 @@ import com.bubble.model.UserRecommend;
 
 import java.util.List;
 
-public interface UserRecommendService {
+public interface RecommendService {
     List<UserRecommend> getUserRecommendList(int userId);
     int updateUserRecommend(int userId, List<UserRecommend> userRecommendList);
     List<String> getSimilarityList(int userId) throws Exception;

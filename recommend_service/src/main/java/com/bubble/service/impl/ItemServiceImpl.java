@@ -1,6 +1,6 @@
 package com.bubble.service.impl;
 
-import com.bubble.service.ItemBaseService;
+import com.bubble.service.ItemService;
 import com.bubble.mapper.ItemBaseMapper;
 import com.bubble.model.ItemBase;
 import com.bubble.model.ItemBaseExample;
@@ -10,7 +10,6 @@ import com.bubble.thrift.recommend_service.RecommendService;
 import com.bubble.thrift.recommend_service.SyncItemBaseRequest;
 import com.bubble.thrift.recommend_service.SyncItemBaseResponse;
 import org.apache.thrift.TException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ItemBaseServiceImpl implements ItemBaseService {
+public class ItemServiceImpl implements ItemService {
     @Resource
     private ItemBaseMapper itemBaseMapper;
 
@@ -30,10 +29,6 @@ public class ItemBaseServiceImpl implements ItemBaseService {
         return itemBaseMapper.insert(itemBase);
     }
 
-    @Override
-    public Integer update(ItemBase itemBase) {
-        return itemBaseMapper.updateByPrimaryKey(itemBase);
-    }
 
     @Override
     public List<ItemBase> batchGetItemBase(int startPosition, int endPosition) {
@@ -51,7 +46,6 @@ public class ItemBaseServiceImpl implements ItemBaseService {
         for (ItemBase item : itemBaseList) {
             ItemBaseEntity entity = new ItemBaseEntity();
             entity.setId(item.getId());
-            entity.setGenres(item.getGenres());
             entity.setTitle(item.getTitle());
             itemBaseEntities.add(entity);
         }
