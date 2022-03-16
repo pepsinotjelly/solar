@@ -22,22 +22,25 @@ struct GetRecommendInfoRequest {
     1: list<string> AList;
     2: i32 startPosition;
     3: i32 endPosition;
+    4: string publicKeyN;
+    5: string publicKeyRnd;
 }
 
 struct GetRecommendInfoResponse {
     1: list<string> ABList;
     2: list<string> BBList;
-    3: list<string> IndexList;
-    4: i32 M;
-    5: i32 N;
+    3: i32 M;
+    4: i32 N;
     255: base.BaseResp BaseResp;
 }
 
-struct GetRecommendItemIdRequest {
+struct GetItemIdRequest {
     1: list<string> indexList;
     2: list<string>  cosineSimilarityList;
+    3: string publicKeyN;
+    4: string publicKeyRnd;
 }
-struct GetRecommendItemIdResponse {
+struct GetItemIdResponse {
     1: list<string> itemIdList;
     2: list<string> ratingList;
     255: base.BaseResp BaseResp;
@@ -46,5 +49,5 @@ struct GetRecommendItemIdResponse {
 service RecommendService {
     GetRecommendInfoResponse GetRecommendInfo(1:GetRecommendInfoRequest getRecommendInfoRequest);
     SyncItemBaseResponse SyncItemBase(1: SyncItemBaseRequest syncItemBaseRequest);
-    GetRecommendItemIdResponse GetRecommendItemId(1: GetRecommendItemIdRequest getRecommendItemIdRequest);
+    GetItemIdResponse GetItemId(1: GetItemIdRequest getItemIdRequest);
 }

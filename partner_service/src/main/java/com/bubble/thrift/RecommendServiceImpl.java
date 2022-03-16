@@ -33,8 +33,8 @@ public class RecommendServiceImpl implements RecommendService.Iface {
     }
 
     @Override
-    public GetRecommendItemIdResponse GetRecommendItemId(GetRecommendItemIdRequest getRecommendItemIdRequest) throws TException {
-        return ratingRecordService.GetRecommendItemId(getRecommendItemIdRequest);
+    public GetItemIdResponse GetItemId(GetItemIdRequest getItemIdRequest) throws TException {
+        return ratingRecordService.GetItemId(getItemIdRequest);
     }
 
 
