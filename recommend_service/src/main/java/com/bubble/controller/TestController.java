@@ -8,10 +8,12 @@ import com.bubble.service.UserBaseService;
 import com.bubble.model.UserBase;
 import com.bubble.service.UserRecommendService;
 import com.bubble.utils.CryptoSystem;
+import com.bubble.utils.DataProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import paillierp.Paillier;
 import paillierp.key.KeyGen;
@@ -56,14 +58,23 @@ public class TestController {
     }
 
     @GetMapping(value = "/getRecommendList")
-    public List<String> getRecommendList() throws Exception {
-        List<Integer> lists = new ArrayList<>();
-        lists.add(1);
-        return userRecommendService.getSimilarityList(lists);
+    public List<String> getRecommendList(@RequestParam(value = "user_id") int user_id) throws Exception {
+
+        return userRecommendService.getSimilarityList(user_id);
+    }
+    @GetMapping(value = "/getPlainRecommendList")
+    public List<String> getPlainRecommendList(@RequestParam(value = "user_id") int user_id) throws Exception {
+        return userRecommendService.getPlainSimilarityList(user_id);
+    }
+
+    @GetMapping(value = "/getDiff")
+    public double[] getDiff() throws Exception {
+        DataProcessor dataProcessor = DataProcessor.getDataProcessor();
+        return dataProcessor.getDiff(100);
     }
 
     @GetMapping(value = "/testPaillierList")
-    public List<String> getPlainRecommendList() throws Exception {
+    public List<String> testPaillierList() throws Exception {
         CryptoSystem system = new CryptoSystem();
         List<String> strings = new ArrayList<>();
         Paillier esystem= new Paillier();

@@ -37,5 +37,15 @@ public class RecommendServiceImpl implements RecommendService.Iface {
         return ratingRecordService.GetItemId(getItemIdRequest);
     }
 
+    @Override
+    public GetRecommendInfoResponse GetPlainRecommendInfo(GetRecommendInfoRequest getRecommendInfoRequest) throws TException {
+        return ratingRecordService.GetPlainRecommendInfo(getRecommendInfoRequest);
+    }
+
+    @Override
+    public GetItemIdResponse GetPlainItemId(GetItemIdRequest getItemIdRequest) throws TException {
+        return ratingRecordService.GetPlainRecommendItemId(getItemIdRequest);
+    }
+
 
 }

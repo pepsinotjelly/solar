@@ -72,7 +72,7 @@ public class RatingRecordServiceImpl implements RatingRecordService {
             int user_pos = recordB.getUserId() - min;
             int item_pos = recordB.getItemId() - request.getStartPosition();
             BigInteger A_item_pos = new BigInteger(AList.get(item_pos));
-            BigInteger cons = new BigInteger(String.valueOf((int)(recordB.getRating() * 10)));
+            BigInteger cons = new BigInteger(String.valueOf((int) (recordB.getRating() * 10)));
             if (!BigInteger.ZERO.equals(EnAB[user_pos])) {
                 BigInteger EnAB_user_pos = new BigInteger(EnAB[user_pos].toString());
                 EnAB[user_pos] = eSystem.multiply(A_item_pos, cons);
@@ -138,14 +138,14 @@ public class RatingRecordServiceImpl implements RatingRecordService {
         int N = itemList.size();  //  item数量
 
         BigInteger[] ratingList = new BigInteger[N];
-        for(int i = 0;i < N;i ++){
+        for (int i = 0; i < N; i++) {
             ratingList[i] = new BigInteger("1");
         }
         for (RatingRecordB record : ratingRecordBList) {
             int user_pos = indexList.indexOf(record.getUserId().toString());
             int item_pos = itemList.indexOf(record.getItemId().toString());
             BigInteger B_user_pos = new BigInteger(EnCosineSimilarityList.get(user_pos));
-            BigInteger cons = new BigInteger(String.valueOf((int)(record.getRating() * 10)));
+            BigInteger cons = new BigInteger(String.valueOf((int) (record.getRating() * 10)));
             if (!BigInteger.ZERO.equals(ratingList[item_pos]) && ratingList[item_pos] != null && !BigInteger.ZERO.equals(cons)) {
                 BigInteger RatingList_item_pos = new BigInteger(ratingList[item_pos].toString());
                 ratingList[item_pos] = eSystem.multiply(B_user_pos, cons);
@@ -216,9 +216,10 @@ public class RatingRecordServiceImpl implements RatingRecordService {
         log.info("RESPONSE SENT :: GetRecommendInfoResponse");
         return response;
     }
+
     @Override
     public GetItemIdResponse GetPlainRecommendItemId(GetItemIdRequest request) throws TException {
-        log.info("GetPlainItemIdRequest :: "+request.toString());
+        log.info("GetPlainItemIdRequest :: " + request.toString());
         GetItemIdResponse response = new GetItemIdResponse();
         //  解析请求-获取索引表、相似度
         List<String> cosineSimilarityList = request.getCosineSimilarityList();
@@ -242,18 +243,18 @@ public class RatingRecordServiceImpl implements RatingRecordService {
         int N = itemList.size();  //  item数量
         OpenMapRealMatrix scoreMatrix = new OpenMapRealMatrix(M, N);
         for (RatingRecordB record : ratingRecordBList) {
-            scoreMatrix.setEntry(itemList.indexOf(record.getItemId().toString()), indexList.indexOf(record.getUserId().toString()), record.getRating());
+            scoreMatrix.setEntry(indexList.indexOf(record.getUserId().toString()), itemList.indexOf(record.getItemId().toString()), record.getRating());
         }
         //  余弦相似度矩阵
         OpenMapRealMatrix simMatrix = new OpenMapRealMatrix(1, M);
-        for(int i = 0;i < M;i ++){
-            simMatrix.setEntry(0,i,Integer.parseInt(cosineSimilarityList.get(i)));
+        for (int i = 0; i < M; i++) {
+            simMatrix.setEntry(0, i, Double.parseDouble(cosineSimilarityList.get(i)));
         }
         //  商品评估得分矩阵
-        OpenMapRealMatrix itemSimMatrix = (OpenMapRealMatrix) simMatrix.multiply(scoreMatrix.transpose());
+        OpenMapRealMatrix itemSimMatrix = (OpenMapRealMatrix) simMatrix.multiply(scoreMatrix);
         List<String> itemSim = new ArrayList<>();
-        for(int i = 0;i < N;i ++){
-            itemSim.add(Double.toString(itemSimMatrix.getEntry(0,i)));
+        for (int i = 0; i < N; i++) {
+            itemSim.add(Double.toString(itemSimMatrix.getEntry(0, i)));
         }
         response.setRatingList(itemSim);
         response.setItemIdList(itemList);

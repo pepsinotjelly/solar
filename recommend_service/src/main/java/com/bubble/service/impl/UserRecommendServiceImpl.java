@@ -41,12 +41,12 @@ public class UserRecommendServiceImpl implements UserRecommendService {
 
 
     @Override
-    public List<String> getSimilarityList(List<Integer> userIdList) throws Exception {
+    public List<String> getSimilarityList(int userId) throws Exception {
         List<String> cosineSimilarityList = new ArrayList<>();
         // TODO
         //  构造A矩阵
         RatingRecordExample ratingRecordExample = new RatingRecordExample();
-        ratingRecordExample.createCriteria().andUserIdEqualTo(userIdList.get(0));
+        ratingRecordExample.createCriteria().andUserIdEqualTo(userId);
         List<RatingRecord> userWatchedRecordList = ratingRecordMapper.selectByExample(ratingRecordExample);
         // 计算item_list边界
         int max = 0;
@@ -201,12 +201,12 @@ public class UserRecommendServiceImpl implements UserRecommendService {
     }
 
     @Override
-    public List<String> getPlainSimilarityList(List<Integer> userIdList) throws Exception {
+    public List<String> getPlainSimilarityList(int userId) throws Exception {
         List<String> cosineSimilarityList = new ArrayList<>();
         // TODO
         //  构造A矩阵
         RatingRecordExample ratingRecordExample = new RatingRecordExample();
-        ratingRecordExample.createCriteria().andUserIdEqualTo(userIdList.get(0));
+        ratingRecordExample.createCriteria().andUserIdEqualTo(userId);
         List<RatingRecord> userWatchedRecordList = ratingRecordMapper.selectByExample(ratingRecordExample);
         // 计算item_list边界
         int max = 0;
