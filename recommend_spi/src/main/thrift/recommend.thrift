@@ -5,7 +5,6 @@ namespace py com.bubble.thrift.recommend_service
 struct ItemBaseEntity {
     1: i32 id;
     2: string title;
-    3: string genres;
 }
 
 struct SyncItemBaseRequest {

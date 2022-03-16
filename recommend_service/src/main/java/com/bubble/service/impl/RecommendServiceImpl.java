@@ -4,14 +4,13 @@ import com.bubble.mapper.ItemBaseMapper;
 import com.bubble.mapper.ItemInfoMapper;
 import com.bubble.mapper.RatingRecordMapper;
 import com.bubble.model.*;
-import com.bubble.service.UserRecommendService;
+import com.bubble.service.RecommendService;
 import com.bubble.mapper.UserRecommendMapper;
 import com.bubble.thrift.ThriftProxyFactory;
 import com.bubble.thrift.recommend_service.*;
 import com.bubble.utils.CryptoSystem;
 import com.bubble.utils.DataProcessor;
 import com.bubble.utils.IdWorker;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.math3.linear.OpenMapRealMatrix;
 import org.springframework.stereotype.Service;
@@ -19,14 +18,12 @@ import paillierp.key.PaillierKey;
 import paillierp.key.PaillierPrivateKey;
 
 import javax.annotation.Resource;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Slf4j
 @Service
-public class UserRecommendServiceImpl implements UserRecommendService {
+public class RecommendServiceImpl implements RecommendService {
     @Resource
     private UserRecommendMapper userRecommendMapper;
     @Resource
@@ -37,16 +34,16 @@ public class UserRecommendServiceImpl implements UserRecommendService {
     private ItemBaseMapper itemBaseMapper;
 
     private final String[] hostPorts = new String[]{"localhost:7090"};
-    private RecommendService.Iface client = (RecommendService.Iface) ThriftProxyFactory.newInstance(RecommendService.class, hostPorts);
+    private com.bubble.thrift.recommend_service.RecommendService.Iface client = (com.bubble.thrift.recommend_service.RecommendService.Iface) ThriftProxyFactory.newInstance(com.bubble.thrift.recommend_service.RecommendService.class, hostPorts);
 
 
     @Override
-    public List<String> getSimilarityList(List<Integer> userIdList) throws Exception {
+    public List<String> getSimilarityList(int userId) throws Exception {
         List<String> cosineSimilarityList = new ArrayList<>();
         // TODO
         //  构造A矩阵
         RatingRecordExample ratingRecordExample = new RatingRecordExample();
-        ratingRecordExample.createCriteria().andUserIdEqualTo(userIdList.get(0));
+        ratingRecordExample.createCriteria().andUserIdEqualTo(userId);
         List<RatingRecord> userWatchedRecordList = ratingRecordMapper.selectByExample(ratingRecordExample);
         // 计算item_list边界
         int max = 0;
@@ -73,7 +70,7 @@ public class UserRecommendServiceImpl implements UserRecommendService {
         CryptoSystem cryptoSystem = new CryptoSystem();
         PaillierPrivateKey privateKey = cryptoSystem.getPrivateKey();
         PaillierKey publicKey = privateKey.getPublicKey();
-        List<String> EnA = cryptoSystem.Encryption(AList,10,publicKey);
+        List<String> EnA = cryptoSystem.Encryption(AList, 10, publicKey);
 
         //  发送请求
         GetRecommendInfoRequest request = new GetRecommendInfoRequest();
@@ -85,15 +82,15 @@ public class UserRecommendServiceImpl implements UserRecommendService {
         GetRecommendInfoResponse response = client.GetRecommendInfo(request);
         //获取AB、BB
         List<String> EnAB = response.getABList();
-        log.info("EnAB :: "+ EnAB.toString());
+        log.info("EnAB :: " + EnAB.toString());
         List<String> EnBB = response.getBBList();
-        log.info("EnBB :: "+ EnBB.toString());
+        log.info("EnBB :: " + EnBB.toString());
         //TODO
         //  解密AB、BB
-        List<String> DeAB = cryptoSystem.Decryption(EnAB,10,privateKey);
-        log.info("DeAB :: "+ DeAB);
-        List<String> DeBB = cryptoSystem.Decryption(EnBB,1000,privateKey);
-        log.info("DeBB :: "+ DeBB);
+        List<String> DeAB = cryptoSystem.Decryption(EnAB, 10, privateKey);
+        log.info("DeAB :: " + DeAB);
+        List<String> DeBB = cryptoSystem.Decryption(EnBB, 1000, privateKey);
+        log.info("DeBB :: " + DeBB);
         //  数据类型转换
         int N_user = response.getN();
         int M_user = response.getM();
@@ -171,7 +168,7 @@ public class UserRecommendServiceImpl implements UserRecommendService {
         CryptoSystem cryptoSystem = new CryptoSystem();
         PaillierPrivateKey privateKey = cryptoSystem.getPrivateKey();
         PaillierKey publicKey = privateKey.getPublicKey();
-        List<String> EnCS = cryptoSystem.Encryption(cosineSimilarity,1000000000,privateKey);
+        List<String> EnCS = cryptoSystem.Encryption(cosineSimilarity, 1000000000, privateKey);
         //  构造请求
         GetItemIdRequest request = new GetItemIdRequest();
         request.setIndexList(Index);
@@ -183,7 +180,7 @@ public class UserRecommendServiceImpl implements UserRecommendService {
         List<String> itemIdList = response.getItemIdList();
         List<String> ratingList = response.getRatingList();
         //  解密ratingList
-        List<String> DeRatingList = cryptoSystem.Decryption(ratingList,1000000000,privateKey);
+        List<String> DeRatingList = cryptoSystem.Decryption(ratingList, 1000000000, privateKey);
         //  格式化
         double[] itemSimList = new double[DeRatingList.size()];
         for (int i = 0; i < DeRatingList.size(); i++) {
@@ -201,12 +198,12 @@ public class UserRecommendServiceImpl implements UserRecommendService {
     }
 
     @Override
-    public List<String> getPlainSimilarityList(List<Integer> userIdList) throws Exception {
+    public List<String> getPlainSimilarityList(int userId) throws Exception {
         List<String> cosineSimilarityList = new ArrayList<>();
         // TODO
         //  构造A矩阵
         RatingRecordExample ratingRecordExample = new RatingRecordExample();
-        ratingRecordExample.createCriteria().andUserIdEqualTo(userIdList.get(0));
+        ratingRecordExample.createCriteria().andUserIdEqualTo(userId);
         List<RatingRecord> userWatchedRecordList = ratingRecordMapper.selectByExample(ratingRecordExample);
         // 计算item_list边界
         int max = 0;
@@ -290,17 +287,34 @@ public class UserRecommendServiceImpl implements UserRecommendService {
         //  过滤数据（去除用户看过的）
         for (RatingRecord r : userWatchedRecordList) {
             if (itemIdList.contains(r.getItemId())) {
-                itemIdList.remove(new Integer(r.getItemId())); // 所以删掉了吗
+                itemIdList.remove(new Integer(r.getItemId()));
             }
         }
-        //  数据不足时填充默认数据
+        //  数据不足时--填充默认数据itemCF
         if (itemIdList.size() < 20) {
-
+            List<Integer> itemCFList = new ArrayList<>();
+            itemIdList.addAll(itemCFList);
         }
-        //  获取对应itemInfo
-        ItemInfoExample itemInfoExample = new ItemInfoExample();
-        itemInfoExample.createCriteria().andIdIn(itemIdList);
-        List<ItemInfo> recommendItemInfoList = itemInfoMapper.selectByExample(itemInfoExample);
+        //  db更新
+        //  查询历史数据
+        UserRecommendExample userRecommendExample = new UserRecommendExample();
+        userRecommendExample.createCriteria().andUserIdEqualTo(userId);
+        List<UserRecommend> originUserRecommendList = userRecommendMapper.selectByExample(userRecommendExample);
+        // 过滤去重
+        for (UserRecommend u : originUserRecommendList) {
+            if (itemIdList.contains(u.getItemId())) {
+                itemIdList.remove(new Integer(u.getItemId()));
+            }
+        }
+        //  写入数据库
+        int threshold = Math.min(20,itemIdList.size());
+        for(int i = 0;i < threshold;i ++){
+            UserRecommend userRecommend = new UserRecommend();
+            userRecommend.setUserId(userId);
+            userRecommend.setItemId(itemIdList.get(i));
+            userRecommend.setRating(cosineMatrix.getRow(0)[topList[i]]);
+            userRecommendMapper.insert(userRecommend);
+        }
         //  构造返回值
         List<String> demo = new ArrayList<>();
         demo.add("DONE!!!");

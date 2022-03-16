@@ -5,8 +5,6 @@ public class ItemBase {
 
     private String title;
 
-    private String genres;
-
     public Integer getId() {
         return id;
     }
@@ -21,13 +19,5 @@ public class ItemBase {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
-    }
-
-    public String getGenres() {
-        return genres;
-    }
-
-    public void setGenres(String genres) {
-        this.genres = genres == null ? null : genres.trim();
     }
 }

@@ -9,10 +9,10 @@ import java.util.List;
  * @Date: 2022/1/25 7:58 PM
  * @Desc:
  */
-public interface UserBaseService {
-    List<UserBase> getList();
+public interface UserService {
+//    List<UserBase> getList();
     Integer register(UserBase userBase);
     Integer login(UserBase userBase);
-    Integer insert(UserBase userBase);
+//    Integer insert(UserBase userBase);
 
 }
