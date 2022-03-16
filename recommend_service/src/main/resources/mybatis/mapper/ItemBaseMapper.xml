@@ -5,7 +5,6 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="genres" jdbcType="VARCHAR" property="genres" />
-    <result column="time" jdbcType="VARCHAR" property="time" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, title, genres, time
+    id, title, genres
   </sql>
   <select id="selectByExample" parameterType="com.bubble.model.ItemBaseExample" resultMap="BaseResultMap">
     select
@@ -99,10 +98,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.bubble.model.ItemBase">
-    insert into item_base (id, title, genres, 
-      time)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{genres,jdbcType=VARCHAR}, 
-      #{time,jdbcType=VARCHAR})
+    insert into item_base (id, title, genres
+      )
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{genres,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.bubble.model.ItemBase">
     insert into item_base
@@ -116,9 +115,6 @@
       <if test="genres != null">
         genres,
       </if>
-      <if test="time != null">
-        time,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -129,9 +125,6 @@
       </if>
       <if test="genres != null">
         #{genres,jdbcType=VARCHAR},
-      </if>
-      <if test="time != null">
-        #{time,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -153,9 +146,6 @@
       <if test="record.genres != null">
         genres = #{record.genres,jdbcType=VARCHAR},
       </if>
-      <if test="record.time != null">
-        time = #{record.time,jdbcType=VARCHAR},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -165,8 +155,7 @@
     update item_base
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
-      genres = #{record.genres,jdbcType=VARCHAR},
-      time = #{record.time,jdbcType=VARCHAR}
+      genres = #{record.genres,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -180,17 +169,13 @@
       <if test="genres != null">
         genres = #{genres,jdbcType=VARCHAR},
       </if>
-      <if test="time != null">
-        time = #{time,jdbcType=VARCHAR},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.bubble.model.ItemBase">
     update item_base
     set title = #{title,jdbcType=VARCHAR},
-      genres = #{genres,jdbcType=VARCHAR},
-      time = #{time,jdbcType=VARCHAR}
+      genres = #{genres,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
