@@ -10,9 +10,10 @@ buildNumber.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 *.log
+*.log.*
 #*.csv
 #*.txt
-
+.idea
 .DS_Store
 node_modules/
 /dist/

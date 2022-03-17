@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bubble.mapper.UserBaseBMapper">
-  <resultMap id="BaseResultMap" type="com.bubble.model.UserBaseB">
+<mapper namespace="com.bubble.mapper.ItemInfoMapper">
+  <resultMap id="BaseResultMap" type="com.bubble.model.ItemInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,15 +64,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, password, user_name, phone_number
+    id, name
   </sql>
-  <select id="selectByExample" parameterType="com.bubble.model.UserBaseBExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.bubble.model.ItemInfoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from user_base_b
+    from item_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,76 +83,56 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from user_base_b
+    from item_info
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user_base_b
+    delete from item_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.bubble.model.UserBaseBExample">
-    delete from user_base_b
+  <delete id="deleteByExample" parameterType="com.bubble.model.ItemInfoExample">
+    delete from item_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.bubble.model.UserBaseB">
-    insert into user_base_b (id, password, user_name, 
-      phone_number)
-    values (#{id,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{phoneNumber,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.bubble.model.ItemInfo">
+    insert into item_info (id, name)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.bubble.model.UserBaseB">
-    insert into user_base_b
+  <insert id="insertSelective" parameterType="com.bubble.model.ItemInfo">
+    insert into item_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="password != null">
-        password,
-      </if>
-      <if test="userName != null">
-        user_name,
-      </if>
-      <if test="phoneNumber != null">
-        phone_number,
+      <if test="name != null">
+        name,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="userName != null">
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="phoneNumber != null">
-        #{phoneNumber,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.bubble.model.UserBaseBExample" resultType="java.lang.Long">
-    select count(*) from user_base_b
+  <select id="countByExample" parameterType="com.bubble.model.ItemInfoExample" resultType="java.lang.Long">
+    select count(*) from item_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update user_base_b
+    update item_info
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.userName != null">
-        user_name = #{record.userName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.phoneNumber != null">
-        phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -162,35 +140,25 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update user_base_b
+    update item_info
     set id = #{record.id,jdbcType=INTEGER},
-      password = #{record.password,jdbcType=VARCHAR},
-      user_name = #{record.userName,jdbcType=VARCHAR},
-      phone_number = #{record.phoneNumber,jdbcType=VARCHAR}
+      name = #{record.name,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bubble.model.UserBaseB">
-    update user_base_b
+  <update id="updateByPrimaryKeySelective" parameterType="com.bubble.model.ItemInfo">
+    update item_info
     <set>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="userName != null">
-        user_name = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="phoneNumber != null">
-        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bubble.model.UserBaseB">
-    update user_base_b
-    set password = #{password,jdbcType=VARCHAR},
-      user_name = #{userName,jdbcType=VARCHAR},
-      phone_number = #{phoneNumber,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="com.bubble.model.ItemInfo">
+    update item_info
+    set name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

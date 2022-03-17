@@ -31,4 +31,21 @@ public class RecommendServiceImpl implements RecommendService.Iface {
     public SyncItemBaseResponse SyncItemBase(SyncItemBaseRequest syncItemBaseRequest) throws TException {
         return itemBaseBService.SyncItemBase(syncItemBaseRequest);
     }
+
+    @Override
+    public GetItemIdResponse GetItemId(GetItemIdRequest getItemIdRequest) throws TException {
+        return ratingRecordService.GetItemId(getItemIdRequest);
+    }
+
+    @Override
+    public GetRecommendInfoResponse GetPlainRecommendInfo(GetRecommendInfoRequest getRecommendInfoRequest) throws TException {
+        return ratingRecordService.GetPlainRecommendInfo(getRecommendInfoRequest);
+    }
+
+    @Override
+    public GetItemIdResponse GetPlainItemId(GetItemIdRequest getItemIdRequest) throws TException {
+        return ratingRecordService.GetPlainRecommendItemId(getItemIdRequest);
+    }
+
+
 }
