@@ -34,7 +34,7 @@ public class RatingRecordServiceImpl implements RatingRecordService {
 
     @Override
     public GetRecommendInfoResponse GetRecommendInfo(GetRecommendInfoRequest request) throws TException {
-        log.info("GetRecommendInfoRequest :: " + request.toString());
+        log.info("REQUEST RECEIVE :: GetRecommendInfoRequest");
         // 同步矩阵信息
         int N = request.getAListSize();
         GetRecommendInfoResponse response = new GetRecommendInfoResponse();
@@ -92,7 +92,7 @@ public class RatingRecordServiceImpl implements RatingRecordService {
         for (int i = 0; i < M; i++) {
             double[] row = BBMatrix.getRow(i);
             for (int j = 0; j < M; j++) {
-                BB_result.add(Double.toString(row[j]));
+                BB_result.add(Double.toString(Math.sqrt(row[j])));
             }
         }
 
@@ -166,7 +166,7 @@ public class RatingRecordServiceImpl implements RatingRecordService {
 
     @Override
     public GetRecommendInfoResponse GetPlainRecommendInfo(GetRecommendInfoRequest request) throws TException {
-        log.info("GetRecommendInfoRequest :: " + request.toString());
+        log.info("REQUEST RECEIVE :: GetRecommendInfoRequest");
         // 同步矩阵信息
         int N = request.getAListSize();
         GetRecommendInfoResponse response = new GetRecommendInfoResponse();
@@ -205,7 +205,7 @@ public class RatingRecordServiceImpl implements RatingRecordService {
         for (int i = 0; i < M; i++) {
             double[] row = BBMatrix.getRow(i);
             for (int j = 0; j < M; j++) {
-                BB_result.add(Double.toString(row[j]));
+                BB_result.add(Double.toString(Math.sqrt(row[j])));
             }
         }
         response.setABList(AB_result);
