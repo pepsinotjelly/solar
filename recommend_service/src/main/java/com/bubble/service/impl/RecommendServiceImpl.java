@@ -66,7 +66,7 @@ public class RecommendServiceImpl implements RecommendService {
         CryptoSystem cryptoSystem = new CryptoSystem();
         PaillierPrivateKey privateKey = cryptoSystem.getPrivateKey();
         PaillierKey publicKey = privateKey.getPublicKey();
-        List<String> EnA = cryptoSystem.Encryption(AList, 10, publicKey);
+        List<String> EnA = cryptoSystem.Encryption(AList, 100, publicKey);
 
         //  发送请求
         GetRecommendInfoRequest request = new GetRecommendInfoRequest();
@@ -82,9 +82,9 @@ public class RecommendServiceImpl implements RecommendService {
         List<String> EnBB = response.getBBList();
         log.info("EnBB :: " + EnBB.toString());
         //  解密AB、BB
-        List<String> DeAB = cryptoSystem.Decryption(EnAB, 10, privateKey);
+        List<String> DeAB = cryptoSystem.Decryption(EnAB, 100, privateKey);
         log.info("DeAB :: " + DeAB);
-        List<String> DeBB = cryptoSystem.Decryption(EnBB, 1000, privateKey);
+        List<String> DeBB = cryptoSystem.Decryption(EnBB, 100, privateKey);
         log.info("DeBB :: " + DeBB);
         //  数据类型转换
         int N_user = response.getN();
@@ -127,7 +127,7 @@ public class RecommendServiceImpl implements RecommendService {
         CryptoSystem cryptoSystem = new CryptoSystem();
         PaillierPrivateKey privateKey = cryptoSystem.getPrivateKey();
         PaillierKey publicKey = privateKey.getPublicKey();
-        List<String> EnCS = cryptoSystem.Encryption(cosineSimilarity, 1000000000, privateKey);
+        List<String> EnCS = cryptoSystem.Encryption(cosineSimilarity, 100000000, privateKey);
         //  构造请求
         GetItemIdRequest request = new GetItemIdRequest();
         request.setIndexList(Index);
@@ -149,7 +149,7 @@ public class RecommendServiceImpl implements RecommendService {
         DataProcessor dataProcessor = DataProcessor.getDataProcessor();
         int[] itemIndex = dataProcessor.Arraysort(itemSimList, true);
         //  构造返回值
-        for (int i = 0; i < Math.min(itemIndex.length,300); i++) {
+        for (int i = 0; i < Math.min(itemIndex.length, 300); i++) {
             recommendIdList.add(Integer.parseInt(itemIdList.get(itemIndex[i])));
         }
         log.info("recommendIdList :: " + recommendIdList);
@@ -227,8 +227,6 @@ public class RecommendServiceImpl implements RecommendService {
     @Override
     public List<Integer> getPlainRecommendList(List<String> cosineSimilarity, List<String> Index) throws Exception {
         List<Integer> recommendIdList = new ArrayList<>();
-        //  加密余弦相似度
-        List<String> EnCS = new ArrayList<>();
         //  构造请求
         GetItemIdRequest request = new GetItemIdRequest();
         request.setIndexList(Index);
@@ -312,6 +310,8 @@ public class RecommendServiceImpl implements RecommendService {
             , List<String> DeBB, List<String> DeAB) {
         //  计算AA矩阵
         OpenMapRealMatrix AAMatrix = (OpenMapRealMatrix) AMatrix.multiply(AMatrix.transpose());
+        //  开方
+        AAMatrix.setEntry(0,0,Math.sqrt(AAMatrix.getEntry(0,0)));
         //  初始化BB、AB矩阵
         OpenMapRealMatrix BBMatrix = new OpenMapRealMatrix(M_user, N_user);
         OpenMapRealMatrix ABMatrix = new OpenMapRealMatrix(M_user, 1);
@@ -333,7 +333,7 @@ public class RecommendServiceImpl implements RecommendService {
                 BB_path.setEntry(0, j, BBMatrix.getEntry(i, j));
             }
             //  分母
-            double denominator = Math.sqrt(AAMatrix.multiply(BB_path).getEntry(0, 0));
+            double denominator = AAMatrix.multiply(BB_path).getEntry(0, 0);
             if (Double.compare(denominator, 0.0) > 0 && Double.compare(molecular, 0.0) > 0) {
                 cosineMatrix.setEntry(0, i, (molecular / denominator));
             }
