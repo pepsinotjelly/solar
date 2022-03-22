@@ -3,7 +3,7 @@ import React from "react";
 
 const {Sider} = Layout;
 
-const MovieImg = (movieImg: string) => {
+const MovieImg = (movieImg: any) => {
     return (
         <div>
                 <Card style={{

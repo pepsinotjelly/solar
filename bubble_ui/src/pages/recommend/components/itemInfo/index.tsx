@@ -62,7 +62,7 @@ function ItemInfo() {
                                         />
                                     }
                                     headerExtraContent={
-                                        <Link to={"/comment-panel"}>
+                                        <Link to={"/comment"}>
                                             <IconLink></IconLink>
                                         </Link>
                                     }

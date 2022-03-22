@@ -3,12 +3,13 @@ import {Layout} from '@douyinfe/semi-ui';
 import Comment from "./components/comment-panel";
 import MovieImg from "./components/movieImg";
 import MovieDetail from "./components/movieDetail";
+import {MovieDetailData} from "./context";
 
 
 const DetailPage = () => {
     const {Content, Sider} = Layout;
 
-    const mockData:MovieDetail= new MovieDetailData('这是一个电影名',
+    const mockData= new MovieDetailData('这是一个电影名',
         'https://image.tmdb.org/t/p/w300_and_h450_bestv2/wXb9KGqxyrAHNygRRI1HW1BhcU.jpg','这个电影的简介就是这样一段话。他主要讲了一个什么东西的故事呢？\n' +
             '                        我也没看。但是我得编出来显得很有趣那样子。如果喜欢的话老铁，一键三连吧。\n' +
             '                        但是即使是这样字数还是太少了，一般电影简介它都说点什么呢？那么我该说些什么呢？\n' +
