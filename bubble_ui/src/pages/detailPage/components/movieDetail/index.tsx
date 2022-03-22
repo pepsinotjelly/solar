@@ -1,8 +1,9 @@
 import React from 'react';
 import {Typography} from '@douyinfe/semi-ui';
 import {Layout} from '@douyinfe/semi-ui';
+import MovieDetail from "./index";
 
-const movieDetail = (movieName:any,movieQuote:any) => {
+function movieDetail(props:{movieName:string,movieQuote:string}){
     const {Title, Text} = Typography;
     const { Content} = Layout;
 
@@ -14,10 +15,10 @@ const movieDetail = (movieName:any,movieQuote:any) => {
                 height: '250px',
                 marginBottom: '24px'
             }}>
-                <Title heading={2}>{movieName}</Title>
+                <Title heading={2}>{props.movieName}</Title>
                 <br/><br/>
                 <Text size={'normal'}>
-                    {movieQuote}
+                    {props.movieQuote}
                 </Text>
             </Content>
         </div>
