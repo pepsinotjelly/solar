@@ -1,0 +1,52 @@
+.inner-content.new-index {
+        -webkit-text-size-adjust: 100%;
+    --scrollerGrey: 219,219,219;
+    --lightGrey: 227,227,227;
+    --darkerGrey: 200,200,200;
+    --tmdbDarkBlue: 3,37,65;
+    --tmdbLightBlue: 1,180,228;
+    --tmdbLighterGreen: 192,254,207;
+    --tmdbLightGreen: 30,213,169;
+    --tmdbLogoGreen: 144,206,161;
+    --tmdbLogoOrange: 253,193,112;
+    --tmdbLogoRed: 217,59,99;
+    --accountSilver: 149,149,149;
+    --accountPink: 234,20,140;
+    --accountPurple: 128,91,231;
+    --accountGreen: 1,210,119;
+    --accountTeal: 1,198,172;
+    --accountLightBlue: 1,180,228;
+    --accountBlue: 1,119,210;
+    --accountOrange: 210,119,1;
+    --accountYellow: 210,144,1;
+    --accountRed: 212,2,66;
+    --imageBorderRadius: 8px;
+    --imageColumnPadding: 30px;
+    --numberOfPosterColumns: 4;
+    --numberOfBackdropColumns: 4;
+    --discoverColumnPadding: 30px;
+    --numberOfDiscoverColumns: 5;
+    --maxPrimaryPageWidth: 1300px;
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    font-size: 1em;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 300px;
+    height: calc(100vh / 2.5);
+    max-height: 360px;
+    background-position: top center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #fff;
+    max-width: var(--maxPrimaryPageWidth);
+    background-image: linear-gradient(to right, rgba(var(--tmdbDarkBlue), 0.8) 0%, rgba(var(--tmdbDarkBlue), 0) 100%), url('https://image.tmdb.org/t/p/w1920_and_h600_multi_faces_filter(duotone,032541,01b4e4)/5GISMqlRXMEyBrgEqyvhaMMuQmJ.jpg');
+}
+.media.discover{
+
+}

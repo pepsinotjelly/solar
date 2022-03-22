@@ -13,15 +13,13 @@ import com.bubble.utils.CryptoSystem;
 import com.bubble.utils.DataProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import paillierp.Paillier;
 import paillierp.key.KeyGen;
 import paillierp.key.PaillierKey;
 import paillierp.key.PaillierPrivateKey;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -79,34 +77,16 @@ public class TestController {
     }
 
 
-    @GetMapping(value = "/testPaillierList")
-    public List<String> testPaillierList() throws Exception {
-        CryptoSystem system = new CryptoSystem();
-        List<String> strings = new ArrayList<>();
-        Paillier esystem = new Paillier();
-        PaillierPrivateKey privateKey = system.getPrivateKey();
-        PaillierKey publicKey = privateKey.getPublicKey();
-        BigInteger n = publicKey.getN();
-        PaillierKey key = new PaillierKey(n, 122333356);
-        esystem.setEncryption(key);
-        PaillierPrivateKey privateKey1 = KeyGen.PaillierKey(112, 122333356);
-        for (int i = 0; i < 5; i++) {
-            strings.add(Integer.toString(i));
-        }
-
-        List<String> result = system.Encryption(strings, 10, privateKey);
-        for (int i = 0; i < 5; i++) {
-            String s = result.get(i);
-            BigInteger c1 = esystem.multiply(new BigInteger(s), new BigInteger("12"));
-            BigInteger c2 = esystem.multiply(new BigInteger(s), new BigInteger("2"));
-            BigInteger c3 = esystem.multiply(new BigInteger(s), new BigInteger("3"));
-            c1 = esystem.add(c1, c2);
-            c1 = esystem.add(c1, c3);
-            c1 = esystem.add(c2, c1);
-            result.add(c1.toString());
-        }
-        List<String> result2 = system.Decryption(result, 10, privateKey);
-        return result2;
+    @GetMapping(value = "/getMyRecommend")
+    public String myRecommend(@RequestParam(value = "user_id") int user_id) throws Exception {
+        log.info("userService.getMyRecommend(user_id)");
+        return userService.getMyRecommend(user_id);
     }
 
+    @PostMapping(value = "/rateMovie")
+    public Integer rateMovie(@RequestBody int user_id
+            , @RequestBody String rate
+            , @RequestBody int movie_id)throws Exception{
+        return userService.rateMovie(user_id,rate,movie_id);
+    }
 }

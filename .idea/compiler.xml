@@ -7,9 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="recommend_spi" />
         <module name="recommend_service" />
         <module name="partner_service" />
+        <module name="recommend_spi" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
