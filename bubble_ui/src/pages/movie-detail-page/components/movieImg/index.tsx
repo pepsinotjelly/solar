@@ -1,6 +1,6 @@
 import {Card, Layout} from "@douyinfe/semi-ui";
 import React from "react";
-import {MovieDetail, MovieDetailData} from "../../context";
+import {MovieDetail, MovieDetailData} from "../../../../model/movie-detail";
 
 
 function MovieImgCard(props: { imgUrl: string | undefined; }) {

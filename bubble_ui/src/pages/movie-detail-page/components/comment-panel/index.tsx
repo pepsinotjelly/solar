@@ -1,12 +1,30 @@
 import {Button, Layout, Rating, TagInput, Typography} from "@douyinfe/semi-ui";
 import React, {useState} from "react";
+import API from "../../../../api";
 
 const Comment = () => {
     const {Title, Text} = Typography;
     const {Header, Footer, Sider, Content} = Layout;
+    //  Rating 设置
     const [value, setValue] = useState(0);
     const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
     const change = (val: React.SetStateAction<number>) => setValue(val);
+    // Submit 回调
+    const handleSubmit = async (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => {
+        e.preventDefault();
+        await new Promise((r) => setTimeout(r, 1000));
+        try {
+            const resp = await API.post("/api/rate-movie", {
+
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+
     return (
         <div>
             <Layout className={"rating-layout"} style={{

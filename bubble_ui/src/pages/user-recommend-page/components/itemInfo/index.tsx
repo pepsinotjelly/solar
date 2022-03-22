@@ -1,36 +1,20 @@
 import React, {useState} from 'react';
-import {Card, CardGroup, Typography, Slider, Pagination, Progress, Layout} from '@douyinfe/semi-ui';
+import {Card, CardGroup, Typography, Slider, Pagination, Progress, Layout, List} from '@douyinfe/semi-ui';
 import {IconLink} from "@douyinfe/semi-icons";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import axios from "axios";
+import {MovieDetailData} from "../../../../model/movie-detail";
+import movieImg from "../../../movie-detail-page/components/movieImg";
 
 
-function ItemInfo() {
+function ItemInfo(props:{movieList: any[]}) {
     const {Content} = Layout;
-    const mockPage = 5;
+    //  Pagination 页面的设置
+    const mockPage = 50;
     const [page, setPage] = useState(1)
     function onPageChange(currentPage: React.SetStateAction<number>) {
         setPage(currentPage);
     }
-    const mockData = [
-        {
-            movieName: '新基督山伯爵',
-            imgUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2/aoKzR82lgcle1NmlayZ9wURhwFa.jpg'
-        },
-        {
-            movieName: '魔偶奇谭4：邪神军团',
-            imgUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2/fRIpNpZVL73MGJ7E2ZYt03tggeX.jpg'
-        },
-        {
-            movieName: '猩球崛起3：终极之战',
-            imgUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2/cu0bxkxDeqwjCowG5jsH4lpopSM.jpg'
-        },
-        {
-            movieName: '哥斯拉对机械哥斯拉',
-            imgUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2/mdeEGozorRqHSLs0kTjVCyNH3Va.jpg'
-        }
-    ]
-
     return (
         <>
             <Layout style={{
@@ -40,12 +24,11 @@ function ItemInfo() {
                 height: '100%'
             }}>
                 <Content style={{
-                    // border: '1px solid var(--semi-color-border)',
                 }}>
                     <CardGroup spacing={33}
                                style={{justifyContent: 'center'}}>
                         {
-                            mockData.map((item, idx) => (
+                            props.movieList.map((item, idx) => (
                                 <Card
                                     key={idx}
                                     shadows='hover'
@@ -62,7 +45,7 @@ function ItemInfo() {
                                         />
                                     }
                                     headerExtraContent={
-                                        <Link to={"/comment"}>
+                                        <Link to={"/comment"+item.movieId}>
                                             <IconLink></IconLink>
                                         </Link>
                                     }
@@ -77,7 +60,7 @@ function ItemInfo() {
                                 marginBottom: 4,
                                 justifyContent: 'center'
                             }}
-                            total={50}
+                            total={mockPage}
                             currentPage={page}
                             onPageChange={onPageChange}
                         />

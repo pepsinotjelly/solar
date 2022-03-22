@@ -1,16 +1,19 @@
 export interface MovieDetail{
+    movieId:number;
     movieName: string;
     imgUrl: string;
     movieQuote: string;
 }
 
 export class MovieDetailData implements MovieDetail{
+    movieId:number;
     movieName: string;
     imgUrl: string;
     movieQuote: string;
 
     // 构造函数
-    constructor(movieName: string, imgUrl: string, movieQuote: string) {
+    constructor(movieId: number, movieName: string, imgUrl: string, movieQuote: string) {
+        this.movieId=movieId;
         this.movieName = movieName;
         this.imgUrl = imgUrl;
         this.movieQuote = movieQuote;
@@ -21,6 +24,3 @@ export class MovieDetailData implements MovieDetail{
     }
 }
 
-export const getEmptyMovieDetailData =()=>{
-
-}

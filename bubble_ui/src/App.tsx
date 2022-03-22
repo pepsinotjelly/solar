@@ -15,7 +15,7 @@ import {
     IconCloud
 } from '@douyinfe/semi-icons';
 import {Typography} from '@douyinfe/semi-ui';
-import Home from "./pages/home";
+import Home from "./pages/home-page";
 
 
 function App() {
@@ -51,7 +51,7 @@ function App() {
                             itemKey="Movie"
                             text="电影"
                             icon={<IconLive size="large"/>}
-                            link={"recommend"}
+                            link={"user-recommend-page"}
                         />
                         <Nav.Item
                             itemKey="Share"

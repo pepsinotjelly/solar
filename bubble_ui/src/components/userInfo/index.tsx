@@ -10,7 +10,7 @@ const UserInfo = () => {
                     <Dropdown.Item
                         icon={<IconArrowRight/>}
                         onClick={() => {
-                            window.location.href = process.env.REACT_APP_LOGIN_API!;
+                            // window.location.href = process.env.REACT_APP_LOGIN_API!;
                         }}
                     >
                         立即登录
