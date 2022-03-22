@@ -9,6 +9,16 @@ const Comment = () => {
     const [value, setValue] = useState(0);
     const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
     const change = (val: React.SetStateAction<number>) => setValue(val);
+    const ratingStarInfoSiderStyle = {
+        border: '1px solid var(--semi-color-border)',
+        width: '60%',
+        padding: '24px'
+    }
+    const submitButtonStyle = {
+        justifyItems: 'center',
+        marginTop: '45%',
+        marginLeft: '20%'
+    }
     // Submit 回调
     const handleSubmit = async (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -16,9 +26,7 @@ const Comment = () => {
         e.preventDefault();
         await new Promise((r) => setTimeout(r, 1000));
         try {
-            const resp = await API.post("/api/rate-movie", {
-
-            });
+            const resp = await API.post("/api/rate-movie", {});
         } catch (err) {
             console.log(err);
         }
@@ -27,14 +35,8 @@ const Comment = () => {
 
     return (
         <div>
-            <Layout className={"rating-layout"} style={{
-                border: '1px solid var(--semi-color-border)',
-            }}>
-                <Sider className={'rating-star-info'} style={{
-                    border: '1px solid var(--semi-color-border)',
-                    width: '60%',
-                    padding: '24px'
-                }}>
+            <Layout className={"rating-layout"}>
+                <Sider className={'rating-star-info'} style={ratingStarInfoSiderStyle}>
                     <div>
                         <Text>
                             看过这部电影？分享一下你觉得这部电影怎么样吧: {value ? <span>{desc[Math.floor(value)]}</span> : ''}
@@ -42,9 +44,7 @@ const Comment = () => {
                         <br/>
                         <Rating allowHalf tooltips={desc} onChange={change} value={value}/>
                         <br/><br/>
-                        <Text>
-                            发表我的看法：
-                        </Text>
+                        <Text>发表我的看法：</Text>
                         <br/><br/>
                         <TagInput
                             style={{height: 80, width: 480}}
@@ -55,11 +55,7 @@ const Comment = () => {
                     </div>
                 </Sider>
                 <Content className={'button-content'} style={{padding: '24px'}}>
-                    <Button style={{
-                        justifyItems: 'center',
-                        marginTop: '45%',
-                        marginLeft: '20%'
-                    }}>写好了</Button>
+                    <Button className={'submit-button'} style={submitButtonStyle}>写好了</Button>
                 </Content>
             </Layout>
         </div>

@@ -28,9 +28,7 @@ const Recommend = () => {
         }
     ]
     return (
-        <div style={{justifyContent: 'center',
-            height:'100%'
-        }}>
+        <div style={{justifyContent: 'center',height:'100%'}}>
             <Title heading={2}
                    style={{
                        justifyContent: 'center',

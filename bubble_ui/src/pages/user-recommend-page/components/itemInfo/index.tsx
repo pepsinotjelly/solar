@@ -4,7 +4,7 @@ import {IconLink} from "@douyinfe/semi-icons";
 import {Link, useParams} from "react-router-dom";
 import axios from "axios";
 import {MovieDetailData} from "../../../../model/movie-detail";
-import movieImg from "../../../movie-detail-page/components/movieImg";
+import movieImg from "../../../movie-detail-page/components/movie-img";
 
 
 function ItemInfo(props:{movieList: any[]}) {

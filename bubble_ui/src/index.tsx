@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import NotFound from "./pages/404";
 import Recommend from './pages/user-recommend-page';
 import DetailPage from "./pages/movie-detail-page";
+import TagMoviePage from "./pages/tag-movie-page";
 
 const Index = () => {
     return (
@@ -18,6 +19,7 @@ const Index = () => {
                             <Route index element={<Home/>}/>
                             <Route path={"recommend"} element={<Recommend/>}/>
                             <Route path={"comment:id"} element={<DetailPage/>}/>
+                            <Route path={"tag-movie:id"} element={<TagMoviePage/>}/>
                         </Route>
                     </Routes>
                 </BrowserRouter>

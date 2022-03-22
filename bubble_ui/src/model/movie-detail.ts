@@ -1,8 +1,11 @@
+import {TagDetailType, TagDetail} from "./tag-detail";
+
 export interface MovieDetail{
     movieId:number;
     movieName: string;
     imgUrl: string;
     movieQuote: string;
+    movieTag:any[];
 }
 
 export class MovieDetailData implements MovieDetail{
@@ -10,13 +13,15 @@ export class MovieDetailData implements MovieDetail{
     movieName: string;
     imgUrl: string;
     movieQuote: string;
+    movieTag:any[];
 
     // 构造函数
-    constructor(movieId: number, movieName: string, imgUrl: string, movieQuote: string) {
+    constructor(movieId: number, movieName: string, imgUrl: string, movieQuote: string,movieTag:any[]) {
         this.movieId=movieId;
         this.movieName = movieName;
         this.imgUrl = imgUrl;
         this.movieQuote = movieQuote;
+        this.movieTag=movieTag;
     }
     // 方法
     disp():void {

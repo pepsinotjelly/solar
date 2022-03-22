@@ -34,10 +34,7 @@ const Welcome = () => {
                     }}>这里有海量电影等你选择</Title>
                     <br/><br/><br/><br/>
                     <Link to={"/recommend"}>
-                        <Button size={'large'}
-
-                        >去看看</Button>
-
+                        <Button size={'large'}>去看看</Button>
                     </Link>
 
                 </Content>
