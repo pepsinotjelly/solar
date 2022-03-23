@@ -10,9 +10,8 @@ import java.util.List;
  * @Desc:
  */
 public interface UserService {
-//    List<UserBase> getList();
     Integer register(UserBase userBase);
     Integer login(UserBase userBase);
-//    Integer insert(UserBase userBase);
-
+    String getMyRecommend(int user_id) throws Exception;
+    Integer rateMovie(int user_id,String rate,int movie_id)throws Exception;
 }

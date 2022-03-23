@@ -1,12 +1,15 @@
 {
-  "name": "recommend_react",
+  "name": "recommend_ui",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@douyinfe/semi-ui": "^2.6.0",
+    "axios": "^0.25.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "5.0.0"
+    "react-router-dom": "^6.2.1",
+    "react-scripts": "5.0.0",
+    "reset-css": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
