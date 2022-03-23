@@ -29,14 +29,14 @@ function DetailPage() {
                 <h2>调试用的-movieId:{params.id}</h2>
                 <Layout className={'movie-detail-mainly-layout'} style={{height: '575px'}}>
                     <Sider style={{marginLeft: '42px'}}>
-                        <MovieImgCard imgUrl={movieDetailData.imgUrl} cardWidth={333} cardHeight={500}/>
+                        <MovieImgCard imgUrl={movieDetailData.imgUrl} cardWidth={333} cardHeight={500} movieName={''}/>
                     </Sider>
                     <Content className={"comment-panel-context-info"}
                              style={{marginRight: '92px', marginLeft: '42px'}}>
                         <MovieDetail movieName={movieDetailData.movieName}
                                      movieQuote={movieDetailData.movieQuote}
                         />
-                        <TagDetailPlane tagList={movieDetailData.movieTag}/>
+                        <TagDetailPlane tagList={movieDetailData.movieTag} tagBackgroundSize={'18px'} tagFrontSize={'14px'}/>
                         <Comment/>
                     </Content>
                 </Layout>

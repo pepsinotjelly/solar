@@ -1,19 +1,19 @@
 import React, {useState} from 'react';
 import {Link, useParams} from "react-router-dom";
-import {Typography, Layout} from '@douyinfe/semi-ui';
+import {Typography, Layout, Progress} from '@douyinfe/semi-ui';
 import MovieImgCard from "../movie-detail-page/components/movie-img";
 import MovieDetail from "../movie-detail-page/components/movie-detail";
 
 function TagMoviePage() {
     const {Title, Text} = Typography;
     const {Header, Footer, Content, Sider} = Layout;
-    const mockDataTag = {tagId: 1, color: 'green', children: '欧美犯罪'};
-    const backGroundImg = '../resources/img_0_0.jpg'
+    const mockDataTag = {tagId: 1, color: 'green', children: 'Thrill'};
+    const backGroundImg = '/resources/icecold.jpg';
     const mockDataMovie = [{
         movieId: 11362,
         movieName: '新基督山伯爵',
         imgUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2/aoKzR82lgcle1NmlayZ9wURhwFa.jpg',
-        movieQuote: '我想评论些什么'
+        movieQuote: '我想评论些什么',
     },
         {
             movieId: 26957,
@@ -40,12 +40,12 @@ function TagMoviePage() {
     return (
         <div>
             <Layout style={{border: '1px solid var(--semi-color-border)'}}>
-                <Content style={{ border: '1px solid var(--semi-color-border)',backgroundImage:`url(${backGroundImg})no-repeat`,height:'400px'}}>
-                    <img src={`url(${backGroundImg})no-repeat`} alt={'back'}/>
+                <Content style={{backgroundImage: `url(${backGroundImg})`, height: '300px',width:'90%',marginLeft:'5%'}}>
                     <Title style={{
-                            marginTop: '42px',
-                            textAlign: 'center',
-                        }}>{mockDataTag.children}===调试用的-TagId：{params.id}</Title>
+                        marginTop: '70px',
+                        textAlign: 'center',
+                        color:'whitesmoke'
+                    }}>{mockDataTag.children}===-TagId：{params.id}</Title>
                 </Content>
                 <Content style={{
                     width: '70%',
@@ -56,15 +56,23 @@ function TagMoviePage() {
                 }}>
                     {
                         mockDataMovie.map((movie, idx) => (
-                            <Layout>
-                                <Sider>
-                                    <MovieImgCard imgUrl={movie.imgUrl} cardWidth={150} cardHeight={250}></MovieImgCard>
+                            <Link to={'/comment/'+movie.movieId} style={{textDecoration: 'none'}}>
+                                <Layout>
+                                <Sider style={{height: '300px', border: '1px solid var(--semi-color-border)',}}>
+                                    <MovieImgCard imgUrl={movie.imgUrl} cardWidth={180} cardHeight={250}
+                                                  movieName={''}/>
                                 </Sider>
-                                <Content>
+                                <Content style={{
+                                    marginLeft: '3%',
+                                    width: '80%',
+                                    border: '1px solid var(--semi-color-border)',
+                                }}>
                                     <MovieDetail movieName={movie.movieName}
-                                                 movieQuote={movie.movieQuote}></MovieDetail>
+                                                 movieQuote={movie.movieQuote}/>
                                 </Content>
                             </Layout>
+                            </Link>
+
                         ))
                     }
                 </Content>

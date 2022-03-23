@@ -18,16 +18,9 @@ function ItemInfo(props:{movieList: any[]}) {
     }
     return (
         <>
-            <Layout style={{
-                marginLeft: '4.5%',
-                marginBottom: '1px',
-                width: '90%',
-                height: '100%'
-            }}>
-                <Content style={{
-                }}>
-                    <CardGroup spacing={33}
-                               style={{justifyContent: 'center'}}>
+            <Layout style={{marginLeft: '4.5%',marginBottom: '1px',width: '90%', height: '100%'}}>
+                <Content>
+                    <CardGroup spacing={33} style={{justifyContent: 'center'}}>
                         {
                             props.movieList.map((item, idx) => (
                                 <Card
@@ -40,10 +33,7 @@ function ItemInfo(props:{movieList: any[]}) {
                                         height: 440
                                     }}
                                     cover={
-                                        <img
-                                            alt={'ImgUrl'}
-                                            src={item.imgUrl}
-                                        />
+                                        <img alt={'ImgUrl'} src={item.imgUrl} />
                                     }
                                     headerExtraContent={
                                         <Link to={"/comment/"+item.movieId}>
@@ -57,10 +47,7 @@ function ItemInfo(props:{movieList: any[]}) {
                     <Content>
                         <br/><br/>
                         <Pagination
-                            style={{
-                                marginBottom: 4,
-                                justifyContent: 'center'
-                            }}
+                            style={{ marginBottom: 4, justifyContent: 'center' }}
                             total={mockPage}
                             currentPage={page}
                             onPageChange={onPageChange}

@@ -1,5 +1,3 @@
-import {TagDetailType, TagDetail} from "./tag-detail";
-
 export interface MovieDetail{
     movieId:number;
     movieName: string;

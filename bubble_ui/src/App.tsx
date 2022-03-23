@@ -49,13 +49,13 @@ function App() {
                         />
                         <Nav.Item
                             itemKey="Movie"
-                            text="电影"
+                            text="推荐"
                             icon={<IconLive size="large"/>}
                             link={"/recommend"}
                         />
                         <Nav.Item
                             itemKey="Share"
-                            text="分享"
+                            text="更多"
                             icon={<IconCloud size="large"/>}
                             link={"/tagall"}
                         />
