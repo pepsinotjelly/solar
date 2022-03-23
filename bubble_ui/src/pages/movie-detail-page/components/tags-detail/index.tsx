@@ -7,17 +7,12 @@ function TagDetailPlane(props: { tagList: any[] }) {
     const src = 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg';
     const divStyle = {
         // backgroundColor: 'var(--semi-color-fill-0)',//  一个颜色才好看！
-        height: 35,
+        height: 22,
         width: 300,
         display: 'flex',
         alignItems: 'center',
         padding: '0 10px',
         marginBottom: 30,
-    };
-    const tagGroupStyle = {
-        display: 'flex',
-        alignItems: 'center',
-        width: 350
     };
 
     return (

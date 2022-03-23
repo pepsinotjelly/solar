@@ -9,6 +9,7 @@ import NotFound from "./pages/404";
 import Recommend from './pages/user-recommend-page';
 import DetailPage from "./pages/movie-detail-page";
 import TagMoviePage from "./pages/tag-movie-page";
+import AllTagPage from "./pages/all-tag-page";
 
 const Index = () => {
     return (
@@ -17,9 +18,10 @@ const Index = () => {
                     <Routes>
                         <Route path="/" element={<App/>}>
                             <Route index element={<Home/>}/>
-                            <Route path={"recommend"} element={<Recommend/>}/>
+                            <Route path={"/recommend"} element={<Recommend/>}/>
                             <Route path={"comment/:id"} element={<DetailPage/>}/>
                             <Route path={"tag-movie/:id"} element={<TagMoviePage/>}/>
+                            <Route path={"/tagall"} element={<AllTagPage/>}/>
                             <Route path={"*"} element={<NotFound/>}/>
                         </Route>
                     </Routes>

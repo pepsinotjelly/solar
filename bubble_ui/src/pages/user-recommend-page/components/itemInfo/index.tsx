@@ -8,7 +8,7 @@ import movieImg from "../../../movie-detail-page/components/movie-img";
 
 
 function ItemInfo(props:{movieList: any[]}) {
-    const abcd= useParams()
+    // const abcd= useParams()
     const {Content} = Layout;
     //  Pagination 页面的设置
     const mockPage = 50;

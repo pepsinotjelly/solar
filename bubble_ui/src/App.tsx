@@ -51,13 +51,13 @@ function App() {
                             itemKey="Movie"
                             text="电影"
                             icon={<IconLive size="large"/>}
-                            link={"user-recommend-page"}
+                            link={"/recommend"}
                         />
                         <Nav.Item
                             itemKey="Share"
                             text="分享"
                             icon={<IconCloud size="large"/>}
-                            link={"/"}
+                            link={"/tagall"}
                         />
                         <Nav.Footer>
                             <Button
@@ -94,7 +94,7 @@ function App() {
                     style={{
                         borderRadius: '10px',
                         border: '1px solid var(--semi-color-border)',
-                        height: '575px',
+                        height: '100%',
                         padding: '24px',
                     }}
                 >

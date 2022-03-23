@@ -4,13 +4,13 @@ import {Layout} from '@douyinfe/semi-ui';
 import MovieDetail from "./index";
 import TagDetailPlane from "../tags-detail";
 
-function movieDetail(props: { movieName: string, movieQuote: string,movieTag:any[] }) {
+function movieDetail(props: { movieName: string, movieQuote: string}) {
     const {Title, Text} = Typography;
     const {Content} = Layout;
     const ContentStyle = {
         padding: '24px',
         border: '1px solid var(--semi-color-border)',
-        height: '250px',
+        height: '100%',
         marginBottom: '24px'
     };
 
@@ -18,10 +18,8 @@ function movieDetail(props: { movieName: string, movieQuote: string,movieTag:any
         <div>
             <Content className={"movie-info"} style={ContentStyle}>
                 <Title heading={2}>{props.movieName}</Title>
-                <br/><br/>
+                <br/>
                 <Text size={'normal'}>{props.movieQuote}</Text>
-                <br/><br/>
-                <TagDetailPlane tagList={props.movieTag}/>
             </Content>
         </div>
     );
