@@ -3,7 +3,6 @@ import {Typography} from '@douyinfe/semi-ui';
 import {Layout} from '@douyinfe/semi-ui';
 import MovieDetail from "./index";
 import TagDetailPlane from "../tags-detail";
-import {TagDetail} from "../../../../model/tag-detail";
 
 function movieDetail(props: { movieName: string, movieQuote: string,movieTag:any[] }) {
     const {Title, Text} = Typography;

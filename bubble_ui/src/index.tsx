@@ -18,8 +18,9 @@ const Index = () => {
                         <Route path="/" element={<App/>}>
                             <Route index element={<Home/>}/>
                             <Route path={"recommend"} element={<Recommend/>}/>
-                            <Route path={"comment:id"} element={<DetailPage/>}/>
-                            <Route path={"tag-movie:id"} element={<TagMoviePage/>}/>
+                            <Route path={"comment/:id"} element={<DetailPage/>}/>
+                            <Route path={"tag-movie/:id"} element={<TagMoviePage/>}/>
+                            <Route path={"*"} element={<NotFound/>}/>
                         </Route>
                     </Routes>
                 </BrowserRouter>
