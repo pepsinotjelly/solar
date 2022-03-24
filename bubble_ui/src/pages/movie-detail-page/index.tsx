@@ -21,9 +21,7 @@ function DetailPage() {
         imgUrl: undefined,
         movieQuote: undefined
     })
-    const [tagDetailData,setTagDetailData] = useState({
-        tagDetailList: [getEmptyTagDetail()]
-    })
+    const [tagDetailData,setTagDetailData] = useState([])
 
     const getMovieDetail = () => {
         getMovieDetailByMovieId(params.id)
@@ -38,6 +36,7 @@ function DetailPage() {
         getTagDetailByMovieId(params.id)
             .then((response:any)=>{
                 setTagDetailData(response.data);
+                console.log(response.data)
             }).catch((e:Error)=>{
                 console.log(e);
         })
@@ -49,6 +48,8 @@ function DetailPage() {
         getTagDetail()
     },[])
     if (typeof params.id === "string") {
+        console.log(tagDetailData)
+        // console.log(tagDetailData.tagDetailList)
         // @ts-ignore
         return (
             <>
@@ -62,8 +63,7 @@ function DetailPage() {
                         <MovieDetail movieName={movieDetailData.movieName}
                                      movieQuote={movieDetailData.movieQuote}
                         />
-                        <TagDetailPlane tagList={tagDetailData} tagBackgroundSize={'18px'}
-                                        tagFrontSize={'14px'}/>
+                        <TagDetailPlane tagList={tagDetailData} tagBackgroundSize={'18px'} tagFrontSize={'14px'}/>
                         <Comment/>
                     </Content>
                 </Layout>
