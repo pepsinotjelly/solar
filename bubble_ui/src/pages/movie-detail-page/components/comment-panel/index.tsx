@@ -1,6 +1,8 @@
 import {Button, Layout, Rating, TagInput, Typography} from "@douyinfe/semi-ui";
 import React, {useState} from "react";
-import API from "../../../../api";
+// import API from "../../../../api";
+import UserRecommend from "../../../../model/user-recommend";
+import httpCommon from "../../../../http-common";
 
 function Comment() {
     const {Text} = Typography;
@@ -23,6 +25,10 @@ function Comment() {
     const state = {
         name: ''
     }
+    type Props = {};
+    type State = UserRecommend & {
+        submitted: boolean
+    };
 
 
     // Submit 回调
@@ -32,7 +38,7 @@ function Comment() {
         e.preventDefault();
         await new Promise((r) => setTimeout(r, 5000));
         try {
-            const resp = await API.post("/api/rate-movie", {});
+            const resp = await httpCommon.post("/api/rate-movie", {});
         } catch (err) {
             console.log(err);
         }

@@ -1,4 +1,5 @@
-export interface UserInfo{
-    userId:number;
-    userName:string;
+export default interface UserInfo {
+    userId: number;
+    userName: string;
+    avatar: string;
 }

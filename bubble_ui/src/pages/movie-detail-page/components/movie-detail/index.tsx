@@ -4,7 +4,7 @@ import {Layout} from '@douyinfe/semi-ui';
 import MovieDetail from "./index";
 import TagDetailPlane from "../tags-detail";
 
-function movieDetail(props: { movieName: string, movieQuote: string}) {
+function movieDetailPanel(props: { movieName: string|undefined, movieQuote: string|undefined}) {
     const {Title, Text} = Typography;
     const {Content} = Layout;
     const ContentStyle = {
@@ -25,4 +25,4 @@ function movieDetail(props: { movieName: string, movieQuote: string}) {
     );
 }
 
-export default movieDetail
+export default movieDetailPanel
