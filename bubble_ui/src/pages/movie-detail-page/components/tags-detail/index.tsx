@@ -20,7 +20,7 @@ function TagDetailPlane(props: { tagList: TagDetail[], tagFrontSize: string | un
                 <Space>{
                     props.tagList?.map((item, idx) => (
                         <Link to={"/tag-movie/" + item.tagId??1}>
-                            <Tag color={item.tagColor??'red'}
+                            <Tag color={item.tagColor??'blue'}
                                  style={{
                                      fontSize: props.tagFrontSize,
                                      backgroundSize: props.tagBackgroundSize

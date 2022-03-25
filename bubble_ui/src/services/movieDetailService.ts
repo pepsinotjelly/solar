@@ -7,7 +7,7 @@ export function getMovieDetailByMovieId(id: string | undefined) {
 }
 
 export function getMovieDetailByTagId(tagId: string| undefined) {
-    return http.get<List<MovieDetail>>(`/movie/tag/${tagId}`);
+    return http.get<List<MovieDetail>>(`/movie/tag/?tagId=${tagId}`);
 }
 
 export function getRecommendMovieDetailByUserId(userId: string| undefined) {
