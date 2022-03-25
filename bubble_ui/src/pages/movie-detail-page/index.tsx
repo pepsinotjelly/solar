@@ -49,8 +49,6 @@ function DetailPage() {
     },[])
     if (typeof params.id === "string") {
         console.log(tagDetailData)
-        // console.log(tagDetailData.tagDetailList)
-        // @ts-ignore
         return (
             <>
                 <h2>调试用的-movieId:{params.id}</h2>

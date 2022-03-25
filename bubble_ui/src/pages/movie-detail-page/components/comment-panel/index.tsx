@@ -1,7 +1,5 @@
 import {Button, Layout, Rating, TagInput, Typography} from "@douyinfe/semi-ui";
 import React, {useState} from "react";
-// import API from "../../../../api";
-import UserRecommend from "../../../../model/user-recommend";
 import httpCommon from "../../../../http-common";
 
 function Comment() {
@@ -25,10 +23,7 @@ function Comment() {
     const state = {
         name: ''
     }
-    type Props = {};
-    type State = UserRecommend & {
-        submitted: boolean
-    };
+
 
 
     // Submit 回调
