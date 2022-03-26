@@ -5,6 +5,7 @@ import {Toast, Empty} from '@douyinfe/semi-ui';
 import {Spin} from '@douyinfe/semi-ui';
 import {submitRatingRecord} from "../../../../services/ratingRecordService";
 import RatingRecord from "../../../../model/rating-record";
+import {IconLoading} from '@douyinfe/semi-icons';
 import {IllustrationSuccess, IllustrationSuccessDark} from '@douyinfe/semi-illustrations';
 
 
@@ -15,7 +16,7 @@ function Comment() {
     // loading设置
     const [loading, setLoading] = useState<boolean>(false)
     // 提交的设置
-    const [submitDone, setSubmitDone] = useState<boolean>(false)
+    const [submitDone, setSubmitDone] = useState<boolean>(true)
     //  Rating 设置
     const [ratingValue, setRatingValue] = useState(0);
     const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
@@ -39,18 +40,17 @@ function Comment() {
     const handleSubmit = async (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
+        setLoading(!loading)
         e.preventDefault();
         await new Promise((r) => setTimeout(r, 5000));
-
         try {
-            setLoading(true)
+
             const commentDetailValue: RatingRecord = {
                 movieId: Number.parseInt(params.id as string),
                 userId: 1,
                 rating: ratingValue as unknown as string,
                 comment: commentValue as unknown as string
             }
-
             console.log(commentDetailValue);
             const resp = await submitRatingRecord(commentDetailValue);
             setSubmitDone(true)
@@ -75,7 +75,7 @@ function Comment() {
                     darkModeImage={<IllustrationSuccessDark style={{width: 150, height: 150}}/>}
                     layout="horizontal"
                     description="感谢你提供的宝贵意见！"
-                    style={{width: 800, margin: '0 auto',marginTop:'10%',marginLeft:'10%'}}
+                    style={{width: 800, margin: '0 auto', marginTop: '10%', marginLeft: '10%'}}
                 >
                     <Button type="primary" theme="solid" style={{padding: '6px 24px'}}
                             onClick={() => setSubmitDone(false)}>
@@ -113,7 +113,10 @@ function Comment() {
                                 style={submitButtonStyle}
                                 onClick={handleSubmit}
                         >写好了
-                        <Spin wrapperClassName={"\"sping-wrapper\""}/>
+                            <Spin
+                                indicator={<IconLoading/>}
+                                spinning={loading}
+                            />
                         </Button>
                     </Content>
                 </Layout>
