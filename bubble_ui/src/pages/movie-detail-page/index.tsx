@@ -6,10 +6,8 @@ import MovieDetail from "./components/movie-detail";
 import {Link, useParams} from "react-router-dom";
 import NotFound from "../404";
 import TagDetailPlane from "./components/tags-detail";
-import movieDetail from "./components/movie-detail";
 import {getMovieDetailByMovieId} from "../../services/movieDetailService";
 import {getTagDetailByMovieId} from "../../services/tagDetailService";
-import {getEmptyTagDetail} from "../../model/tag-detail";
 
 
 function DetailPage() {
