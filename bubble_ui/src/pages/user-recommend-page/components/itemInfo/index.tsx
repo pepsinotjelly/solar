@@ -2,9 +2,6 @@ import React, {useState} from 'react';
 import {Card, CardGroup, Typography, Slider, Pagination, Progress, Layout, List} from '@douyinfe/semi-ui';
 import {IconLink} from "@douyinfe/semi-icons";
 import {Link, useParams} from "react-router-dom";
-import axios from "axios";
-import {MovieDetailData} from "../../../../model/movie-detail";
-import movieImg from "../../../movie-detail-page/components/movie-img";
 
 
 function ItemInfo(props:{movieList: any[]}) {

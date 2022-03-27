@@ -37,11 +37,11 @@ function AllTagPage() {
                     border: '1px solid var(--semi-color-border)',
                     marginLeft: '30%',
                     textAlign: 'center'
-                }}>、
-                    <TagDetailPlane tagList={mockDataLine1} tagBackgroundSize={'130px'} tagFrontSize={'18px'}/>
-                    <TagDetailPlane tagList={mockDataLine2} tagBackgroundSize={'30px'} tagFrontSize={'18px'}/>
-                    <TagDetailPlane tagList={mockDataLine3} tagBackgroundSize={'30px'} tagFrontSize={'18px'}/>
-                    <TagDetailPlane tagList={mockDataLine4} tagBackgroundSize={'30px'} tagFrontSize={'18px'}/>
+                }}>
+                    {/*<TagDetailPlane tagList={mockDataLine1} tagBackgroundSize={'130px'} tagFrontSize={'18px'}/>*/}
+                    {/*<TagDetailPlane tagList={mockDataLine2} tagBackgroundSize={'30px'} tagFrontSize={'18px'}/>*/}
+                    {/*<TagDetailPlane tagList={mockDataLine3} tagBackgroundSize={'30px'} tagFrontSize={'18px'}/>*/}
+                    {/*<TagDetailPlane tagList={mockDataLine4} tagBackgroundSize={'30px'} tagFrontSize={'18px'}/>*/}
                 </Content>
             </Layout>
 
