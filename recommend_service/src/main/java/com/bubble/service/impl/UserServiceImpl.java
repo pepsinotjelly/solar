@@ -78,7 +78,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity findUserById(String id) throws Exception {
+        UserEntity user = new UserEntity();
+        user.setUserAvatar("https://image.tmdb.org/t/p/w300_and_h450_bestv2/bNeE1kUMFYG1sG6blHMwkG9sXXM.jpg");
+        user.setUserName("name_test");
+        user.setUserId(id);
+        user.setUserPwd("abcd");
         log.info("findUserById :: "+id);
-        return null;
+        return user;
     }
 }

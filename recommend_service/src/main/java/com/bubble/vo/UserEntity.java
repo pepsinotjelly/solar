@@ -53,12 +53,7 @@ public class UserEntity {
         this.userAvatar = userAvatar;
     }
 
-    public String getToken(UserEntity user) {
-        String token="";
-        token= JWT.create().withAudience(user.getUserId())
-                .sign(Algorithm.HMAC256(user.getUserPwd()));
-        return token;
-    }
+
 
 
 }
