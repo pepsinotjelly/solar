@@ -4,7 +4,7 @@ import {Layout} from '@douyinfe/semi-ui';
 import MovieDetail from "./index";
 import TagDetailPlane from "../tags-detail";
 
-function movieDetailPanel(props: { movieName: string|undefined, movieQuote: string|undefined}) {
+function MovieDetailPanel(props: { movieName: string|undefined, movieQuote: string|undefined}) {
     const {Title, Text} = Typography;
     const {Content} = Layout;
     //  配置content图层属性
@@ -26,4 +26,4 @@ function movieDetailPanel(props: { movieName: string|undefined, movieQuote: stri
     );
 }
 
-export default movieDetailPanel
+export default MovieDetailPanel
