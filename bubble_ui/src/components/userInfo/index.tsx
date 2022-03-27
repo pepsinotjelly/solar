@@ -49,10 +49,11 @@ function UserInfoPanel() {
             //  发送请求
             const resp = await userLogin(userLoginInfo);
             //  更新用户id状态
-            setInputUserId("")
+            // setInputUserId("")
             //  更新密码状态
-            setInputUserPwd("")
+            // setInputUserPwd("")
             if (resp.status === 200) {
+                console.log(resp)
                 if (resp.data) {
                     //  toast提示
                     Toast.success(`Hi,${userContext.userName}`)
@@ -128,7 +129,7 @@ function UserInfoPanel() {
                     onOk={handleLogin}
                 >
                     <Input className={"id-input-box"}
-                           prefix={"enter your id:"}
+                           prefix={"enter your email:"}
                            showClear
                            value={inputUserId}
                            onChange={handelUserIdChange}

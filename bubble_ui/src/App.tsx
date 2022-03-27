@@ -23,14 +23,18 @@ function App() {
     const {Header, Footer, Content} = Layout;
     const {Title, Text} = Typography;
     const getUser = () => {
+
     }
     const navigate = useNavigate();
 
-
+    useEffect(() => {
+        getUser();
+    }, []);
     return (
         <Layout style={{
             border: '1px solid var(--semi-color-border)',
-            height:'100%' }}>
+            height: '100%'
+        }}>
             <Header style={{backgroundColor: 'var(--semi-color-bg-1)'}}>
                 <div>
                     <Nav
@@ -85,8 +89,8 @@ function App() {
             <Content
                 style={{
                     backgroundColor: 'var(--semi-color-bg-0)',
-                    height:'90%',
-                    marginBottom:'0.7%'
+                    height: '90%',
+                    marginBottom: '0.7%'
                 }}
             >
                 <div
@@ -108,7 +112,7 @@ function App() {
                     padding: '20px',
                     color: 'var(--semi-color-text-2)',
                     backgroundColor: 'rgba(var(--semi-grey-0), 1)',
-                    marginBottom:'0'
+                    marginBottom: '0'
                 }}
             >
                 <span

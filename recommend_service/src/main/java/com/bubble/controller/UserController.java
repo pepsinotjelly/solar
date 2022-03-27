@@ -40,6 +40,8 @@ public class UserController {
 
     @PostMapping (value = "/login")
     public JSON userLogin(@RequestBody UserEntity userEntity){
+        userEntity.setUserName("name_test");
+        userEntity.setUserAvatar("https://image.tmdb.org/t/p/w300_and_h450_bestv2/bNeE1kUMFYG1sG6blHMwkG9sXXM.jpg");
         log.info(String.valueOf((JSON) JSON.toJSON(userEntity)));
         return (JSON) JSON.toJSON(userEntity);
     }

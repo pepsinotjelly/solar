@@ -1,22 +1,31 @@
 package com.bubble.vo;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * @author : sunpengyu.sonia
  * @date : 2022/3/27 10:39 上午
  * @Desc :
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserEntity {
 
-    private int userId;
+    private String userId;
     private String userPwd;
     private String userName;
     private String userAvatar;
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -42,6 +51,13 @@ public class UserEntity {
 
     public void setUserAvatar(String userAvatar) {
         this.userAvatar = userAvatar;
+    }
+
+    public String getToken(UserEntity user) {
+        String token="";
+        token= JWT.create().withAudience(user.getUserId())
+                .sign(Algorithm.HMAC256(user.getUserPwd()));
+        return token;
     }
 
 

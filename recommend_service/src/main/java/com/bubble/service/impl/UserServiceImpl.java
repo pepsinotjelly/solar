@@ -7,6 +7,7 @@ import com.bubble.mapper.UserRecommendMapper;
 import com.bubble.model.*;
 import com.bubble.service.UserService;
 import com.bubble.mapper.UserBaseMapper;
+import com.bubble.vo.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -73,5 +74,11 @@ public class UserServiceImpl implements UserService {
         ratingRecord.setItemId(movie_id);
         ratingRecord.setComment(comment);
         return ratingRecordMapper.insert(ratingRecord);
+    }
+
+    @Override
+    public UserEntity findUserById(String id) throws Exception {
+        log.info("findUserById :: "+id);
+        return null;
     }
 }
