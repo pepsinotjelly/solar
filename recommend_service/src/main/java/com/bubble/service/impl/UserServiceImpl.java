@@ -66,11 +66,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer rateMovie(int user_id, String rate, int movie_id) throws Exception{
+    public Integer rateMovie(int user_id, String rate, int movie_id ,String comment) throws Exception{
         RatingRecord ratingRecord = new RatingRecord();
         ratingRecord.setRating(Double.parseDouble(rate));
         ratingRecord.setUserId(user_id);
         ratingRecord.setItemId(movie_id);
+        ratingRecord.setComment(comment);
         return ratingRecordMapper.insert(ratingRecord);
     }
 }

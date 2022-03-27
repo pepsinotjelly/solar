@@ -9,6 +9,8 @@ public class RatingRecord {
 
     private Double rating;
 
+    private String comment;
+
     public Integer getId() {
         return id;
     }
@@ -39,5 +41,13 @@ public class RatingRecord {
 
     public void setRating(Double rating) {
         this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment == null ? null : comment.trim();
     }
 }

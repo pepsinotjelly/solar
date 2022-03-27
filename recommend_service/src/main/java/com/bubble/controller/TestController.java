@@ -53,40 +53,42 @@ public class TestController {
     }
 
 
-    @GetMapping(value = "/syncItemBase")
+    @GetMapping(value = "/api/sync-item-base")
     public String syncItemBase() throws Exception {
         Boolean result = itemBaseService.SyncItemBase();
         return result.toString();
     }
 
-    @GetMapping(value = "/getRecommendList")
+    @GetMapping(value = "/api/get-recommend-list")
     public List<String> getRecommendList(@RequestParam(value = "user_id") int user_id) throws Exception {
 
         return recommendService.getSimilarityList(user_id);
     }
 
-    @GetMapping(value = "/getPlainRecommendList")
+    @GetMapping(value = "/api/get-plain-recommend-list")
     public List<String> getPlainRecommendList(@RequestParam(value = "user_id") int user_id) throws Exception {
         return recommendService.getPlainSimilarityList(user_id);
     }
 
-    @GetMapping(value = "/getDiff")
+    @GetMapping(value = "/api/get-diff")
     public double[] getDiff() throws Exception {
         DataProcessor dataProcessor = DataProcessor.getDataProcessor();
         return dataProcessor.getDiff(100);
     }
 
 
-    @GetMapping(value = "/getMyRecommend")
+    @GetMapping(value = "/api/get-my-recommend")
     public String myRecommend(@RequestParam(value = "user_id") int user_id) throws Exception {
         log.info("userService.getMyRecommend(user_id)");
         return userService.getMyRecommend(user_id);
     }
 
-    @PostMapping(value = "/rateMovie")
-    public Integer rateMovie(@RequestBody int user_id
+    @PostMapping(value = "/api/rate-movie")
+    public Integer rateMovie(
+            @RequestBody int user_id
             , @RequestBody String rate
-            , @RequestBody int movie_id)throws Exception{
-        return userService.rateMovie(user_id,rate,movie_id);
+            , @RequestBody int movie_id
+            , @RequestBody String comment)throws Exception{
+        return userService.rateMovie(user_id,rate,movie_id,comment);
     }
 }
