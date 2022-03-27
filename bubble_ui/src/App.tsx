@@ -16,6 +16,7 @@ import {
 } from '@douyinfe/semi-icons';
 import {Typography} from '@douyinfe/semi-ui';
 import Home from "./pages/home-page";
+import UserInfoPanel from "./components/userInfo";
 
 
 function App() {
@@ -76,9 +77,7 @@ function App() {
                                     marginRight: '12px',
                                 }}
                             />
-                            <Avatar color="orange" size="small">
-                                props.user.name
-                            </Avatar>
+                            <UserInfoPanel/>
                         </Nav.Footer>
                     </Nav>
                 </div>

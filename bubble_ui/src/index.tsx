@@ -23,6 +23,7 @@ const Index = () => {
                             <Route path={"tag-movie/:id"} element={<TagMoviePage/>}/>
                             <Route path={"/tagall"} element={<AllTagPage/>}/>
                             <Route path={"*"} element={<NotFound/>}/>
+
                         </Route>
                     </Routes>
                 </BrowserRouter>
