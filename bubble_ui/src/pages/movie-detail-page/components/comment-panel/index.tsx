@@ -10,13 +10,19 @@ import {IllustrationSuccess, IllustrationSuccessDark} from '@douyinfe/semi-illus
 
 
 function Comment() {
-    let params = useParams()
+
     const {Text} = Typography;
     const {Sider, Content} = Layout;
+
+    //  获取路径中的参数（movie的id）
+    let params = useParams()
+
     // loading设置
     const [loading, setLoading] = useState<boolean>(false)
-    // 提交的设置
-    const [submitDone, setSubmitDone] = useState<boolean>(true)
+
+    // 提交的设置(TODO:获取用户的评论记录)
+    const [submitDone, setSubmitDone] = useState<boolean>(false)
+
     //  Rating 设置
     const [ratingValue, setRatingValue] = useState(0);
     const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
@@ -26,11 +32,14 @@ function Comment() {
         width: '60%',
         padding: '24px'
     }
+
+    //  提交按钮的样式设置
     const submitButtonStyle = {
         justifyItems: 'center',
         marginTop: '45%',
         marginLeft: '20%'
     }
+
     // 评价设置
     const [commentValue, setCommentValue] = useState<string>()
     console.log(commentValue)
@@ -40,11 +49,13 @@ function Comment() {
     const handleSubmit = async (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
+        //  加载状态-开始
         setLoading(!loading)
         e.preventDefault();
+        //  设置超时时间
         await new Promise((r) => setTimeout(r, 5000));
+        //  数据处理
         try {
-
             const commentDetailValue: RatingRecord = {
                 movieId: Number.parseInt(params.id as string),
                 userId: 1,
@@ -52,20 +63,26 @@ function Comment() {
                 comment: commentValue as unknown as string
             }
             console.log(commentDetailValue);
+            //  发送请求
             const resp = await submitRatingRecord(commentDetailValue);
+            //  更新评论状态
             setSubmitDone(true)
-            setLoading(false)
+            //  更新加载状态
+            setLoading(!loading)
             if (resp.status === 200) {
+                //  toast提示
                 Toast.success("提交成功啦！")
+                //  清空数据
                 setRatingValue(0);
                 setCommentValue("");
             }
         } catch (err) {
             setLoading(false)
             console.log(err);
-            Toast.error("哎呀！提交失败！")
+            Toast.error("哎呀!提交失败!")
         }
     };
+    //  提交后评论区状态-done空态变化
     if (submitDone) {
         return (
             <div>
@@ -84,6 +101,7 @@ function Comment() {
                 </Empty>
             </div>
         )
+        //  未提交，正常返回评论面板
     } else {
         return (
             <div className={"sping-wrapper"}>
@@ -98,7 +116,6 @@ function Comment() {
                             <br/><br/>
                             <Text>发表我的看法：</Text>
                             <br/><br/>
-                            {/* eslint-disable-next-line react/jsx-no-undef */}
                             <TextArea
                                 style={{height: 80, width: 480}}
                                 maxCount={200}
@@ -115,6 +132,7 @@ function Comment() {
                         >写好了
                             <Spin
                                 indicator={<IconLoading/>}
+                                // 加载状态更新
                                 spinning={loading}
                             />
                         </Button>

@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import TagDetail from "../../../../model/tag-detail";
 
 function TagDetailPlane(props: { tagList: TagDetail[], tagFrontSize: string | undefined, tagBackgroundSize: string | undefined }) {
-    const src = 'https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg';
+    //  配置tag基本属性
     const divStyle = {
         height: 22,
         width: 300,
@@ -13,28 +13,27 @@ function TagDetailPlane(props: { tagList: TagDetail[], tagFrontSize: string | un
         padding: '0 10px',
         marginBottom: 30
     };
+    //  记录参数历史
     console.log(props.tagList)
     return (
         <>
             <div style={divStyle}>
                 <Space>{
                     props.tagList?.map((item, idx) => (
-                        <Link to={"/tag-movie/" + item.tagId??1}>
-                            <Tag color={item.tagColor??'blue'}
+                        <Link to={"/tag-movie/" + item.tagId ?? 1}>
+                            <Tag color={item.tagColor ?? 'blue'}
                                  style={{
                                      fontSize: props.tagFrontSize,
                                      backgroundSize: props.tagBackgroundSize
                                  }}
-                                 type='light'> {item.tagName??'name空了'} </Tag>
+                                 type='light'> {item.tagName ?? 'name空了'} </Tag>
                         </Link>
                     ))
                 }
                 </Space>
-
             </div>
         </>
     );
-
 };
 
 

@@ -7,6 +7,7 @@ import TagDetailPlane from "../tags-detail";
 function movieDetailPanel(props: { movieName: string|undefined, movieQuote: string|undefined}) {
     const {Title, Text} = Typography;
     const {Content} = Layout;
+    //  配置content图层属性
     const ContentStyle = {
         padding: '24px',
         border: '1px solid var(--semi-color-border)',
