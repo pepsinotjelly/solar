@@ -1,19 +1,24 @@
-export interface UserContext{
-    user_id:number;
-    user_name:string;
-    user_email:string;
-    avatar_url:string;
-}
-export class UserContextImpl implements UserContext{
-    user_id:number;
-    user_name:string;
-    user_email:string;
-    avatar_url:string;
+import {createContext, useContext} from "react";
 
-    constructor(user_id:number,user_name:string,user_email:string,avatar_url:string) {
-        this.user_id=user_id;
-        this.user_name = user_name;
-        this.user_email=user_email;
-        this.avatar_url =avatar_url;
-    }
+export interface UserContext {
+    userId: number;
+    userPwd: string;
+    userName: string;
+    userAvatar: string;
 }
+
+export const getEmptyUser = (): UserContext => {
+    return {userId: -1, userPwd: '', userName: '', userAvatar: ''}
+}
+
+export interface GlobalContext {
+    userContext: UserContext;
+    setUserContext: (value: UserContext) => void;
+}
+
+export const GlobalContext =createContext<GlobalContext>({
+    userContext:getEmptyUser(),
+    setUserContext:()=>{}
+})
+
+export const useGlobalContext = () => useContext(GlobalContext);
