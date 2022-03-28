@@ -2,10 +2,12 @@ import {Input, Toast} from "@douyinfe/semi-ui";
 import {Modal, Button} from '@douyinfe/semi-ui';
 import React, {useState} from "react";
 import {getEmptyUser, useGlobalContext, UserContext} from "../../context";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {userLogin} from "../../services/userService";
 import {UserBase} from "../../model/user-info";
 import {JWT} from "../../constants";
+import {IconHelpCircle} from "@douyinfe/semi-icons";
+import {Popover} from '@douyinfe/semi-ui';
 
 function LoginPage() {
     const navigate = useNavigate();
@@ -72,7 +74,26 @@ function LoginPage() {
                 visible={true}
                 maskClosable={false}
                 onCancel={onClose}
+                cancelText={"home"}
                 onOk={handleLogin}
+                okText={"login"}
+                icon={<Popover
+                    content={
+                        <article style={{padding: 12}}>
+                            New to here ?
+                            <br/> Click to register!
+                            <br/>
+                            <br/>
+                            <Link to={"/register"}>
+                                <Button>
+                                    register
+                                </Button>
+                            </Link>
+                        </article>
+                    }
+                >
+                    <IconHelpCircle></IconHelpCircle>
+                </Popover>}
             >
                 <Input className={"id-input-box"}
                        prefix={"enter  your  id :"}
