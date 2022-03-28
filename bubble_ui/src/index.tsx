@@ -32,7 +32,7 @@ const Index = () => {
                             }/>
                             <Route path={"comment/:id"} element={<DetailPage/>}/>
                             <Route path={"tag-movie/:id"} element={<TagMoviePage/>}/>
-                            <Route path={"/tagall"} element={<AllTagPage/>}/>
+                            <Route path={"/tag-all"} element={<AllTagPage/>}/>
                             <Route path={"/login"} element={<LoginPage/>}/>
                             <Route path={"*"} element={<NotFound/>}/>
 

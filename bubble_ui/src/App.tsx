@@ -89,7 +89,7 @@ function App() {
                             itemKey="Share"
                             text="更多"
                             icon={<IconCloud size="large"/>}
-                            link={"/tagall"}
+                            link={"/tag-all"}
                         />
                         <Nav.Footer>
                             <Button
