@@ -1,17 +1,13 @@
-import {IconArrowRight, IconDoubleChevronRight} from "@douyinfe/semi-icons";
-import {Avatar, Card, Dropdown, Input, Toast, TextArea} from "@douyinfe/semi-ui";
+import {Input, Toast} from "@douyinfe/semi-ui";
 import {Modal, Button} from '@douyinfe/semi-ui';
 import React, {useState} from "react";
 import {getEmptyUser, useGlobalContext, UserContext} from "../../context";
-import {Link, useNavigate} from "react-router-dom";
-import RatingRecord from "../../model/rating-record";
-import {submitRatingRecord} from "../../services/ratingRecordService";
+import {useNavigate} from "react-router-dom";
 import {userLogin} from "../../services/userService";
-import {UserBase, UserInfo, UserInfoBaseResp} from "../../model/user-info";
+import {UserBase} from "../../model/user-info";
 import {JWT} from "../../constants";
-import {userInfo} from "os";
 
-function LoginWindow(props:{windowVisible:boolean}){
+function LoginPage() {
     const navigate = useNavigate();
     const {userContext, setUserContext} = useGlobalContext()
 
@@ -29,11 +25,8 @@ function LoginWindow(props:{windowVisible:boolean}){
         console.log("USER LOGOUT")
     }
 
-    //  控制登陆弹窗是否可见
-    const [windowVisible, setWindowVisible] = useState(props.windowVisible);
-
     const onClose = () => {
-        setWindowVisible(false);
+        navigate("/", {replace: true});
         console.log("onClose :: close the window!")
     };
 
@@ -50,12 +43,9 @@ function LoginWindow(props:{windowVisible:boolean}){
                 userId: Number.parseInt(inputUserId),
                 userPwd: inputUserPwd
             }
-            console.log("/user/login/ :: userBase :: ", userBase);
             //  发送请求
             const resp = await userLogin(userBase);
-            setWindowVisible(false);
             if (resp.status === 200) {
-                console.log("/user/login :: response :: ", resp)
                 if (resp.data.baseCode === 0) {
                     console.log("/user/login :: response.token :: ", resp.data.token)
                     localStorage.setItem(JWT, resp.data.token)
@@ -64,23 +54,22 @@ function LoginWindow(props:{windowVisible:boolean}){
                 } else {
                     Toast.error(resp.data.baseMsg)
                 }
+                await new Promise((r) => setTimeout(r, 100));
+                navigate("/", {replace: true});
             }
         } catch (err) {
-            console.log("/user/login :: response.error :: ", err);
             Toast.error("登陆失败!")
         }
         //  更新输入框中的用户id状态
         setInputUserId("")
         //  更新输入框中的密码状态
         setInputUserPwd("")
-        await new Promise((r) => setTimeout(r, 100));
-        navigate("/", {replace: true});
     };
-    return(
-        <>
+    return (
+        <div style={{height: "590px"}}>
             <Modal
                 title="用户登陆"
-                visible={windowVisible}
+                visible={true}
                 maskClosable={false}
                 onCancel={onClose}
                 onOk={handleLogin}
@@ -99,7 +88,8 @@ function LoginWindow(props:{windowVisible:boolean}){
                        value={inputUserPwd}
                        onChange={handelUserPwdChange}/>
             </Modal>
-        </>
+        </div>
     );
 }
-export default LoginWindow
+
+export default LoginPage
