@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 public class UserEntity {
 
     private String userId;
-    private String userPwd;
     private String userName;
     private String userAvatar;
 
@@ -27,14 +26,6 @@ public class UserEntity {
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    public String getUserPwd() {
-        return userPwd;
-    }
-
-    public void setUserPwd(String userPwd) {
-        this.userPwd = userPwd;
     }
 
     public String getUserName() {
@@ -52,8 +43,5 @@ public class UserEntity {
     public void setUserAvatar(String userAvatar) {
         this.userAvatar = userAvatar;
     }
-
-
-
 
 }

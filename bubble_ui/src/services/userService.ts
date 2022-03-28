@@ -1,10 +1,10 @@
 import http from "../http-common";
-import UserInfo from "../model/user-info";
+import {UserBase, UserInfo, UserInfoBaseResp} from "../model/user-info";
 
 export function userRegister(userInfo: UserInfo) {
     return http.post<UserInfo>(`/user/register`,userInfo);
 }
 
-export function userLogin(userInfo: UserInfo) {
-    return http.post<UserInfo>(`/user/login`,userInfo);
+export function userLogin(userBase: UserBase) {
+    return http.post<UserInfoBaseResp>(`/user/login`,userBase);
 }

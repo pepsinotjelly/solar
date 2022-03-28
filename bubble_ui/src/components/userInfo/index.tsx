@@ -7,7 +7,9 @@ import {Link} from "react-router-dom";
 import RatingRecord from "../../model/rating-record";
 import {submitRatingRecord} from "../../services/ratingRecordService";
 import {userLogin} from "../../services/userService";
-import UserInfo from "../../model/user-info";
+import {UserBase, UserInfo, UserInfoBaseResp} from "../../model/user-info";
+import {JWT} from "../../constants";
+import {userInfo} from "os";
 
 function UserInfoPanel() {
     const {userContext, setUserContext} = useGlobalContext()
@@ -18,6 +20,8 @@ function UserInfoPanel() {
     // 退出登陆
     const Logout = () => {
         setUserContext(getEmptyUser())
+        //  删除用户token
+        localStorage.removeItem(JWT)
         Toast.success("Logout Success！")
     }
 
@@ -31,7 +35,6 @@ function UserInfoPanel() {
     //  发送登陆请求
     const handleLogin = async (
         e: React.MouseEvent<Element, MouseEvent>
-        // e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
         e.preventDefault();
         setWindowVisible(false);
@@ -39,33 +42,31 @@ function UserInfoPanel() {
         await new Promise((r) => setTimeout(r, 5000));
         //  数据处理
         try {
-            const userLoginInfo: UserInfo = {
+            const userBase: UserBase = {
                 userId: Number.parseInt(inputUserId),
-                userPwd: inputUserPwd,
-                userAvatar: "",
-                userName: ""
+                userPwd: inputUserPwd
             }
-            console.log(userLoginInfo);
+            console.log(userBase);
             //  发送请求
-            const resp = await userLogin(userLoginInfo);
-            //  更新用户id状态
-            // setInputUserId("")
-            //  更新密码状态
-            // setInputUserPwd("")
+            const resp = await userLogin(userBase);
             if (resp.status === 200) {
                 console.log(resp)
-                if (resp.data) {
+                if (resp.data.baseResp.baseCode === 0) {
+                    localStorage.setItem(JWT,resp.data.baseResp.token)
                     //  toast提示
-                    Toast.success(`Hi,${userContext.userName}`)
+                    Toast.success(`Hi,${resp.data.userInfo.userName}`)
+                     //  更新用户id状态
+                    setInputUserId("")
+                    //  更新密码状态
+                    setInputUserPwd("")
                     //  刷新登陆数据
                     setUserContext({
-                        userId: resp.data.userId,
-                        userName: resp.data.userName,
-                        userPwd: "",
-                        userAvatar: resp.data.userAvatar
+                        userId: resp.data.userInfo.userId,
+                        userName: resp.data.userInfo.userName,
+                        userAvatar: resp.data.userInfo.userAvatar
                     })
                 } else {
-                    Toast.error("密码错误！")
+                    Toast.error(resp.data.baseResp.baseMsg)
                     //  更新用户id状态
                     setInputUserId("")
                     //  更新密码状态
@@ -144,8 +145,7 @@ function UserInfoPanel() {
                 </Modal>
             </>
 
-        )
-            ;
+        );
     }
 };
 export default UserInfoPanel

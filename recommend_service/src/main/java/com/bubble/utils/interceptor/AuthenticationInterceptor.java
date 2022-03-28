@@ -8,6 +8,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.bubble.constant.annotations.PassToken;
 import com.bubble.constant.annotations.UserLoginToken;
 import com.bubble.service.UserService;
+import com.bubble.vo.BaseUser;
 import com.bubble.vo.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,7 @@ public class AuthenticationInterceptor extends LogInterceptor{
                 } catch (JWTDecodeException j) {
                     throw new RuntimeException("401");
                 }
-                UserEntity user = userService.findUserById(userId);
+                BaseUser user = userService.findUserById(userId);
                 if (user == null) {
                     throw new RuntimeException("用户不存在，请重新登录");
                 }

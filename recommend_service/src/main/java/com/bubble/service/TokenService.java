@@ -1,5 +1,6 @@
 package com.bubble.service;
 
+import com.bubble.vo.BaseUser;
 import com.bubble.vo.UserEntity;
 
 /**
@@ -8,5 +9,5 @@ import com.bubble.vo.UserEntity;
  * @Desc :
  */
 public interface TokenService {
-    String getToken(UserEntity user);
+    String getToken(BaseUser user);
 }

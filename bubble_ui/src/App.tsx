@@ -11,7 +11,6 @@ import {
     IconBytedanceLogo,
     IconHome,
     IconLive,
-    IconSetting,
     IconCloud
 } from '@douyinfe/semi-icons';
 import {Typography} from '@douyinfe/semi-ui';
@@ -103,7 +102,6 @@ function App() {
                 >
                     <Outlet/>
                 </div>
-
             </Content>
             <Footer
                 style={{
