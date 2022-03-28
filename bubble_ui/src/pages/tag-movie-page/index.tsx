@@ -5,7 +5,7 @@ import MovieImgCard from "../movie-detail-page/components/movie-img";
 import {getTagDetailByTagId} from "../../services/tagDetailService";
 import {getMovieDetailByTagId} from "../../services/movieDetailService";
 import TagDetail from "../../model/tag-detail";
-import MovieDetail from "../../model/movie-detail";
+import {MovieDetail} from "../../model/movie-detail";
 import MovieDetailPanel from '../movie-detail-page/components/movie-detail';
 
 function TagMoviePage() {

@@ -3,7 +3,7 @@ import {useEffect} from "react";
 import './App.css';
 import {Outlet} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
-import {Layout, Nav, Button, Avatar, Pagination} from '@douyinfe/semi-ui';
+import {Layout, Nav, Button, Avatar, Pagination, Toast} from '@douyinfe/semi-ui';
 import {
     IconSemiLogo,
     IconBell,
@@ -16,19 +16,47 @@ import {
 import {Typography} from '@douyinfe/semi-ui';
 import Home from "./pages/home-page";
 import UserInfoPanel from "./components/userInfo";
+import {JWT} from "./constants";
+import {useGlobalContext} from "./context";
+import {getUserInfo} from "./services/userService";
 
 
 function App() {
     const {Header, Footer, Content} = Layout;
     const {Title, Text} = Typography;
-    const getUser = () => {
+    const {userContext, setUserContext} = useGlobalContext()
 
-    }
     const navigate = useNavigate();
+    // 尝试获取用户信息
+    const getUser = async () => {
+        console.log("getUser==============")
+        //  设置超时时间
+        await new Promise((r) => setTimeout(r, 5000));
+        try {
+            const jwt = localStorage.getItem(JWT);
+            if (jwt) {
+                console.log("JWT :: ",jwt);
+                const resp = await getUserInfo(jwt).then()
+                console.log("userId :: ",resp.data.userId);
+                setUserContext({
+                    userId: resp.data.userId,
+                    userAvatar: resp.data.userAvatar,
+                    userName: resp.data.userName
+                });
+                console.log("APP :: userContext :: ",userContext)
+            }
+        } catch (err) {
+            console.log(err);
+            console.log("jwt maybe invalid, clear it...");
+            localStorage.removeItem(JWT);
+            Toast.error({content: "当前会话已过期，请重新登录。", duration: 3});
+        }
+    };
 
     useEffect(() => {
         getUser();
     }, []);
+
     return (
         <Layout style={{
             border: '1px solid var(--semi-color-border)',

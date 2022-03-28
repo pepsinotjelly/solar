@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Route, Link, Routes, HashRouter, BrowserRouter} from "react-router-dom";
 import './index.css';
@@ -10,10 +10,14 @@ import Recommend from './pages/user-recommend-page';
 import DetailPage from "./pages/movie-detail-page";
 import TagMoviePage from "./pages/tag-movie-page";
 import AllTagPage from "./pages/all-tag-page";
+import {getEmptyUser, GlobalContext, UserContext} from "./context";
 
 const Index = () => {
+    const [userContext,setUserContext] = useState<UserContext>(getEmptyUser)
+
     return (
         <React.StrictMode>
+            <GlobalContext.Provider value={{ userContext, setUserContext }}>
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<App/>}>
@@ -27,6 +31,7 @@ const Index = () => {
                         </Route>
                     </Routes>
                 </BrowserRouter>
+                </GlobalContext.Provider>
         </React.StrictMode>
     );
 };
