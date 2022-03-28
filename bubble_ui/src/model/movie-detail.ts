@@ -1,11 +1,17 @@
-export default interface MovieDetail {
+import {List} from "@douyinfe/semi-ui";
+import BaseResp from "./base-resp"
+
+export interface MovieDetail {
     movieId: number;
     movieName: string;
     imgUrl: string;
     movieQuote: string;
 }
 
-
+export interface MovieDetailBaseResp{
+    movieDetailList :List<MovieDetail>;
+    baseResp:BaseResp;
+}
 
 
 

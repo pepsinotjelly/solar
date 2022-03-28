@@ -7,6 +7,8 @@ import com.bubble.mapper.UserRecommendMapper;
 import com.bubble.model.*;
 import com.bubble.service.UserService;
 import com.bubble.mapper.UserBaseMapper;
+import com.bubble.vo.BaseUser;
+import com.bubble.vo.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String getMyRecommend(int user_id) throws Exception{
+    public String getMyRecommend(int user_id) throws Exception {
         //  查询用户推荐表
         UserRecommendExample userRecommendExample = new UserRecommendExample();
         userRecommendExample.createCriteria().andUserIdEqualTo(user_id);
@@ -66,7 +68,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer rateMovie(int user_id, String rate, int movie_id ,String comment) throws Exception{
+    public Integer rateMovie(int user_id, String rate, int movie_id, String comment) throws Exception {
         RatingRecord ratingRecord = new RatingRecord();
         ratingRecord.setRating(Double.parseDouble(rate));
         ratingRecord.setUserId(user_id);
@@ -74,4 +76,24 @@ public class UserServiceImpl implements UserService {
         ratingRecord.setComment(comment);
         return ratingRecordMapper.insert(ratingRecord);
     }
+
+    @Override
+    public BaseUser findUserById(String id) throws Exception {
+        BaseUser user = new BaseUser();
+        user.setUserId(id);
+        user.setUserPwd("abcd");
+        log.info("findUserById :: " + id);
+        return user;
+    }
+
+    @Override
+    public UserEntity findUserEntityById(String id) throws Exception {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUserId(id);
+        userEntity.setUserName("name_test");
+        userEntity.setUserAvatar("https://image.tmdb.org/t/p/w300_and_h450_bestv2/bNeE1kUMFYG1sG6blHMwkG9sXXM.jpg");
+        return userEntity;
+    }
+
+
 }

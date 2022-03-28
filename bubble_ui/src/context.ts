@@ -2,13 +2,12 @@ import {createContext, useContext} from "react";
 
 export interface UserContext {
     userId: number;
-    userPwd: string;
     userName: string;
     userAvatar: string;
 }
 
 export const getEmptyUser = (): UserContext => {
-    return {userId: -1, userPwd: '', userName: '', userAvatar: ''}
+    return {userId: -1, userName: '', userAvatar: ''}
 }
 
 export interface GlobalContext {

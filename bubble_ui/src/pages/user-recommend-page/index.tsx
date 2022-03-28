@@ -1,22 +1,24 @@
 import React, {useEffect, useState} from "react";
 import ItemInfo from "./components/itemInfo";
-import {Layout, Typography} from "@douyinfe/semi-ui";
+import {Layout, Toast, Typography} from "@douyinfe/semi-ui";
 import {getMovieDetailByTagId, getRecommendMovieDetailByUserId} from "../../services/movieDetailService";
-import MovieDetail from "../../model/movie-detail";
+import {MovieDetail} from "../../model/movie-detail";
+import {JWT} from "../../constants";
+import {useGlobalContext} from "../../context";
 
 
 const Recommend = () => {
     const {Title} = Typography;
+    const {userContext, setUserContext} = useGlobalContext()
     const userId = "100";
     const [movieDetailData, setMovieDetailData] = useState<MovieDetail[]>([])
     const getMovieDetail = () => {
-        getRecommendMovieDetailByUserId(userId,"1")
+        getRecommendMovieDetailByUserId(userContext.userId, "1", localStorage.getItem(JWT) ?? "")
             .then((response: any) => {
-                console.log(response.data)
                 setMovieDetailData(response.data);
-                console.log(response.data)
+                console.log("/movie/recommend/ response.data :: ",response.data)
             }).catch((e: Error) => {
-            console.log(e);
+            console.log("/movie/recommend/ ERROR :: ",e);
         })
     }
     useEffect(() => {
@@ -24,7 +26,7 @@ const Recommend = () => {
     }, [])
 
     return (
-        <div style={{justifyContent: 'center',height:'100%'}}>
+        <div style={{justifyContent: 'center', height: '100%'}}>
             <Title heading={2}
                    style={{
                        justifyContent: 'center',

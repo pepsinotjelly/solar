@@ -1,31 +1,31 @@
 package com.bubble.vo;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * @author : sunpengyu.sonia
  * @date : 2022/3/27 10:39 上午
  * @Desc :
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserEntity {
 
-    private int userId;
-    private String userPwd;
+    private String userId;
     private String userName;
     private String userAvatar;
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    public String getUserPwd() {
-        return userPwd;
-    }
-
-    public void setUserPwd(String userPwd) {
-        this.userPwd = userPwd;
     }
 
     public String getUserName() {
@@ -43,6 +43,5 @@ public class UserEntity {
     public void setUserAvatar(String userAvatar) {
         this.userAvatar = userAvatar;
     }
-
 
 }
