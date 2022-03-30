@@ -5,10 +5,6 @@ public class UserBase {
 
     private String password;
 
-    private String userName;
-
-    private String phoneNumber;
-
     public Integer getId() {
         return id;
     }
@@ -23,21 +19,5 @@ public class UserBase {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber == null ? null : phoneNumber.trim();
     }
 }

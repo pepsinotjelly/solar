@@ -22,3 +22,9 @@ server:
 #    path: ./solar
 #  config: classpath:logback-spring.xml
 #  level: error
+#file:
+# upload:
+#  path: recommend_service/src/main/resources/image
+#com:
+#  test:
+#    base_picture_url: http://localhost:8080/image

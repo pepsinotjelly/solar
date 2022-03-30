@@ -1,22 +1,20 @@
-import {IconArrowRight, IconDoubleChevronRight} from "@douyinfe/semi-icons";
-import {Avatar, Card, Dropdown, Input, Toast, TextArea} from "@douyinfe/semi-ui";
+import {Input, Toast} from "@douyinfe/semi-ui";
 import {Modal, Button} from '@douyinfe/semi-ui';
 import React, {useState} from "react";
 import {getEmptyUser, useGlobalContext, UserContext} from "../../context";
 import {Link, useNavigate} from "react-router-dom";
-import RatingRecord from "../../model/rating-record";
-import {submitRatingRecord} from "../../services/ratingRecordService";
 import {userLogin} from "../../services/userService";
-import {UserBase, UserInfo, UserInfoBaseResp} from "../../model/user-info";
+import {UserBase} from "../../model/user-info";
 import {JWT} from "../../constants";
-import {userInfo} from "os";
+import {IconHelpCircle} from "@douyinfe/semi-icons";
+import {Popover} from '@douyinfe/semi-ui';
 
-function LoginWindow(props:{windowVisible:boolean}){
+function LoginPage() {
     const navigate = useNavigate();
     const {userContext, setUserContext} = useGlobalContext()
 
-    const [inputUserId, setInputUserId] = useState<string>("")
-    const handelUserIdChange = (val: React.SetStateAction<string>) => setInputUserId(val);
+    const [inputUserEmail, setInputUserEmail] = useState<string>("")
+    const handelUserEmailChange = (val: React.SetStateAction<string>) => setInputUserEmail(val);
     const [inputUserPwd, setInputUserPwd] = useState<string>("")
     const handelUserPwdChange = (val: React.SetStateAction<string>) => setInputUserPwd(val);
 
@@ -29,11 +27,8 @@ function LoginWindow(props:{windowVisible:boolean}){
         console.log("USER LOGOUT")
     }
 
-    //  控制登陆弹窗是否可见
-    const [windowVisible, setWindowVisible] = useState(props.windowVisible);
-
     const onClose = () => {
-        setWindowVisible(false);
+        navigate("/", {replace: true});
         console.log("onClose :: close the window!")
     };
 
@@ -47,15 +42,12 @@ function LoginWindow(props:{windowVisible:boolean}){
         //  数据处理
         try {
             const userBase: UserBase = {
-                userId: Number.parseInt(inputUserId),
+                userEmail: inputUserEmail,
                 userPwd: inputUserPwd
             }
-            console.log("/user/login/ :: userBase :: ", userBase);
             //  发送请求
             const resp = await userLogin(userBase);
-            setWindowVisible(false);
             if (resp.status === 200) {
-                console.log("/user/login :: response :: ", resp)
                 if (resp.data.baseCode === 0) {
                     console.log("/user/login :: response.token :: ", resp.data.token)
                     localStorage.setItem(JWT, resp.data.token)
@@ -64,32 +56,50 @@ function LoginWindow(props:{windowVisible:boolean}){
                 } else {
                     Toast.error(resp.data.baseMsg)
                 }
+                await new Promise((r) => setTimeout(r, 100));
+                navigate("/", {replace: true});
             }
         } catch (err) {
-            console.log("/user/login :: response.error :: ", err);
             Toast.error("登陆失败!")
         }
         //  更新输入框中的用户id状态
-        setInputUserId("")
+        setInputUserEmail("")
         //  更新输入框中的密码状态
         setInputUserPwd("")
-        await new Promise((r) => setTimeout(r, 100));
-        navigate("/", {replace: true});
     };
-    return(
-        <>
+    return (
+        <div style={{height: "590px"}}>
             <Modal
                 title="用户登陆"
-                visible={windowVisible}
+                visible={true}
                 maskClosable={false}
                 onCancel={onClose}
+                cancelText={"home"}
                 onOk={handleLogin}
+                okText={"login"}
+                icon={<Popover
+                    content={
+                        <article style={{padding: 12}}>
+                            New to here ?
+                            <br/> Click to register!
+                            <br/>
+                            <br/>
+                            <Link to={"/register"}>
+                                <Button>
+                                    register
+                                </Button>
+                            </Link>
+                        </article>
+                    }
+                >
+                    <IconHelpCircle></IconHelpCircle>
+                </Popover>}
             >
-                <Input className={"id-input-box"}
-                       prefix={"enter  your  id :"}
+                <Input className={"email-input-box"}
+                       prefix={"enter your email:"}
                        showClear
-                       value={inputUserId}
-                       onChange={handelUserIdChange}
+                       value={inputUserEmail}
+                       onChange={handelUserEmailChange}
                 />
                 <br/><br/>
                 <Input className={"pwd-input-box"}
@@ -99,7 +109,8 @@ function LoginWindow(props:{windowVisible:boolean}){
                        value={inputUserPwd}
                        onChange={handelUserPwdChange}/>
             </Modal>
-        </>
+        </div>
     );
 }
-export default LoginWindow
+
+export default LoginPage

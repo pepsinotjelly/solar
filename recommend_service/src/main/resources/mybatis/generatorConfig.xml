@@ -37,9 +37,9 @@
 <!--                        enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
 <!--                        selectByExampleQueryId="false"/>-->
 <!--        <table tableName="user_info" domainObjectName="UserInfo" />-->
-<!--        <table tableName="user_base" domainObjectName="UserBase" />-->
+        <table tableName="user_base" domainObjectName="UserBase" />
 <!--        <table tableName="user_recommend" domainObjectName="UserRecommend" />-->
-        <table tableName="item_info" domainObjectName="ItemInfo"/>
+<!--        <table tableName="item_info" domainObjectName="ItemInfo"/>-->
 <!--        <table tableName="item_base" domainObjectName="ItemBase"/>-->
 <!--        <table tableName="rating_record" domainObjectName="RatingRecord" />-->
 <!--        <table tableName="tag" domainObjectName="Tag" />-->

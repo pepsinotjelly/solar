@@ -1,4 +1,4 @@
-package com.bubble.vo;
+package com.bubble.vo.user;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -18,7 +18,16 @@ public class UserEntity {
 
     private String userId;
     private String userName;
+    private String userEmail;
     private String userAvatar;
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
 
     public String getUserId() {
         return userId;

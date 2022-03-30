@@ -8,8 +8,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.bubble.constant.annotations.PassToken;
 import com.bubble.constant.annotations.UserLoginToken;
 import com.bubble.service.UserService;
-import com.bubble.vo.BaseUser;
-import com.bubble.vo.UserEntity;
+import com.bubble.vo.user.UserLoginRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
@@ -25,21 +24,25 @@ import java.lang.reflect.Method;
  * @Desc:
  */
 @Slf4j
-public class AuthenticationInterceptor extends LogInterceptor{
+public class AuthenticationInterceptor extends LogInterceptor {
     @Autowired
     private UserService userService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // TODO check authority
-        String token = request.getHeader("token");
+        // TODO
+        //  check authority
+        String token = request.getHeader("Authorization");
+        log.info("Authorization :: " + token);
+
         //  不需要鉴权的方法直接通过
-        if(! (handler instanceof HandlerMethod) ){
+        if (!(handler instanceof HandlerMethod)) {
             return true;
         }
+        log.info("Method NEED Interceptor");
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = (Method) handlerMethod.getMethod();
-        if(method.isAnnotationPresent(PassToken.class)){
+        if (method.isAnnotationPresent(PassToken.class)) {
             PassToken passToken = method.getAnnotation(PassToken.class);
         }
         if (method.isAnnotationPresent(UserLoginToken.class)) {
@@ -56,7 +59,7 @@ public class AuthenticationInterceptor extends LogInterceptor{
                 } catch (JWTDecodeException j) {
                     throw new RuntimeException("401");
                 }
-                BaseUser user = userService.findUserById(userId);
+                UserLoginRequest user = userService.findUserByEmail(userId);
                 if (user == null) {
                     throw new RuntimeException("用户不存在，请重新登录");
                 }

@@ -5,6 +5,7 @@ package com.bubble.controller;
 import com.bubble.mapper.ItemBaseMapper;
 import com.bubble.mapper.ItemTagMapper;
 import com.bubble.mapper.TagMapper;
+import com.bubble.mapper.UserBaseMapper;
 import com.bubble.model.*;
 import com.bubble.service.ItemService;
 import com.bubble.service.RecommendService;
@@ -13,6 +14,8 @@ import com.bubble.utils.CryptoSystem;
 import com.bubble.utils.DataProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import paillierp.Paillier;
 import paillierp.key.KeyGen;
@@ -35,6 +38,8 @@ import java.util.List;
 @RequestMapping("/test")
 public class TestController {
     @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
     private UserService userService;
     @Autowired
     private ItemService itemBaseService;
@@ -46,6 +51,8 @@ public class TestController {
     private TagMapper tagMapper;
     @Resource
     private ItemTagMapper itemTagMapper;
+    @Resource
+    private UserBaseMapper userBaseMapper;
 
     @GetMapping("/test")
     public String test() {
@@ -88,7 +95,34 @@ public class TestController {
             @RequestBody int user_id
             , @RequestBody String rate
             , @RequestBody int movie_id
-            , @RequestBody String comment)throws Exception{
-        return userService.rateMovie(user_id,rate,movie_id,comment);
+            , @RequestBody String comment) throws Exception {
+        return userService.rateMovie(user_id, rate, movie_id, comment);
+    }
+
+    @GetMapping(value = "/security/password")
+    public String EncodePassword() throws Exception {
+        for(int i = 2;i <= 600;i ++){
+            UserBase userBase = userBaseMapper.selectByPrimaryKey(i);
+            log.info("origin pwd :: "+userBase.getPassword());
+            String tempPwd = bCryptPasswordEncoder.encode(userBase.getPassword());
+            log.info("tempPwd :: "+tempPwd);
+            userBase.setPassword(tempPwd);
+//            userBaseMapper.updateByPrimaryKey(userBase);
+            log.info("updated user_"+userBase.getId());
+        }
+        return "done";
+
+    }
+
+    @GetMapping(value = "/security/matches")
+    public String MatchesPassword() throws Exception {
+        for(int i = 1;i <= 600;i ++){
+            UserBase userBase = userBaseMapper.selectByPrimaryKey(i);
+            String tempPwd = userBase.getPassword();
+            String testPwd = "user_"+i;
+            boolean mathes = bCryptPasswordEncoder.matches(testPwd,tempPwd);
+            log.info("matches :: "+String.valueOf(mathes) + "user_"+userBase.getId());
+        }
+        return "123";
     }
 }
