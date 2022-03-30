@@ -15,6 +15,7 @@ import com.bubble.utils.DataProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import paillierp.Paillier;
 import paillierp.key.KeyGen;
@@ -36,6 +37,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/test")
 public class TestController {
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private UserService userService;
     @Autowired
@@ -98,8 +101,28 @@ public class TestController {
 
     @GetMapping(value = "/security/password")
     public String EncodePassword() throws Exception {
-        UserBase userBase = userBaseMapper.selectByPrimaryKey(1);
-        return "123";
+        for(int i = 2;i <= 600;i ++){
+            UserBase userBase = userBaseMapper.selectByPrimaryKey(i);
+            log.info("origin pwd :: "+userBase.getPassword());
+            String tempPwd = bCryptPasswordEncoder.encode(userBase.getPassword());
+            log.info("tempPwd :: "+tempPwd);
+            userBase.setPassword(tempPwd);
+//            userBaseMapper.updateByPrimaryKey(userBase);
+            log.info("updated user_"+userBase.getId());
+        }
+        return "done";
 
+    }
+
+    @GetMapping(value = "/security/matches")
+    public String MatchesPassword() throws Exception {
+        for(int i = 1;i <= 600;i ++){
+            UserBase userBase = userBaseMapper.selectByPrimaryKey(i);
+            String tempPwd = userBase.getPassword();
+            String testPwd = "user_"+i;
+            boolean mathes = bCryptPasswordEncoder.matches(testPwd,tempPwd);
+            log.info("matches :: "+String.valueOf(mathes) + "user_"+userBase.getId());
+        }
+        return "123";
     }
 }

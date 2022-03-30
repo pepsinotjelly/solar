@@ -16,6 +16,7 @@ import com.bubble.vo.user.UserRegister;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,6 +37,8 @@ import java.util.Map;
 @CrossOrigin("http://localhost:3000")
 @RequestMapping("/user")
 public class UserController {
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private ItemService itemBaseService;
     @Autowired

@@ -5,7 +5,7 @@ import {UserRegister} from "../../../model/user-info";
 import {userBaseRegister} from "../../../services/userService";
 import {JWT} from "../../../constants";
 
-function UserRegisterBase() {
+function UserRegisterPanel() {
     const navigate = useNavigate()
 
     const [inputUserName, setInputUserName] = useState<string>("")
@@ -41,8 +41,6 @@ function UserRegisterBase() {
                 } else {
                     Toast.error(resp.data.baseMsg)
                 }
-                // await new Promise((r) => setTimeout(r, 100));
-                // navigate("/", {replace: true});
             }
         } catch (err) {
             Toast.error("注册失败!")
@@ -89,4 +87,4 @@ function UserRegisterBase() {
 
 };
 
-export default UserRegisterBase;
+export default UserRegisterPanel;

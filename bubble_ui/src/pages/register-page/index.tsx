@@ -7,7 +7,7 @@ import {userLogin} from "../../services/userService";
 import {UserBase, UserRegister} from "../../model/user-info";
 import {JWT} from "../../constants";
 import {IconCamera} from "@douyinfe/semi-icons";
-import UserRegisterBase from "./components/userRegisterBase";
+import UserRegisterPanel from "./components/userRegisterPanel";
 import AvatarUpload from "./components/avatarUpload";
 
 function RegisterPage() {
@@ -22,7 +22,7 @@ function RegisterPage() {
     }
     return (
         <div>
-            <UserRegisterBase/>
+            <UserRegisterPanel/>
         </div>
     );
 }
