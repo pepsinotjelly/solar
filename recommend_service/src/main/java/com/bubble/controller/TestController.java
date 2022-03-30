@@ -5,6 +5,7 @@ package com.bubble.controller;
 import com.bubble.mapper.ItemBaseMapper;
 import com.bubble.mapper.ItemTagMapper;
 import com.bubble.mapper.TagMapper;
+import com.bubble.mapper.UserBaseMapper;
 import com.bubble.model.*;
 import com.bubble.service.ItemService;
 import com.bubble.service.RecommendService;
@@ -13,6 +14,7 @@ import com.bubble.utils.CryptoSystem;
 import com.bubble.utils.DataProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import paillierp.Paillier;
 import paillierp.key.KeyGen;
@@ -46,6 +48,8 @@ public class TestController {
     private TagMapper tagMapper;
     @Resource
     private ItemTagMapper itemTagMapper;
+    @Resource
+    private UserBaseMapper userBaseMapper;
 
     @GetMapping("/test")
     public String test() {
@@ -88,7 +92,14 @@ public class TestController {
             @RequestBody int user_id
             , @RequestBody String rate
             , @RequestBody int movie_id
-            , @RequestBody String comment)throws Exception{
-        return userService.rateMovie(user_id,rate,movie_id,comment);
+            , @RequestBody String comment) throws Exception {
+        return userService.rateMovie(user_id, rate, movie_id, comment);
+    }
+
+    @GetMapping(value = "/security/password")
+    public String EncodePassword() throws Exception {
+        UserBase userBase = userBaseMapper.selectByPrimaryKey(1);
+        return "123";
+
     }
 }

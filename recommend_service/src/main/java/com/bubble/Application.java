@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication(scanBasePackages = "com.bubble")
 @MapperScan("com.bubble.mapper")
 @EnableScheduling
+//@EnableWebSecurity
 public class Application {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);

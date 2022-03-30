@@ -5,8 +5,14 @@ export  interface UserInfo {
     userAvatar:string;
 }
 export interface UserBase {
-    userId:number;
+    userEmail:string;
     userPwd:string;
+}
+export interface UserRegister{
+    userName:string;
+    userAvatar:string;
+    userPwd:string;
+    userEmail:string;
 }
 export interface UserInfoBaseResp {
     userInfo:UserInfo,

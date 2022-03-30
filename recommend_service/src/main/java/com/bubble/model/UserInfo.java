@@ -3,13 +3,11 @@ package com.bubble.model;
 public class UserInfo {
     private Integer id;
 
-    private Integer gender;
+    private String name;
 
-    private Integer age;
+    private String useravatar;
 
-    private Integer degree;
-
-    private Integer userStatus;
+    private String email;
 
     public Integer getId() {
         return id;
@@ -19,35 +17,27 @@ public class UserInfo {
         this.id = id;
     }
 
-    public Integer getGender() {
-        return gender;
+    public String getName() {
+        return name;
     }
 
-    public void setGender(Integer gender) {
-        this.gender = gender;
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
-    public Integer getAge() {
-        return age;
+    public String getUseravatar() {
+        return useravatar;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setUseravatar(String useravatar) {
+        this.useravatar = useravatar == null ? null : useravatar.trim();
     }
 
-    public Integer getDegree() {
-        return degree;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDegree(Integer degree) {
-        this.degree = degree;
-    }
-
-    public Integer getUserStatus() {
-        return userStatus;
-    }
-
-    public void setUserStatus(Integer userStatus) {
-        this.userStatus = userStatus;
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 }

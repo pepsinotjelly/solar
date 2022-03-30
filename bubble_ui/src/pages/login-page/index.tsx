@@ -13,8 +13,8 @@ function LoginPage() {
     const navigate = useNavigate();
     const {userContext, setUserContext} = useGlobalContext()
 
-    const [inputUserId, setInputUserId] = useState<string>("")
-    const handelUserIdChange = (val: React.SetStateAction<string>) => setInputUserId(val);
+    const [inputUserEmail, setInputUserEmail] = useState<string>("")
+    const handelUserEmailChange = (val: React.SetStateAction<string>) => setInputUserEmail(val);
     const [inputUserPwd, setInputUserPwd] = useState<string>("")
     const handelUserPwdChange = (val: React.SetStateAction<string>) => setInputUserPwd(val);
 
@@ -42,7 +42,7 @@ function LoginPage() {
         //  数据处理
         try {
             const userBase: UserBase = {
-                userId: Number.parseInt(inputUserId),
+                userEmail: inputUserEmail,
                 userPwd: inputUserPwd
             }
             //  发送请求
@@ -63,7 +63,7 @@ function LoginPage() {
             Toast.error("登陆失败!")
         }
         //  更新输入框中的用户id状态
-        setInputUserId("")
+        setInputUserEmail("")
         //  更新输入框中的密码状态
         setInputUserPwd("")
     };
@@ -95,11 +95,11 @@ function LoginPage() {
                     <IconHelpCircle></IconHelpCircle>
                 </Popover>}
             >
-                <Input className={"id-input-box"}
-                       prefix={"enter  your  id :"}
+                <Input className={"email-input-box"}
+                       prefix={"enter your email:"}
                        showClear
-                       value={inputUserId}
-                       onChange={handelUserIdChange}
+                       value={inputUserEmail}
+                       onChange={handelUserEmailChange}
                 />
                 <br/><br/>
                 <Input className={"pwd-input-box"}

@@ -13,6 +13,7 @@ import AllTagPage from "./pages/all-tag-page";
 import {getEmptyUser, GlobalContext, UserContext} from "./context";
 import LoginPage from "./pages/login-page";
 import RequireAuth from "./components/require-auth";
+import RegisterPage from "./pages/register-page";
 
 const Index = () => {
     const [userContext, setUserContext] = useState<UserContext>(getEmptyUser)
@@ -34,6 +35,7 @@ const Index = () => {
                             <Route path={"tag-movie/:id"} element={<TagMoviePage/>}/>
                             <Route path={"/tag-all"} element={<AllTagPage/>}/>
                             <Route path={"/login"} element={<LoginPage/>}/>
+                            <Route path={"/register"} element={<RegisterPage/>}/>
                             <Route path={"*"} element={<NotFound/>}/>
 
                         </Route>
