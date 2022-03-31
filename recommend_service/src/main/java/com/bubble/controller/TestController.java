@@ -13,6 +13,7 @@ import com.bubble.service.UserService;
 import com.bubble.utils.CryptoSystem;
 import com.bubble.utils.DataProcessor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.velocity.runtime.directive.Evaluate;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -113,6 +114,18 @@ public class TestController {
         return "done";
 
     }
+    @GetMapping(value = "/security/update/userbase")
+    public String UpdateUserBase()throws Exception{
+        for(int i = 1;i <= 600;i ++){
+            UserBase userBase = userBaseMapper.selectByPrimaryKey(i);
+            log.info("origin :: "+userBase);
+            userBase.setName("user_"+i);
+            userBaseMapper.updateByPrimaryKey(userBase);
+            log.info("updated user_"+userBase.getId());
+        }
+        return "done";
+    }
+
 
     @GetMapping(value = "/security/matches")
     public String MatchesPassword() throws Exception {

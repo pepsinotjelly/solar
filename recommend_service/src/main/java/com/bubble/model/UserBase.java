@@ -5,6 +5,8 @@ public class UserBase {
 
     private String password;
 
+    private String name;
+
     public Integer getId() {
         return id;
     }
@@ -19,5 +21,13 @@ public class UserBase {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 }

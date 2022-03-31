@@ -84,7 +84,7 @@ public class UserController {
             jsonObject.put("baseMsg", "登录失败,用户不存在");
             jsonObject.put("baseCode",1);
         } else {
-            if (!userForBase.getUserPwd().equals(user.getUserPwd())) {
+            if (!bCryptPasswordEncoder.matches(user.getUserPwd(),userForBase.getUserPwd())) {
                 jsonObject.put("baseMsg", "登录失败,密码错误");
                 jsonObject.put("baseCode",2);
             } else {

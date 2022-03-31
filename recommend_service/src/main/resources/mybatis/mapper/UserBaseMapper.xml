@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.bubble.model.UserBase">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -64,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, password
+    id, password, name
   </sql>
   <select id="selectByExample" parameterType="com.bubble.model.UserBaseExample" resultMap="BaseResultMap">
     select
@@ -97,8 +98,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.bubble.model.UserBase">
-    insert into user_base (id, password)
-    values (#{id,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR})
+    insert into user_base (id, password, name
+      )
+    values (#{id,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.bubble.model.UserBase">
     insert into user_base
@@ -109,6 +112,9 @@
       <if test="password != null">
         password,
       </if>
+      <if test="name != null">
+        name,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -116,6 +122,9 @@
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -134,6 +143,9 @@
       <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
       </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -142,7 +154,8 @@
   <update id="updateByExample" parameterType="map">
     update user_base
     set id = #{record.id,jdbcType=INTEGER},
-      password = #{record.password,jdbcType=VARCHAR}
+      password = #{record.password,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -153,12 +166,16 @@
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.bubble.model.UserBase">
     update user_base
-    set password = #{password,jdbcType=VARCHAR}
+    set password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
