@@ -1,5 +1,6 @@
 package com.bubble.vo.user;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,6 +11,7 @@ import java.util.Collection;
  * @date : 2022/3/31 9:40 上午
  * @Desc :
  */
+@Slf4j
 public class MyUserDetails implements UserDetails {
     String username;
     String password;
@@ -22,14 +24,17 @@ public class MyUserDetails implements UserDetails {
 
     public void setUsername(String username) {
         this.username = username;
+        log.info("MyUserDetails :: setUsername :: "+username);
     }
 
     public void setPassword(String password) {
         this.password = password;
+        log.info("MyUserDetails :: setPassword :: "+password);
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        log.info("MyUserDetails :: getAuthorities :: "+this.authorities);
         return this.authorities;
     }
 
