@@ -52,14 +52,6 @@ public class MovieController {
     @GetMapping("/recommend")
     public JSON MovieRecommendByUserId(@RequestParam(value = "page") String page) {
         //  获取用户登陆信息
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        Authentication authentication = securityContext.getAuthentication();
-        if (authentication instanceof AnonymousAuthenticationToken){
-            //  返回默认demo信息
-            return DefaultMovieRecommend(page);
-        }
-        UserDetails principal = (UserDetails) authentication.getPrincipal();
-        String username = principal.getUsername();
         List<MovieDetail> movieDetailList = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             MovieDetail movieDetail = new MovieDetail();
