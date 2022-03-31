@@ -8,7 +8,6 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.bubble.constant.annotations.PassToken;
 import com.bubble.constant.annotations.UserLoginToken;
 import com.bubble.service.UserService;
-import com.bubble.vo.user.UserLoginRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
@@ -45,34 +44,34 @@ public class AuthenticationInterceptor extends LogInterceptor {
         if (method.isAnnotationPresent(PassToken.class)) {
             PassToken passToken = method.getAnnotation(PassToken.class);
         }
-        if (method.isAnnotationPresent(UserLoginToken.class)) {
-            UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
-            if (userLoginToken.required()) {
-                // 执行认证
-                if (token == null) {
-                    throw new RuntimeException("无token，请重新登录");
-                }
-                // 获取 token 中的 user id
-                String userId;
-                try {
-                    userId = JWT.decode(token).getAudience().get(0);
-                } catch (JWTDecodeException j) {
-                    throw new RuntimeException("401");
-                }
-                UserLoginRequest user = userService.findUserByEmail(userId);
-                if (user == null) {
-                    throw new RuntimeException("用户不存在，请重新登录");
-                }
-                // 验证 token
-                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getUserPwd())).build();
-                try {
-                    jwtVerifier.verify(token);
-                } catch (JWTVerificationException e) {
-                    throw new RuntimeException("401");
-                }
-                return true;
-            }
-        }
+//        if (method.isAnnotationPresent(UserLoginToken.class)) {
+//            UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
+//            if (userLoginToken.required()) {
+//                // 执行认证
+//                if (token == null) {
+//                    throw new RuntimeException("无token，请重新登录");
+//                }
+//                // 获取 token 中的 user id
+//                String userId;
+//                try {
+//                    userId = JWT.decode(token).getAudience().get(0);
+//                } catch (JWTDecodeException j) {
+//                    throw new RuntimeException("401");
+//                }
+//                UserLoginRequest user = userService.findUserByEmail(userId);
+//                if (user == null) {
+//                    throw new RuntimeException("用户不存在，请重新登录");
+//                }
+//                // 验证 token
+//                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getUserPwd())).build();
+//                try {
+//                    jwtVerifier.verify(token);
+//                } catch (JWTVerificationException e) {
+//                    throw new RuntimeException("401");
+//                }
+//                return true;
+//            }
+//        }
         return true;
     }
 

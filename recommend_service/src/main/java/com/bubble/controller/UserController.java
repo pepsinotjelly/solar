@@ -10,22 +10,12 @@ import com.bubble.service.ItemService;
 import com.bubble.service.TokenService;
 import com.bubble.service.UserService;
 import com.bubble.vo.BaseResp;
-import com.bubble.vo.user.UserLoginRequest;
 import com.bubble.vo.user.UserEntity;
 import com.bubble.vo.user.UserRegister;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Author: sunpengyu.sonia
@@ -64,9 +54,6 @@ public class UserController {
         //  数据持久化
         //  获取id
         log.info(String.valueOf((JSON) JSON.toJSON(userRegister)));
-        UserLoginRequest userLoginRequest = new UserLoginRequest();
-        userLoginRequest.setUserPwd(userRegister.getUserPwd());
-        userLoginRequest.setUserEmail("12345@qq.com");
         String token = tokenService.getToken("1", userRegister.getUserPwd());
         BaseResp baseResp = new BaseResp();
         baseResp.setBaseCode(0);
@@ -75,29 +62,6 @@ public class UserController {
         return (JSON)JSON.toJSON(baseResp);
     }
 
-    @PostMapping(value = "/login")
-    public JSON userLogin(@RequestBody UserLoginRequest user) throws Exception {
-        JSONObject jsonObject = new JSONObject();
-        UserLoginRequest userForBase = userService.findUserByEmail(user.getUserEmail());
-        log.info("userForBase.getUserPwd() :: "+userForBase.getUserPwd());
-        if (userForBase == null) {
-            jsonObject.put("baseMsg", "登录失败,用户不存在");
-            jsonObject.put("baseCode",1);
-        } else {
-            if (!bCryptPasswordEncoder.matches(user.getUserPwd(),userForBase.getUserPwd())) {
-                jsonObject.put("baseMsg", "登录失败,密码错误");
-                jsonObject.put("baseCode",2);
-            } else {
-                String token = tokenService.getToken("1",userForBase.getUserPwd());
-                BaseResp baseResp = new BaseResp();
-                baseResp.setBaseCode(0);
-                baseResp.setBaseMsg("success");
-                baseResp.setToken(token);
-                 return (JSON)JSON.toJSON(baseResp);
-            }
-        }
-        return jsonObject;
-    }
 
     @UserLoginToken
     @GetMapping("/info")

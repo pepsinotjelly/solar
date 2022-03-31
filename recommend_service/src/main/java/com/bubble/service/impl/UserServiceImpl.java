@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.bubble.mapper.*;
 import com.bubble.model.*;
 import com.bubble.service.UserService;
-import com.bubble.vo.user.UserLoginRequest;
 import com.bubble.vo.user.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -76,18 +75,18 @@ public class UserServiceImpl implements UserService {
         return ratingRecordMapper.insert(ratingRecord);
     }
 
-    @Override
-    public UserLoginRequest findUserByEmail(String email) throws Exception {
-        UserLoginRequest user = new UserLoginRequest();
-        UserBase userBase = userBaseMapper.selectByPrimaryKey(Integer.parseInt(email));
-        if(userBase!= null){
-            user.setUserEmail(userBase.getId().toString());
-            user.setUserPwd(userBase.getPassword());
-        }
-        log.info(userBase.getPassword());
-        log.info("findUserById :: " +  user);
-        return user;
-    }
+//    @Override
+//    public UserLoginRequest findUserByEmail(String email) throws Exception {
+////        UserLoginRequest user = new UserLoginRequest();
+////        UserBase userBase = userBaseMapper.selectByPrimaryKey(Integer.parseInt(email));
+////        if(userBase!= null){
+////            user.setUserEmail(userBase.getId().toString());
+////            user.setUserPwd(userBase.getPassword());
+////        }
+////        log.info(userBase.getPassword());
+////        log.info("findUserById :: " +  user);
+////        return user;
+//    }
 
     @Override
     public UserEntity findUserEntityById(String id) throws Exception {

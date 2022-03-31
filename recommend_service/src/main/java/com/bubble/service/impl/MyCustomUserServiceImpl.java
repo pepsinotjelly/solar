@@ -45,6 +45,7 @@ public class MyCustomUserServiceImpl implements UserDetailsService {
         GrantedAuthority grantedAuthority=new SimpleGrantedAuthority("USER");
         grantedAuthorities.add(grantedAuthority);
         myUserDetails.setAuthorities(grantedAuthorities);
+        log.info("set role :: "+myUserDetails.getAuthorities());
         List<UserBase> userBaseList = userBaseMapper.selectByExample(example);
         if (userBaseList.isEmpty()) {
             throw new UsernameNotFoundException("user name invalid");

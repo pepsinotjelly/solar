@@ -68,9 +68,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(myLogoutSuccessHandler)
                 // 禁用csrf防御机制(跨域请求伪造)
                 .and()
+                .cors()
+                .and()
                 .csrf()
                 .disable()
-                .cors();
+                ;
     }
 
     /**
