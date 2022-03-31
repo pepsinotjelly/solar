@@ -13,10 +13,10 @@ function LoginPage() {
     const navigate = useNavigate();
     const {userContext, setUserContext} = useGlobalContext()
 
-    const [inputUserEmail, setInputUserEmail] = useState<string>("")
-    const handelUserEmailChange = (val: React.SetStateAction<string>) => setInputUserEmail(val);
-    const [inputUserPwd, setInputUserPwd] = useState<string>("")
-    const handelUserPwdChange = (val: React.SetStateAction<string>) => setInputUserPwd(val);
+    const [inputUsername, setInputUsername] = useState<string>("")
+    const handelUserEmailChange = (val: React.SetStateAction<string>) => setInputUsername(val);
+    const [inputPassword, setInputPassword] = useState<string>("")
+    const handelUserPwdChange = (val: React.SetStateAction<string>) => setInputPassword(val);
 
     // 退出登陆
     const Logout = () => {
@@ -41,21 +41,18 @@ function LoginPage() {
         await new Promise((r) => setTimeout(r, 5000));
         //  数据处理
         try {
-            const userBase: UserBase = {
-                userEmail: inputUserEmail,
-                userPwd: inputUserPwd
-            }
             //  发送请求
-            const resp = await userLogin(userBase);
+            const resp = await userLogin(inputUsername,inputPassword);
             if (resp.status === 200) {
-                if (resp.data.baseCode === 0) {
-                    console.log("/user/login :: response.token :: ", resp.data.token)
-                    localStorage.setItem(JWT, resp.data.token)
-                    //  toast提示
-                    Toast.success(`Hi Welcome Back`)
-                } else {
-                    Toast.error(resp.data.baseMsg)
-                }
+                // if (resp.data.baseCode === 0) {
+                //     console.log("/user/login :: response.token :: ", resp.data.token)
+                //     localStorage.setItem(JWT, resp.data.token)
+                //     //  toast提示
+                //     Toast.success(`Hi Welcome Back`)
+                // } else {
+                //     Toast.error(resp.data.baseMsg)
+                // }
+                Toast.success(`Hi Welcome Back`)
                 await new Promise((r) => setTimeout(r, 100));
                 navigate("/", {replace: true});
             }
@@ -63,9 +60,9 @@ function LoginPage() {
             Toast.error("登陆失败!")
         }
         //  更新输入框中的用户id状态
-        setInputUserEmail("")
+        setInputUsername("")
         //  更新输入框中的密码状态
-        setInputUserPwd("")
+        setInputPassword("")
     };
     return (
         <div style={{height: "590px"}}>
@@ -98,7 +95,7 @@ function LoginPage() {
                 <Input className={"email-input-box"}
                        prefix={"enter your email:"}
                        showClear
-                       value={inputUserEmail}
+                       value={inputUsername}
                        onChange={handelUserEmailChange}
                 />
                 <br/><br/>
@@ -106,7 +103,7 @@ function LoginPage() {
                        mode="password"
                        prefix={"and password:"}
                        showClear
-                       value={inputUserPwd}
+                       value={inputPassword}
                        onChange={handelUserPwdChange}/>
             </Modal>
         </div>

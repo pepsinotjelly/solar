@@ -2,8 +2,8 @@ import http from "../http-common";
 import {UserBase, UserInfo, UserInfoBaseResp, UserRegister} from "../model/user-info";
 import BaseResp from "../model/base-resp"
 
-export function userLogin(userBase: UserBase) {
-    return http.post<BaseResp>(`/user/login`,userBase);
+export function userLogin(username:string,password:string) {
+    return http.post<BaseResp>(`/user/login`,{},{params:{username:`${username}`,password:`${password}`}});
 }
 
 export function getUserInfo(jwt: string){

@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * Hello world!
  */
 @SpringBootApplication(scanBasePackages = "com.bubble")
+//@SpringBootApplication(exclude = org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class)
 @MapperScan("com.bubble.mapper")
 @EnableScheduling
 //@EnableWebSecurity
