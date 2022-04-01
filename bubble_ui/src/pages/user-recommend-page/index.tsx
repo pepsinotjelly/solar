@@ -13,7 +13,7 @@ const Recommend = () => {
     const userId = "100";
     const [movieDetailData, setMovieDetailData] = useState<MovieDetail[]>([])
     const getMovieDetail = () => {
-        getRecommendMovieDetailByUserId(userContext.userId, "1", localStorage.getItem(JWT) ?? "")
+        getRecommendMovieDetailByUserId("1")
             .then((response: any) => {
                 setMovieDetailData(response.data);
                 console.log("/movie/recommend/ response.data :: ",response.data)
