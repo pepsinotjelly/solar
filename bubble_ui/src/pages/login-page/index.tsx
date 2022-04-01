@@ -93,7 +93,7 @@ function LoginPage() {
                 </Popover>}
             >
                 <Input className={"email-input-box"}
-                       prefix={"enter your email:"}
+                       prefix={"enter nick name:"}
                        showClear
                        value={inputUsername}
                        onChange={handelUserEmailChange}

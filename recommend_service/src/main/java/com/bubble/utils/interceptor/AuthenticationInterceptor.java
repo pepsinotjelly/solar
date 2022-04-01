@@ -35,15 +35,15 @@ public class AuthenticationInterceptor extends LogInterceptor {
         log.info("Authorization :: " + token);
 
         //  不需要鉴权的方法直接通过
-        if (!(handler instanceof HandlerMethod)) {
-            return true;
-        }
-        log.info("Method NEED Interceptor");
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        Method method = (Method) handlerMethod.getMethod();
-        if (method.isAnnotationPresent(PassToken.class)) {
-            PassToken passToken = method.getAnnotation(PassToken.class);
-        }
+//        if (!(handler instanceof HandlerMethod)) {
+//            return true;
+//        }
+//        log.info("Method NEED Interceptor");
+//        HandlerMethod handlerMethod = (HandlerMethod) handler;
+//        Method method = (Method) handlerMethod.getMethod();
+//        if (method.isAnnotationPresent(PassToken.class)) {
+//            PassToken passToken = method.getAnnotation(PassToken.class);
+//        }
 //        if (method.isAnnotationPresent(UserLoginToken.class)) {
 //            UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
 //            if (userLoginToken.required()) {

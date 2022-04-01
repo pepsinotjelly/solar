@@ -2,7 +2,10 @@ package com.bubble.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.bubble.vo.MovieDetail;
+import com.bubble.vo.ResponseEntity;
+import com.bubble.vo.user.MyUserDetails;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -52,6 +55,17 @@ public class MovieController {
     @GetMapping("/recommend")
     public JSON MovieRecommendByUserId(@RequestParam(value = "page") String page) {
         //  获取用户登陆信息
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (! (authentication instanceof AnonymousAuthenticationToken)) {
+            // 登入用户
+            log.info("can not get context");
+        } else {
+            log.info("context success!");
+            log.info("authentication.getPrincipal() :: "+(String) authentication.getPrincipal());;
+
+//            String userName = myUserDetails.getUsername();
+//            log.info("username :: "+userName);
+        }
         List<MovieDetail> movieDetailList = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             MovieDetail movieDetail = new MovieDetail();
