@@ -10,6 +10,6 @@ export function getMovieDetailByTagId(tagId: string | undefined) {
     return http.get<List<MovieDetail>>(`/movie/tag/?tagId=${tagId}`);
 }
 
-export function getRecommendMovieDetailByUserId(userId: number, page: string | undefined, jwt: string | undefined) {
-    return http.get<List<MovieDetail>>(`/movie/recommend/?userId=${userId}&page=${page}`, {headers: {Authorization: `${jwt}`}});
+export function getRecommendMovieDetailByUserId(page: string | undefined, jwt: string | undefined) {
+    return http.get<List<MovieDetail>>(`/movie/recommend/?page=${page}`, {headers: { Authorization: `${jwt}` }});
 }

@@ -7,6 +7,7 @@ import {submitRatingRecord} from "../../../../services/ratingRecordService";
 import RatingRecord from "../../../../model/rating-record";
 import {IconLoading} from '@douyinfe/semi-icons';
 import {IllustrationSuccess, IllustrationSuccessDark} from '@douyinfe/semi-illustrations';
+import {JWT} from "../../../../constants";
 
 
 function Comment() {
@@ -58,13 +59,12 @@ function Comment() {
         try {
             const commentDetailValue: RatingRecord = {
                 movieId: Number.parseInt(params.id as string),
-                userId: 1,
                 rating: ratingValue as unknown as string,
                 comment: commentValue as unknown as string
             }
             console.log(commentDetailValue);
             //  发送请求
-            const resp = await submitRatingRecord(commentDetailValue);
+            const resp = await submitRatingRecord(commentDetailValue,localStorage.getItem(JWT) ?? "");
             //  更新评论状态
             setSubmitDone(true)
             //  更新加载状态

@@ -12,11 +12,20 @@ import com.bubble.service.RecommendService;
 import com.bubble.service.UserService;
 import com.bubble.utils.CryptoSystem;
 import com.bubble.utils.DataProcessor;
+import com.bubble.vo.ResponseEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.runtime.directive.Evaluate;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import paillierp.Paillier;
 import paillierp.key.KeyGen;
@@ -58,6 +67,24 @@ public class TestController {
     @GetMapping("/test")
     public String test() {
         return "OK";
+    }
+
+    // 任何人都可以访问，在方法中判断用户是否合法
+    @GetMapping("/everyone")
+    public ResponseEntity testEveryone() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (! (authentication instanceof AnonymousAuthenticationToken)) {
+            // 登入用户
+            return new ResponseEntity(HttpStatus.OK.value(), "You are already login", authentication.getPrincipal());
+        } else {
+            return new ResponseEntity(HttpStatus.OK.value(), "You are anonymous", null);
+        }
+    }
+
+    @GetMapping("/user")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public ResponseEntity testUser(@AuthenticationPrincipal UsernamePasswordAuthenticationToken token) {
+        return new ResponseEntity(HttpStatus.OK.value(), "You are user", token);
     }
 
 

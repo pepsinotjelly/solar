@@ -1,4 +1,8 @@
 spring:
+  cache:
+    type: jcache
+    jcache:
+      config: classpath:ehcache.xml
   thymeleaf:
     cache: false
   datasource:
@@ -17,6 +21,9 @@ mybatis:
 # 调试端口
 server:
   port: 8080
+  servlet:
+    session:
+      timeout: 3600
 #logging:
 #  file:
 #    path: ./solar

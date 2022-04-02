@@ -27,9 +27,9 @@ const Index = () => {
                             <Route index element={<Home/>}/>
 
                             <Route path={"/recommend"} element={
-                                <RequireAuth>
+                                // <RequireAuth>
                                     <Recommend/>
-                                </RequireAuth>
+                                // </RequireAuth>
                             }/>
                             <Route path={"comment/:id"} element={<DetailPage/>}/>
                             <Route path={"tag-movie/:id"} element={<TagMoviePage/>}/>
