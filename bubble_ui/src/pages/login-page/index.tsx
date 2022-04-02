@@ -10,6 +10,7 @@ import {IconHelpCircle} from "@douyinfe/semi-icons";
 import {Popover} from '@douyinfe/semi-ui';
 
 function LoginPage() {
+    const MD5 = require('crypto-js/md5');
     const navigate = useNavigate();
     const {userContext, setUserContext} = useGlobalContext()
 
@@ -43,6 +44,9 @@ function LoginPage() {
         try {
             //  发送请求
             const resp = await userLogin(inputUsername, inputPassword);
+            console.log("MD5(inputPassword) :: "+MD5(inputPassword))
+            console.log("MD5(inputPassword) :: "+MD5(inputPassword))
+            console.log("MD5(inputPassword) :: "+MD5(inputPassword))
             if (resp.status === 200) {
                 console.log("/user/login :: response.token :: ", resp.data.data)
                 localStorage.setItem(JWT, resp.data.data)

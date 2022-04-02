@@ -4,18 +4,11 @@ import {IconLink} from "@douyinfe/semi-icons";
 import {Link, useParams} from "react-router-dom";
 
 
-function ItemInfo(props:{movieList: any[]}) {
-    // const abcd= useParams()
+function ItemInfo(props: { movieList: any[] }) {
     const {Content} = Layout;
-    //  Pagination 页面的设置
-    const mockPage = 50;
-    const [page, setPage] = useState(1)
-    function onPageChange(currentPage: React.SetStateAction<number>) {
-        setPage(currentPage);
-    }
     return (
         <>
-            <Layout style={{marginLeft: '4.5%',marginBottom: '1px',width: '90%', height: '100%'}}>
+            <Layout style={{marginLeft: '4.5%', marginBottom: '1px', width: '90%', height: '100%'}}>
                 <Content>
                     <CardGroup spacing={33} style={{justifyContent: 'center'}}>
                         {
@@ -30,10 +23,10 @@ function ItemInfo(props:{movieList: any[]}) {
                                         height: 440
                                     }}
                                     cover={
-                                        <img alt={'ImgUrl'} src={item.imgUrl} />
+                                        <img alt={'ImgUrl'} src={item.imgUrl}/>
                                     }
                                     headerExtraContent={
-                                        <Link to={"/comment/"+item.movieId}>
+                                        <Link to={"/comment/" + item.movieId}>
                                             <IconLink></IconLink>
                                         </Link>
                                     }
@@ -41,15 +34,6 @@ function ItemInfo(props:{movieList: any[]}) {
                             ))
                         }
                     </CardGroup>
-                    <Content>
-                        <br/><br/>
-                        <Pagination
-                            style={{ marginBottom: 4, justifyContent: 'center' }}
-                            total={mockPage}
-                            currentPage={page}
-                            onPageChange={onPageChange}
-                        />
-                    </Content>
                 </Content>
             </Layout>
         </>
