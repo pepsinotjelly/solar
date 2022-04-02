@@ -6,6 +6,7 @@ import com.bubble.utils.filter.JwtAuthorizationFilter;
 import com.bubble.utils.handler.MyAuthenticationFailHandler;
 import com.bubble.utils.handler.MyAuthenticationSuccessHandler;
 import com.bubble.utils.handler.MyLogoutSuccessHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -32,7 +33,7 @@ import java.lang.reflect.Constructor;
  * @date : 2022/3/29 9:00 下午
  * @Desc : 适配器
  */
-
+@Slf4j
 @Configuration
 @EnableWebSecurity
 // 开启注解配置支持
@@ -60,8 +61,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement().maximumSessions(1);
-        http.formLogin()
-                .loginProcessingUrl("/user/login").defaultSuccessUrl("/")
+        http.cors()
+                .and()
+                .csrf().disable()
+                .formLogin()
+                .loginProcessingUrl("/login").defaultSuccessUrl("/")
                 //　自定义登录验证成功或失败后的去向
                 .successHandler(myAuthenticationSuccessHandler)
                 .failureHandler(myAuthenticationFailHandler)
@@ -71,20 +75,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //  自动登出成功去向
                 .logoutSuccessHandler(myLogoutSuccessHandler)
                 // 禁用csrf防御机制(跨域请求伪造)
-                .and()
-                .cors()
-                .and()
-                .csrf().disable();
+//                .and()
+                ;
         // 开启跨域
-        http.cors()
-                .and()
-                // security 默认 csrf 是开启的，我们使用了 token ，这个也没有什么必要了
-                .csrf().disable()
-                .authorizeRequests()
-                // 默认所有请求通过，但是我们要在需要权限的方法加上安全注解，这样比写死配置灵活很多
-                .anyRequest().permitAll()
-                .and()
-                // 添加自己编写的两个过滤器
+        http
+//                .cors()
+//                .and()
+//                // security 默认 csrf 是开启的，我们使用了 token ，这个也没有什么必要了
+//                .csrf().disable()
+//                .authorizeRequests()
+//                // 默认所有请求通过，但是我们要在需要权限的方法加上安全注解，这样比写死配置灵活很多
+//                .anyRequest().permitAll()
+//                .and()
+//                // 添加自己编写的两个过滤器
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), cachingUserDetailsService(userDetailsServiceImpl)))
                 // 前后端分离是 STATELESS，故 session 使用该策略
@@ -117,6 +120,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         如果被抹除了，在对 JWT 进行签名的时候就拿不到用户密码了，故此处关闭了自动抹除密码。
          */
         auth.eraseCredentials(false);
+        log.info("configure :: useCache");
         auth.userDetailsService(cachingUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
@@ -140,6 +144,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         }
         Assert.notNull(ctor, "CachingUserDetailsService constructor is null");
         ctor.setAccessible(true);
+        log.info("cachingUserDetailsService");
         return BeanUtils.instantiateClass(ctor, delegate);
     }
 }

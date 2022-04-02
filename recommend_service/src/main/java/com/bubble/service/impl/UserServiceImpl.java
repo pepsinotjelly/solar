@@ -89,11 +89,16 @@ public class UserServiceImpl implements UserService {
 //    }
 
     @Override
-    public UserEntity findUserEntityById(String id) throws Exception {
+    public UserEntity findUserEntityByUsername(String username) throws Exception {
         UserEntity userEntity = new UserEntity();
         UserInfoExample example = new UserInfoExample();
-        example.createCriteria().andIdEqualTo(Integer.parseInt(id));
-        UserInfo userInfo  = userInfoMapper.selectByExample(example).get(0);
+        example.createCriteria().andNameEqualTo(username);
+        List<UserInfo> userInfoList = userInfoMapper.selectByExample(example);
+        if(userInfoList.isEmpty()){
+            log.info("findUserEntityByUsername :: cant find user !!");
+            return userEntity;
+        }
+        UserInfo userInfo  = userInfoList.get(0);
         if(userInfo != null){
             userEntity.setUserId(userInfo.getId().toString());
             userEntity.setUserName(userInfo.getName());

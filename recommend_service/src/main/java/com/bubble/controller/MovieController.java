@@ -1,15 +1,18 @@
 package com.bubble.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.bubble.service.impl.UserDetailsServiceImpl;
 import com.bubble.vo.MovieDetail;
 import com.bubble.vo.ResponseEntity;
 import com.bubble.vo.user.MyUserDetails;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +29,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/movie")
 public class MovieController {
+    @Autowired
+    private UserDetailsServiceImpl userDetailsServiceImpl;
     @GetMapping("/detail")
     public JSON getMovieDetail(@RequestParam(value = "id") String movieId) {
         MovieDetail movieDetail = new MovieDetail();
@@ -58,14 +63,17 @@ public class MovieController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (! (authentication instanceof AnonymousAuthenticationToken)) {
             // 登入用户
-            log.info("can not get context");
+            log.info("MovieRecommendByUserId :: user is not with AnonymousAuthenticationToken");
         } else {
-            log.info("context success!");
-            log.info("authentication.getPrincipal() :: "+(String) authentication.getPrincipal());;
-
-//            String userName = myUserDetails.getUsername();
-//            log.info("username :: "+userName);
+            log.info("MovieRecommendByUserId :: get AnonymousAuthenticationToken");
         }
+        if(authentication.getPrincipal() != null){
+            log.info("MovieRecommendByUserId :: user not null");
+            User user = (User) authentication.getPrincipal();
+            String username = user.getUsername();
+            log.info("MovieRecommendByUserId :: "+username);
+        }
+
         List<MovieDetail> movieDetailList = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             MovieDetail movieDetail = new MovieDetail();

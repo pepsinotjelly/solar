@@ -14,5 +14,5 @@ public interface UserService {
     String getMyRecommend(int user_id) throws Exception;
     Integer rateMovie(int user_id,String rate,int movie_id,String comment)throws Exception;
 //    UserLoginRequest findUserByEmail(String email) throws Exception;
-    UserEntity findUserEntityById(String id) throws Exception;
+    UserEntity findUserEntityByUsername(String username) throws Exception;
 }

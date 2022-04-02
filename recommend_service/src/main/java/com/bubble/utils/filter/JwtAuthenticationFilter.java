@@ -26,7 +26,6 @@ import java.io.IOException;
  */
 @Slf4j
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-
     /*
     过滤器一定要设置 AuthenticationManager，所以此处我们这么编写，这里的 AuthenticationManager
     我会从 Security 配置的时候传入
@@ -80,6 +79,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             log.info("handleResponse :: success login");
             User user = (User) authResult.getPrincipal();
             String token = JwtUtil.sign(user.getUsername(), user.getPassword());
+            log.info("handleResponse :: token :: "+ token);
             responseEntity.setStatus(HttpStatus.OK.value());
             responseEntity.setMsg("登入成功");
             responseEntity.setData("Bearer " + token);

@@ -42,16 +42,10 @@ function LoginPage() {
         //  数据处理
         try {
             //  发送请求
-            const resp = await userLogin(inputUsername,inputPassword);
+            const resp = await userLogin(inputUsername, inputPassword);
             if (resp.status === 200) {
-                // if (resp.data.baseCode === 0) {
-                //     console.log("/user/login :: response.token :: ", resp.data.token)
-                //     localStorage.setItem(JWT, resp.data.token)
-                //     //  toast提示
-                //     Toast.success(`Hi Welcome Back`)
-                // } else {
-                //     Toast.error(resp.data.baseMsg)
-                // }
+                console.log("/user/login :: response.token :: ", resp.data.data)
+                localStorage.setItem(JWT, resp.data.data)
                 Toast.success(`Hi Welcome Back`)
                 await new Promise((r) => setTimeout(r, 100));
                 navigate("/", {replace: true});

@@ -1,6 +1,7 @@
 package com.bubble.utils.filter;
 
 import com.bubble.utils.JwtUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,9 +22,9 @@ import java.io.IOException;
 /**
  * @author : sunpengyu.sonia
  * @date : 2022/3/31 9:37 下午
- * @Desc :
+ * @Desc : login Filter
  */
-
+@Slf4j
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     @Autowired
     private UserDetailsService userDetailsService;
@@ -31,6 +32,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     // 会从 Spring Security 配置文件那里传过来
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserDetailsService userDetailsService) {
         super(authenticationManager);
+        log.info("JwtAuthorizationFilter :: set userDetailService");
         this.userDetailsService = userDetailsService;
     }
 
@@ -38,8 +40,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         // 判断是否有 token，并且进行认证
         Authentication token = getAuthentication(request);
+        log.info("doFilterInternal :: get token");
         if (token == null) {
             chain.doFilter(request, response);
+            log.info("doFilterInternal :: token is null!!!");
             return;
         }
         // 认证成功
@@ -50,14 +54,18 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String header = request.getHeader("Authorization");
         if (header == null || !header.startsWith("Bearer ")) {
+            log.info("getAuthentication :: no token!!");
             return null;
         }
-
+        log.info("getAuthentication :: header :: "+header);
         String token = header.split(" ")[1];
+        log.info("getAuthentication :: token :: "+token);
         String username = JwtUtil.getUsername(token);
+        log.info("getAuthentication :: username :: "+username);
         UserDetails userDetails = null;
         try {
             userDetails = userDetailsService.loadUserByUsername(username);
+            log.info("getAuthentication :: loaduser");
         } catch (UsernameNotFoundException e) {
             return null;
         }

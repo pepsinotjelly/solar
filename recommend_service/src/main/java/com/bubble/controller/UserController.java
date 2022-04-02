@@ -14,6 +14,10 @@ import com.bubble.vo.user.UserEntity;
 import com.bubble.vo.user.UserRegister;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,24 +63,33 @@ public class UserController {
         baseResp.setBaseCode(0);
         baseResp.setBaseMsg("success");
         baseResp.setToken(token);
-        return (JSON)JSON.toJSON(baseResp);
+        return (JSON) JSON.toJSON(baseResp);
     }
 
 
     @UserLoginToken
     @GetMapping("/info")
-    public JSON getUserInfo(@RequestHeader("Authorization") String token)throws Exception{
+    public JSON getUserInfo(@RequestHeader("Authorization") String token) throws Exception {
         //  通过token获取userId
-        String userId;
-        try {
-            userId = JWT.decode(token).getAudience().get(0);
-        } catch (JWTDecodeException j) {
-            throw new RuntimeException("401");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            // 登入用户
+            log.info("getUserInfo :: user is not with AnonymousAuthenticationToken");
+        } else {
+            log.info("getUserInfo :: get AnonymousAuthenticationToken");
         }
-        //  获取用户信息
-        UserEntity userEntity = userService.findUserEntityById(userId);
+        if (authentication.getPrincipal() != null) {
+            log.info("getUserInfo :: user not null");
+            User user = (User) authentication.getPrincipal();
+            String username = user.getUsername();
+            log.info("getUserInfo :: " + username);
+            //  获取用户信息
+            UserEntity userEntity = userService.findUserEntityByUsername(username);
+            return (JSON) JSON.toJSON(userEntity);
+        }
         //  构造返回值
-        return (JSON)JSON.toJSON(userEntity);
+        log.info("getUserInfo :: cant get user,return null!");
+        return (JSON) JSON.toJSON(new UserEntity());
     }
 
 //    //  上传地址

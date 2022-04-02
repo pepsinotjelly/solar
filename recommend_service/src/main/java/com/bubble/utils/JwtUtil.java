@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
 
@@ -13,6 +14,7 @@ import java.util.Date;
  * @date : 2022/3/31 9:33 下午
  * @Desc :
  */
+@Slf4j
 public class JwtUtil {
 
     // 过期时间5分钟
@@ -26,13 +28,16 @@ public class JwtUtil {
      */
     public static String sign(String username, String secret) {
         Date expireDate = new Date(System.currentTimeMillis() + EXPIRE_TIME);
+        log.info("sign :: username"+username);
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
+            log.info("sign :: creating token");
             return JWT.create()
                     .withClaim("username", username)
                     .withExpiresAt(expireDate)
                     .sign(algorithm);
         } catch (Exception e) {
+            log.info("sign :: exception return null!");
             return null;
         }
     }
@@ -50,6 +55,7 @@ public class JwtUtil {
                     .withClaim("username", username)
                     .build();
             DecodedJWT jwt = verifier.verify(token);
+            log.info("verify :: jwt ");
             return true;
         } catch (Exception e) {
             return false;
@@ -63,6 +69,7 @@ public class JwtUtil {
     public static String getUsername(String token) {
         try {
             DecodedJWT jwt = JWT.decode(token);
+            log.info("getUsername");
             return jwt.getClaim("username").asString();
         } catch (JWTDecodeException e) {
             return null;
