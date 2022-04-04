@@ -1,7 +1,7 @@
 package com.bubble.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.bubble.constant.annotations.UserLoginToken;
+//import com.bubble.constant.annotations.UserLoginToken;
 import com.bubble.mapper.UserBaseMapper;
 import com.bubble.mapper.UserInfoMapper;
 import com.bubble.model.UserBase;
@@ -111,7 +111,6 @@ public class UserController {
     }
 
 
-    @UserLoginToken
     @GetMapping("/info")
     public JSON getUserInfo(@RequestHeader("Authorization") String token) throws Exception {
         //  通过token获取userId

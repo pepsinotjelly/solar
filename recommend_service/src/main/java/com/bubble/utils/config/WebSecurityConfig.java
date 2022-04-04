@@ -23,7 +23,6 @@ import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.cache.SpringCacheBasedUserCache;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.Assert;
 
 import java.lang.reflect.Constructor;
@@ -71,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(myAuthenticationFailHandler)
                 .and()
                 .logout()
-                .logoutUrl("/user/logout").logoutSuccessUrl("/")
+                .logoutUrl("/logout").logoutSuccessUrl("/")
                 //  自动登出成功去向
                 .logoutSuccessHandler(myLogoutSuccessHandler);
         http.addFilter(new JwtAuthenticationFilter(authenticationManager()))
