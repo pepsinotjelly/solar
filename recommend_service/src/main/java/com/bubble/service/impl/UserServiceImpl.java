@@ -75,18 +75,6 @@ public class UserServiceImpl implements UserService {
         return ratingRecordMapper.insert(ratingRecord);
     }
 
-//    @Override
-//    public UserLoginRequest findUserByEmail(String email) throws Exception {
-////        UserLoginRequest user = new UserLoginRequest();
-////        UserBase userBase = userBaseMapper.selectByPrimaryKey(Integer.parseInt(email));
-////        if(userBase!= null){
-////            user.setUserEmail(userBase.getId().toString());
-////            user.setUserPwd(userBase.getPassword());
-////        }
-////        log.info(userBase.getPassword());
-////        log.info("findUserById :: " +  user);
-////        return user;
-//    }
 
     @Override
     public UserEntity findUserEntityByUsername(String username) throws Exception {

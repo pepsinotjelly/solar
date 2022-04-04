@@ -73,22 +73,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/user/logout").logoutSuccessUrl("/")
                 //  自动登出成功去向
-                .logoutSuccessHandler(myLogoutSuccessHandler)
-                // 禁用csrf防御机制(跨域请求伪造)
-//                .and()
-                ;
-        // 开启跨域
-        http
-//                .cors()
-//                .and()
-//                // security 默认 csrf 是开启的，我们使用了 token ，这个也没有什么必要了
-//                .csrf().disable()
-//                .authorizeRequests()
-//                // 默认所有请求通过，但是我们要在需要权限的方法加上安全注解，这样比写死配置灵活很多
-//                .anyRequest().permitAll()
-//                .and()
-//                // 添加自己编写的两个过滤器
-                .addFilter(new JwtAuthenticationFilter(authenticationManager()))
+                .logoutSuccessHandler(myLogoutSuccessHandler);
+        http.addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), cachingUserDetailsService(userDetailsServiceImpl)))
                 // 前后端分离是 STATELESS，故 session 使用该策略
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -124,11 +110,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(cachingUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
-
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 
     /*
     此处我们实现缓存的时候，我们使用了官方现成的 CachingUserDetailsService ，但是这个类的构造方法不是 public 的，
