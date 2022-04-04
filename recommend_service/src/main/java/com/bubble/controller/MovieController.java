@@ -69,11 +69,15 @@ public class MovieController {
         }
         if(authentication.getPrincipal() != null){
             log.info("MovieRecommendByUserId :: user not null");
-            User user = (User) authentication.getPrincipal();
-            String username = user.getUsername();
-            log.info("MovieRecommendByUserId :: "+username);
+            try{
+                User user = (User) authentication.getPrincipal();
+                String username = user.getUsername();
+                log.info("MovieRecommendByUserId :: "+username);
+            }catch (Exception e){
+                log.info("MovieRecommendByUserId :: no token error return default");
+                return DefaultMovieRecommend(page);
+            }
         }
-
         List<MovieDetail> movieDetailList = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             MovieDetail movieDetail = new MovieDetail();

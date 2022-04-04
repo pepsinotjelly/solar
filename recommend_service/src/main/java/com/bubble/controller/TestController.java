@@ -14,6 +14,8 @@ import com.bubble.utils.CryptoSystem;
 import com.bubble.utils.DataProcessor;
 import com.bubble.vo.ResponseEntity;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.tomcat.util.digester.Digester;
 import org.apache.velocity.runtime.directive.Evaluate;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -129,10 +131,12 @@ public class TestController {
 
     @GetMapping(value = "/security/password")
     public String EncodePassword() throws Exception {
-        for(int i = 2;i <= 600;i ++){
+        for(int i = 1;i <= 600;i ++){
             UserBase userBase = userBaseMapper.selectByPrimaryKey(i);
-            log.info("origin pwd :: "+userBase.getPassword());
-            String tempPwd = bCryptPasswordEncoder.encode(userBase.getPassword());
+            String originPwd = "user_"+i;
+            log.info("origin pwd :: "+originPwd);
+            log.info("md5 :: "+ DigestUtils.md5(originPwd));
+            String tempPwd = bCryptPasswordEncoder.encode(originPwd);
             log.info("tempPwd :: "+tempPwd);
             userBase.setPassword(tempPwd);
 //            userBaseMapper.updateByPrimaryKey(userBase);

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Route, Link, Routes, HashRouter, BrowserRouter} from "react-router-dom";
+import {Route, Link, Routes, HashRouter, BrowserRouter} from "react-router-dom";
 import './index.css';
 import App from './App';
 import Home from "./pages/home-page";
@@ -12,7 +12,6 @@ import TagMoviePage from "./pages/tag-movie-page";
 import AllTagPage from "./pages/all-tag-page";
 import {getEmptyUser, GlobalContext, UserContext} from "./context";
 import LoginPage from "./pages/login-page";
-import RequireAuth from "./components/require-auth";
 import RegisterPage from "./pages/register-page";
 
 const Index = () => {
@@ -27,9 +26,7 @@ const Index = () => {
                             <Route index element={<Home/>}/>
 
                             <Route path={"/recommend"} element={
-                                // <RequireAuth>
                                     <Recommend/>
-                                // </RequireAuth>
                             }/>
                             <Route path={"comment/:id"} element={<DetailPage/>}/>
                             <Route path={"tag-movie/:id"} element={<TagMoviePage/>}/>

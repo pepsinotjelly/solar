@@ -1,15 +1,14 @@
 package com.bubble.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.bubble.constant.annotations.UserLoginToken;
+import com.bubble.mapper.UserBaseMapper;
+import com.bubble.mapper.UserInfoMapper;
+import com.bubble.model.UserBase;
+import com.bubble.model.UserBaseExample;
 import com.bubble.service.ItemService;
-//import com.bubble.dal.UserInfoService;
-import com.bubble.service.TokenService;
 import com.bubble.service.UserService;
-import com.bubble.vo.BaseResp;
+import com.bubble.vo.ResponseEntity;
 import com.bubble.vo.user.UserEntity;
 import com.bubble.vo.user.UserRegister;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +19,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Author: sunpengyu.sonia
@@ -37,8 +39,11 @@ public class UserController {
     private ItemService itemBaseService;
     @Autowired
     private UserService userService;
-    @Autowired
-    private TokenService tokenService;
+    @Resource
+    private UserBaseMapper userBaseMapper;
+    @Resource
+    private UserInfoMapper userInfoMapper;
+
 
     @GetMapping(value = "/syncItemBase")
     public String syncItemBase() throws Exception {
@@ -53,17 +58,56 @@ public class UserController {
 
 
     @PostMapping(value = "/register")
-    public JSON userRegister(@RequestBody UserRegister userRegister) {
-        //  数据校验 - email是否唯一值？
+    public JSON userRegister(@RequestBody UserRegister userRegister) throws Exception {
+        //  数据校验 - name是否唯一值？
+        ResponseEntity response = new ResponseEntity();
+        if (!checkRegister(userRegister.getUserName())) {
+            response.setStatus(401);
+            response.setMsg("this name already exist! get a new one!");
+            log.info("userRegister :: name already exist! username :: " + userRegister.getUserName());
+            return (JSON) JSON.toJSON(response);
+        }
         //  数据持久化
-        //  获取id
-        log.info(String.valueOf((JSON) JSON.toJSON(userRegister)));
-        String token = tokenService.getToken("1", userRegister.getUserPwd());
-        BaseResp baseResp = new BaseResp();
-        baseResp.setBaseCode(0);
-        baseResp.setBaseMsg("success");
-        baseResp.setToken(token);
-        return (JSON) JSON.toJSON(baseResp);
+        UserBase userBase = new UserBase();
+        userBase.setName(userRegister.getUserName());
+        String password = bCryptPasswordEncoder.encode(userRegister.getUserPwd());
+        userBase.setPassword(password);
+        log.info("userRegister :: user password :: password");
+//        userBaseMapper.insert(userBase);
+//        //  保证数据一致性
+//        UserBaseExample userBaseExample = new UserBaseExample();
+//        userBaseExample.createCriteria().andNameEqualTo(userRegister.getUserName());
+//        List<UserBase> userBaseList = userBaseMapper.selectByExample(userBaseExample);
+//        if (userBaseList.isEmpty()) {
+//            response.setStatus(500);
+//            response.setMsg("System update user error!");
+//            log.info("userRegister :: System update user error! username:: " + userRegister.getUserName());
+//            return (JSON) JSON.toJSON(response);
+//        }
+//        //  更新用户信息
+//        UserInfo userInfo = new UserInfo();
+//        userInfo.setName(userRegister.getUserName());
+//        userInfo.setEmail(userRegister.getUserEmail());
+//        userInfo.setId(userBaseList.get(0).getId());
+//        userInfoMapper.insert(userInfo);
+        //  创建返回值
+        response.setMsg("user register success");
+        response.setStatus(200);
+        log.info("userRegister :: user register success"+String.valueOf((JSON) JSON.toJSON(response)));
+        return (JSON) JSON.toJSON(response);
+    }
+
+    public boolean checkRegister(String username) throws Exception {
+        if (username.trim() == null) {
+            return false;
+        }
+        UserBaseExample example = new UserBaseExample();
+        example.createCriteria().andNameEqualTo(username);
+        List<UserBase> userBaseList = userBaseMapper.selectByExample(example);
+        if (!userBaseList.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
 
