@@ -49,10 +49,17 @@ public class MovieController {
     @GetMapping("/detail")
     public JSON getMovieDetail(@RequestParam(value = "id") String movieId) {
         MovieDetail movieDetail = new MovieDetail();
+        ItemInfo itemInfo = itemInfoMapper.selectByPrimaryKey(Integer.parseInt(movieId));
+        if (itemInfo == null) {
+            //  异常处理
+            log.info("ERROR :: get null ItemInfo !");
+            return (JSON) JSON.toJSON(movieDetail);
+        }
+        //  构造返回值
         movieDetail.setMovieId(movieId);
-        movieDetail.setMovieName("来自service的名字");
-        movieDetail.setImgUrl("https://image.tmdb.org/t/p/w300_and_h450_bestv2/zGdGINvf9oSysprbWnu85dIM7rc.jpg");
-        movieDetail.setMovieQuote("一段简介：作为我的电影简介吧");
+        movieDetail.setMovieName(itemInfo.getName());
+        movieDetail.setImgUrl(itemInfo.getImageUrl());
+        movieDetail.setMovieQuote(itemInfo.getOverview());
         log.info(String.valueOf((JSON) JSON.toJSON(movieDetail)));
         return (JSON) JSON.toJSON(movieDetail);
     }
