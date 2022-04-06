@@ -5,13 +5,11 @@ public class ItemInfo {
 
     private String name;
 
-    private Double rating;
-
     private String image;
 
     private String imageUrl;
 
-    private String quote;
+    private String overview;
 
     public Integer getId() {
         return id;
@@ -27,14 +25,6 @@ public class ItemInfo {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
-    }
-
-    public Double getRating() {
-        return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
     }
 
     public String getImage() {
@@ -53,11 +43,11 @@ public class ItemInfo {
         this.imageUrl = imageUrl == null ? null : imageUrl.trim();
     }
 
-    public String getQuote() {
-        return quote;
+    public String getOverview() {
+        return overview;
     }
 
-    public void setQuote(String quote) {
-        this.quote = quote == null ? null : quote.trim();
+    public void setOverview(String overview) {
+        this.overview = overview == null ? null : overview.trim();
     }
 }

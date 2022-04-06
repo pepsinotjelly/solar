@@ -2,6 +2,7 @@ package com.bubble.controller;
 
 import com.alibaba.fastjson.JSON;
 //import com.bubble.constant.annotations.UserLoginToken;
+import com.alibaba.fastjson.JSONObject;
 import com.bubble.mapper.UserBaseMapper;
 import com.bubble.mapper.UserInfoMapper;
 import com.bubble.model.UserBase;
@@ -13,15 +14,26 @@ import com.bubble.vo.user.UserEntity;
 import com.bubble.vo.user.UserRegister;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: sunpengyu.sonia
@@ -93,7 +105,7 @@ public class UserController {
         //  创建返回值
         response.setMsg("user register success");
         response.setStatus(200);
-        log.info("userRegister :: user register success"+String.valueOf((JSON) JSON.toJSON(response)));
+        log.info("userRegister :: user register success :: " + String.valueOf((JSON) JSON.toJSON(response)));
         return (JSON) JSON.toJSON(response);
     }
 
@@ -135,16 +147,16 @@ public class UserController {
         return (JSON) JSON.toJSON(new UserEntity());
     }
 
-//    //  上传地址
+    //    //  上传地址
 //    @Value("${file.upload.path}")
 //    private String path;
 //
 //    //  图片url前缀
 //    @Value("${com.test.base_picture_url}")
 //    private String base_picture_url;
-
+//
 //    @PostMapping("/update/avatar")
-//    public JSON restoreUserRegisterAvatar(@RequestBody MultipartFile[] file){
+//    public JSON restoreUserRegisterAvatar(@RequestParam(value = "avatar") MultipartFile[] file){
 //        log.info("get file :: "+ file.length);
 //        //String base_picture_url = "http://localhost:8080/image/";
 //
@@ -195,4 +207,27 @@ public class UserController {
 //        System.out.println(result);
 //        return new JSONObject(result);
 //    }
+    @RequestMapping(value = "/update/avatar", method = RequestMethod.POST)
+    public String getSubscription(MultipartFile file, HttpSession session) throws IOException {
+        log.info("image ::");
+        //获取文件的内容
+        if(file != null){
+            InputStream is = file.getInputStream();
+            //获取原始文件名
+            String originalFilename = file.getOriginalFilename();
+            log.info(originalFilename);
+        }
+        log.info("file null :: 吗的");
+
+       return "ok";
+    }
+
+    public static void writePicture(MultipartFile file, String fileName, String fileFolderName) {
+        try {
+            FileOutputStream picOutput = new FileOutputStream("/outfits/" + fileFolderName + "/" + fileName);            //设置文件路径
+            picOutput.write(file.getBytes());   //获取字节流直接写入到磁盘内
+            picOutput.close();
+        } catch (Exception e) {
+        }
+    }
 }

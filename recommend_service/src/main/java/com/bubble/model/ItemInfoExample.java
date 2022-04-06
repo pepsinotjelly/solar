@@ -234,66 +234,6 @@ public class ItemInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andRatingIsNull() {
-            addCriterion("rating is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRatingIsNotNull() {
-            addCriterion("rating is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRatingEqualTo(Double value) {
-            addCriterion("rating =", value, "rating");
-            return (Criteria) this;
-        }
-
-        public Criteria andRatingNotEqualTo(Double value) {
-            addCriterion("rating <>", value, "rating");
-            return (Criteria) this;
-        }
-
-        public Criteria andRatingGreaterThan(Double value) {
-            addCriterion("rating >", value, "rating");
-            return (Criteria) this;
-        }
-
-        public Criteria andRatingGreaterThanOrEqualTo(Double value) {
-            addCriterion("rating >=", value, "rating");
-            return (Criteria) this;
-        }
-
-        public Criteria andRatingLessThan(Double value) {
-            addCriterion("rating <", value, "rating");
-            return (Criteria) this;
-        }
-
-        public Criteria andRatingLessThanOrEqualTo(Double value) {
-            addCriterion("rating <=", value, "rating");
-            return (Criteria) this;
-        }
-
-        public Criteria andRatingIn(List<Double> values) {
-            addCriterion("rating in", values, "rating");
-            return (Criteria) this;
-        }
-
-        public Criteria andRatingNotIn(List<Double> values) {
-            addCriterion("rating not in", values, "rating");
-            return (Criteria) this;
-        }
-
-        public Criteria andRatingBetween(Double value1, Double value2) {
-            addCriterion("rating between", value1, value2, "rating");
-            return (Criteria) this;
-        }
-
-        public Criteria andRatingNotBetween(Double value1, Double value2) {
-            addCriterion("rating not between", value1, value2, "rating");
-            return (Criteria) this;
-        }
-
         public Criteria andImageIsNull() {
             addCriterion("image is null");
             return (Criteria) this;
@@ -434,73 +374,73 @@ public class ItemInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andQuoteIsNull() {
-            addCriterion("quote is null");
+        public Criteria andOverviewIsNull() {
+            addCriterion("overview is null");
             return (Criteria) this;
         }
 
-        public Criteria andQuoteIsNotNull() {
-            addCriterion("quote is not null");
+        public Criteria andOverviewIsNotNull() {
+            addCriterion("overview is not null");
             return (Criteria) this;
         }
 
-        public Criteria andQuoteEqualTo(String value) {
-            addCriterion("quote =", value, "quote");
+        public Criteria andOverviewEqualTo(String value) {
+            addCriterion("overview =", value, "overview");
             return (Criteria) this;
         }
 
-        public Criteria andQuoteNotEqualTo(String value) {
-            addCriterion("quote <>", value, "quote");
+        public Criteria andOverviewNotEqualTo(String value) {
+            addCriterion("overview <>", value, "overview");
             return (Criteria) this;
         }
 
-        public Criteria andQuoteGreaterThan(String value) {
-            addCriterion("quote >", value, "quote");
+        public Criteria andOverviewGreaterThan(String value) {
+            addCriterion("overview >", value, "overview");
             return (Criteria) this;
         }
 
-        public Criteria andQuoteGreaterThanOrEqualTo(String value) {
-            addCriterion("quote >=", value, "quote");
+        public Criteria andOverviewGreaterThanOrEqualTo(String value) {
+            addCriterion("overview >=", value, "overview");
             return (Criteria) this;
         }
 
-        public Criteria andQuoteLessThan(String value) {
-            addCriterion("quote <", value, "quote");
+        public Criteria andOverviewLessThan(String value) {
+            addCriterion("overview <", value, "overview");
             return (Criteria) this;
         }
 
-        public Criteria andQuoteLessThanOrEqualTo(String value) {
-            addCriterion("quote <=", value, "quote");
+        public Criteria andOverviewLessThanOrEqualTo(String value) {
+            addCriterion("overview <=", value, "overview");
             return (Criteria) this;
         }
 
-        public Criteria andQuoteLike(String value) {
-            addCriterion("quote like", value, "quote");
+        public Criteria andOverviewLike(String value) {
+            addCriterion("overview like", value, "overview");
             return (Criteria) this;
         }
 
-        public Criteria andQuoteNotLike(String value) {
-            addCriterion("quote not like", value, "quote");
+        public Criteria andOverviewNotLike(String value) {
+            addCriterion("overview not like", value, "overview");
             return (Criteria) this;
         }
 
-        public Criteria andQuoteIn(List<String> values) {
-            addCriterion("quote in", values, "quote");
+        public Criteria andOverviewIn(List<String> values) {
+            addCriterion("overview in", values, "overview");
             return (Criteria) this;
         }
 
-        public Criteria andQuoteNotIn(List<String> values) {
-            addCriterion("quote not in", values, "quote");
+        public Criteria andOverviewNotIn(List<String> values) {
+            addCriterion("overview not in", values, "overview");
             return (Criteria) this;
         }
 
-        public Criteria andQuoteBetween(String value1, String value2) {
-            addCriterion("quote between", value1, value2, "quote");
+        public Criteria andOverviewBetween(String value1, String value2) {
+            addCriterion("overview between", value1, value2, "overview");
             return (Criteria) this;
         }
 
-        public Criteria andQuoteNotBetween(String value1, String value2) {
-            addCriterion("quote not between", value1, value2, "quote");
+        public Criteria andOverviewNotBetween(String value1, String value2) {
+            addCriterion("overview not between", value1, value2, "overview");
             return (Criteria) this;
         }
     }
