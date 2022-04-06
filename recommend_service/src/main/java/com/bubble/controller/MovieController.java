@@ -2,6 +2,7 @@ package com.bubble.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.bubble.mapper.ItemInfoMapper;
+import com.bubble.mapper.ItemTagMapper;
 import com.bubble.mapper.UserBaseMapper;
 import com.bubble.mapper.UserRecommendMapper;
 import com.bubble.model.*;
@@ -45,6 +46,8 @@ public class MovieController {
     private UserBaseMapper userBaseMapper;
     @Resource
     private ItemInfoMapper itemInfoMapper;
+    @Resource
+    private ItemTagMapper itemTagMapper;
 
     @GetMapping("/detail")
     public JSON getMovieDetail(@RequestParam(value = "id") String movieId) {
@@ -60,21 +63,24 @@ public class MovieController {
         movieDetail.setMovieName(itemInfo.getName());
         movieDetail.setImgUrl(itemInfo.getImageUrl());
         movieDetail.setMovieQuote(itemInfo.getOverview());
-        log.info(String.valueOf((JSON) JSON.toJSON(movieDetail)));
+//        log.info(String.valueOf((JSON) JSON.toJSON(movieDetail)));
+        //  日志实在是太长了
         return (JSON) JSON.toJSON(movieDetail);
     }
 
     @GetMapping("/tag")
     public JSON MovieDetailByTagId(@RequestParam(value = "tagId") String tagId) {
-        List<MovieDetail> movieDetailList = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            MovieDetail movieDetail = new MovieDetail();
-            movieDetail.setMovieId("7758" + i);
-            movieDetail.setMovieName("这是movie_" + i);
-            movieDetail.setMovieQuote("这是评论_" + i);
-            movieDetail.setImgUrl("https://image.tmdb.org/t/p/w300_and_h450_bestv2/61yu1ejOBWUrrMRplRbjpvxgxVc.jpg");
-            movieDetailList.add(movieDetail);
+        //  获取tag和item映射关系
+        ItemTagExample itemTagExample = new ItemTagExample();
+        itemTagExample.createCriteria().andTagIdEqualTo(Integer.parseInt(tagId));
+        List<ItemTag> itemTagList = itemTagMapper.selectByExample(itemTagExample);
+        //  获取movie Id
+        List<Integer> movieIdList = new ArrayList<>();
+        for (ItemTag itemTag : itemTagList) {
+            movieIdList.add(itemTag.getItemId());
         }
+        //  通过movieId列表获取movieDetail列表
+        List<MovieDetail> movieDetailList = itemService.getMovieDetail(movieIdList);
         log.info(String.valueOf((JSON) JSON.toJSON(movieDetailList)));
         return (JSON) JSON.toJSON(movieDetailList);
     }

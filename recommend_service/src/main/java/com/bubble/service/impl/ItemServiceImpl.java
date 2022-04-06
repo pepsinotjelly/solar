@@ -78,6 +78,7 @@ public class ItemServiceImpl implements ItemService {
         return getMovieDetail(recommendMovieIdList);
     }
 
+    @Override
     public List<MovieDetail> getMovieDetail(List<Integer> recommendMovieIdList) {
         //  通过电影id列表找到对应电影信息
         log.info("MovieRecommendByUser :: recommendMovieIdList :: " + recommendMovieIdList);
