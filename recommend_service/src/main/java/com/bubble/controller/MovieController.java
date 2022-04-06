@@ -1,6 +1,10 @@
 package com.bubble.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.bubble.mapper.ItemInfoMapper;
+import com.bubble.mapper.UserBaseMapper;
+import com.bubble.mapper.UserRecommendMapper;
+import com.bubble.model.*;
 import com.bubble.service.impl.UserDetailsServiceImpl;
 import com.bubble.vo.MovieDetail;
 import com.bubble.vo.ResponseEntity;
@@ -16,6 +20,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +36,13 @@ import java.util.List;
 public class MovieController {
     @Autowired
     private UserDetailsServiceImpl userDetailsServiceImpl;
+    @Resource
+    private UserRecommendMapper userRecommendMapper;
+    @Resource
+    private UserBaseMapper userBaseMapper;
+    @Resource
+    private ItemInfoMapper itemInfoMapper;
+
     @GetMapping("/detail")
     public JSON getMovieDetail(@RequestParam(value = "id") String movieId) {
         MovieDetail movieDetail = new MovieDetail();
@@ -58,26 +70,61 @@ public class MovieController {
     }
 
     @GetMapping("/recommend")
-    public JSON MovieRecommendByUserId(@RequestParam(value = "page") String page) {
+    public JSON MovieRecommendByUser(@RequestParam(value = "page") String page) {
         //  获取用户登陆信息
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (! (authentication instanceof AnonymousAuthenticationToken)) {
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
             // 登入用户
-            log.info("MovieRecommendByUserId :: user is not with AnonymousAuthenticationToken");
+            log.info("MovieRecommendByUser :: user is not with AnonymousAuthenticationToken");
         } else {
-            log.info("MovieRecommendByUserId :: get AnonymousAuthenticationToken");
+            log.info("MovieRecommendByUser :: get AnonymousAuthenticationToken");
         }
-        if(authentication.getPrincipal() != null){
-            log.info("MovieRecommendByUserId :: user not null");
-            try{
+        if (authentication.getPrincipal() != null) {
+            log.info("MovieRecommendByUser :: user not null");
+            try {
                 User user = (User) authentication.getPrincipal();
                 String username = user.getUsername();
-                log.info("MovieRecommendByUserId :: "+username);
-            }catch (Exception e){
-                log.info("MovieRecommendByUserId :: no token error return default");
+                log.info("MovieRecommendByUser :: " + username);
+                UserBaseExample userBaseExample = new UserBaseExample();
+                userBaseExample.createCriteria().andNameEqualTo(username);
+                List<UserBase> userBaseList = userBaseMapper.selectByExample(userBaseExample);
+                log.info("MovieRecommendByUser :: userBaseList size:: "+ userBaseList.size());
+                if (userBaseList.size() < 1) {
+                    log.info("cant find user error, return default page");
+                    return DefaultMovieRecommend(page);
+                }
+                UserRecommendExample userRecommendExample = new UserRecommendExample();
+                userRecommendExample.createCriteria().andUserIdEqualTo(userBaseList.get(0).getId());
+                List<UserRecommend> userRecommendList = userRecommendMapper.selectByExample(userRecommendExample);
+                List<Integer> recommendMovieIdList = new ArrayList<>();
+                //  格式化每页最多4个推荐内容
+                for (int i = 0; i < 4; i++) {
+                    int movieId = userRecommendList.get(((Integer.parseInt(page) - 1) * 4 +i)% userRecommendList.size()).getItemId();
+                    log.info("movieId :: " + movieId);
+                    recommendMovieIdList.add(movieId);
+                }
+                log.info("MovieRecommendByUser :: recommendMovieIdList :: " + recommendMovieIdList);
+                ItemInfoExample itemInfoExample = new ItemInfoExample();
+                itemInfoExample.createCriteria().andIdIn(recommendMovieIdList);
+                List<MovieDetail> movieDetailList = new ArrayList<>();
+                List<ItemInfo> itemInfoList = itemInfoMapper.selectByExample(itemInfoExample);
+                for (ItemInfo info : itemInfoList) {
+                    MovieDetail movieDetail = new MovieDetail();
+                    movieDetail.setMovieId(info.getId().toString());
+                    movieDetail.setMovieName(info.getName());
+                    movieDetail.setMovieQuote(info.getOverview());
+                    movieDetail.setImgUrl(info.getImageUrl());
+                    movieDetailList.add(movieDetail);
+                }
+                log.info("MovieRecommendByUser :: return value :: " + String.valueOf((JSON) JSON.toJSON(movieDetailList)));
+                return (JSON) JSON.toJSON(movieDetailList);
+            } catch (Exception e) {
+                log.info(e.toString());
+                log.info("MovieRecommendByUser Exception :: no token error return default");
                 return DefaultMovieRecommend(page);
             }
         }
+        log.info("ERROR :: authentication.getPrincipal() == null");
         List<MovieDetail> movieDetailList = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             MovieDetail movieDetail = new MovieDetail();
