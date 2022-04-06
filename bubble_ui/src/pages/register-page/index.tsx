@@ -6,20 +6,19 @@ import {Link, useNavigate} from "react-router-dom";
 import {userLogin} from "../../services/userService";
 import {UserBase, UserRegister} from "../../model/user-info";
 import {JWT} from "../../constants";
-import {IconCamera} from "@douyinfe/semi-icons";
 import UserRegisterPanel from "./components/userRegisterPanel";
-import AvatarUpload from "./components/avatarUpload";
+import AvatarUpdate from "./components/avatarUpdate";
 
 function RegisterPage() {
     const {userContext, setUserContext} = useGlobalContext();
     const jwt = localStorage.getItem(JWT)
-    if(jwt){
-        return (
-            <div>
-                <AvatarUpload/>
-            </div>
-        );
-    }
+    // if(jwt){
+    //     return (
+    //         <div>
+    //             <AvatarUpdate/>
+    //         </div>
+    //     );
+    // }
     return (
         <div>
             <UserRegisterPanel/>

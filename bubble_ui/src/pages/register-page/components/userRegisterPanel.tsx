@@ -24,7 +24,7 @@ function UserRegisterPanel() {
     ) => {
         e.preventDefault();
         //  设置超时时间
-        await new Promise((r) => setTimeout(r, 5000));
+        await new Promise((r) => setTimeout(r, 1000));
         //  数据处理
         try {
             //  发送请求
@@ -34,7 +34,7 @@ function UserRegisterPanel() {
                 localStorage.setItem(JWT, resp.data.data)
                 Toast.success(`已自动帮你登陆！`)
                 await new Promise((r) => setTimeout(r, 100));
-                navigate("/register", {replace: true});
+                navigate("/avatar-update", {replace: true});
             }
         } catch (err) {
             Toast.error("登陆失败!")
@@ -44,7 +44,7 @@ function UserRegisterPanel() {
         e: React.MouseEvent<Element, MouseEvent>
     ) => {
         e.preventDefault();
-        await new Promise((r) => setTimeout(r, 5000));
+        await new Promise((r) => setTimeout(r, 1000));
         try {
             const userRegister: UserRegister = {
                 userAvatar: "grey",
@@ -54,9 +54,11 @@ function UserRegisterPanel() {
             }
             const resp = await userBaseRegister(userRegister);
             console.log(resp)
-            if (resp.status === 200) {
+            if (resp.data.status === 200) {
                 Toast.success(`正在帮你登陆!`)
                 await handleLogin(e);
+            }else{
+                Toast.info(resp.data.msg)
             }
         } catch (err) {
             Toast.error("注册失败!")

@@ -10,7 +10,7 @@ import {JWT} from "../../../constants";
 import {AvatarColor} from "@douyinfe/semi-ui/avatar/interface";
 
 
-function AvatarUpload() {
+function AvatarUpdate() {
     const navigate = useNavigate()
     const [avatarColor, setAvatarColor] = useState<AvatarColor>('grey')
     const [inputUserAvatar, setInputUserAvatar] = useState('https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg');
@@ -78,4 +78,4 @@ function AvatarUpload() {
     );
 
 };
-export default AvatarUpload;
+export default AvatarUpdate;
