@@ -63,10 +63,11 @@ public class TagController {
     @GetMapping("/detail")
     public JSON getTagDetailByTagId(@RequestParam(value = "tagId") String tagId) {
         TagDetail tagDetail = new TagDetail();
-        tagDetail.setTagId("520");
-        tagDetail.setTagColor("red");
-        tagDetail.setTagName("我的小tag_" + 520);
-        tagDetail.setTagImgUrl("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/3Rfvhy1Nl6sSGJwyjb0QiZzZYlB.jpg");
+        Tag tag = tagMapper.selectByPrimaryKey(Integer.parseInt(tagId));
+        tagDetail.setTagId(tag.getId().toString());
+        tagDetail.setTagColor(tag.getColor());
+        tagDetail.setTagName(tag.getName());
+        tagDetail.setTagImgUrl(tag.getImgUrl());
         log.info(String.valueOf((JSON) JSON.toJSON(tagDetail)));
         return (JSON) JSON.toJSON(tagDetail);
     }
