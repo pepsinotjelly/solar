@@ -91,10 +91,8 @@ public class UserServiceImpl implements UserService {
             userEntity.setUserId(userInfo.getId().toString());
             userEntity.setUserName(userInfo.getName());
             userEntity.setUserAvatar(userInfo.getAvatarcolor());
+            userEntity.setUserEmail(userInfo.getEmail());
         }
-//        userEntity.setUserId(id);
-//        userEntity.setUserName("name_test");
-//        userEntity.setUserAvatar("https://image.tmdb.org/t/p/w300_and_h450_bestv2/bNeE1kUMFYG1sG6blHMwkG9sXXM.jpg");
         return userEntity;
     }
 /**

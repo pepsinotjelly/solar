@@ -137,7 +137,7 @@ public class UserController {
                 return (JSON) JSON.toJSON(response);
             }
             UserInfo userInfo = userInfoList.get(0);
-            userInfo.setAvatarcolor(avatarColor);
+            userInfo.setAvatarcolor(avatarColor.replace('\"',' ').trim());
             example.clear();
             example.createCriteria().andNameEqualTo(username);
             userInfoMapper.updateByExample(userInfo,example);
