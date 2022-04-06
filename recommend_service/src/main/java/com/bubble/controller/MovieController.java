@@ -63,7 +63,7 @@ public class MovieController {
         movieDetail.setMovieName(itemInfo.getName());
         movieDetail.setImgUrl(itemInfo.getImageUrl());
         movieDetail.setMovieQuote(itemInfo.getOverview());
-//        log.info(String.valueOf((JSON) JSON.toJSON(movieDetail)));
+        //  log.info(String.valueOf((JSON) JSON.toJSON(movieDetail)));
         //  日志实在是太长了
         return (JSON) JSON.toJSON(movieDetail);
     }
