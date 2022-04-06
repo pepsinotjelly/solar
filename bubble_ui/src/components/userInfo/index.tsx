@@ -63,7 +63,7 @@ function UserInfoPanel() {
                                 <Meta
                                     title={userContext.userName}
                                     description={"userContext-email"}
-                                    avatar={<Avatar size="small" src={userContext.userAvatar}/>}
+                                    avatar={<Avatar size="small" color={userContext.userAvatar}/>}
                                 />
                             </Card>
                             <Dropdown.Item icon={<IconArrowRight/>} onClick={handleLogout}>
@@ -72,7 +72,7 @@ function UserInfoPanel() {
                         </Dropdown.Menu>
                     }
                 >
-                    <Avatar size="small" src={userContext.userAvatar}/>
+                    <Avatar size="small" color={userContext.userAvatar}>{userContext.userName}</Avatar>
                 </Dropdown>
             </div>
         );

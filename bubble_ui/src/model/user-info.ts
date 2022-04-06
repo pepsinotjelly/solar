@@ -1,20 +1,25 @@
 import BaseResp from "./base-resp"
-export  interface UserInfo {
-    userId:number;
-    userName:string;
-    userAvatar:string;
+import {AvatarColor} from "@douyinfe/semi-ui/lib/es/avatar";
+
+export interface UserInfo {
+    userId: number;
+    userName: string;
+    userAvatar: AvatarColor | undefined;
 }
+
 export interface UserBase {
-    userEmail:string;
-    userPwd:string;
+    userEmail: string;
+    userPwd: string;
 }
-export interface UserRegister{
-    userName:string;
-    userAvatar:string;
-    userPwd:string;
-    userEmail:string;
+
+export interface UserRegister {
+    userName: string;
+    userAvatar: AvatarColor | undefined;
+    userPwd: string;
+    userEmail: string;
 }
+
 export interface UserInfoBaseResp {
-    userInfo:UserInfo,
-    baseResp:BaseResp,
+    userInfo: UserInfo,
+    baseResp: BaseResp,
 }

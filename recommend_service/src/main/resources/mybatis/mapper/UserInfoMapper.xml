@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="com.bubble.model.UserInfo">
     <result column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="userAvatar" jdbcType="VARCHAR" property="useravatar" />
     <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="avatarColor" jdbcType="VARCHAR" property="avatarcolor" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, userAvatar, email
+    id, name, email, avatarColor
   </sql>
   <select id="selectByExample" parameterType="com.bubble.model.UserInfoExample" resultMap="BaseResultMap">
     select
@@ -89,10 +89,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.bubble.model.UserInfo">
-    insert into user_info (id, name, userAvatar, 
-      email)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{useravatar,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR})
+    insert into user_info (id, name, email, 
+      avatarColor)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{avatarcolor,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.bubble.model.UserInfo">
     insert into user_info
@@ -103,11 +103,11 @@
       <if test="name != null">
         name,
       </if>
-      <if test="useravatar != null">
-        userAvatar,
-      </if>
       <if test="email != null">
         email,
+      </if>
+      <if test="avatarcolor != null">
+        avatarColor,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -117,11 +117,11 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="useravatar != null">
-        #{useravatar,jdbcType=VARCHAR},
-      </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarcolor != null">
+        #{avatarcolor,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -140,11 +140,11 @@
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.useravatar != null">
-        userAvatar = #{record.useravatar,jdbcType=VARCHAR},
-      </if>
       <if test="record.email != null">
         email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avatarcolor != null">
+        avatarColor = #{record.avatarcolor,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -155,8 +155,8 @@
     update user_info
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
-      userAvatar = #{record.useravatar,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR}
+      email = #{record.email,jdbcType=VARCHAR},
+      avatarColor = #{record.avatarcolor,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

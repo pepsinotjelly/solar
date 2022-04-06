@@ -5,9 +5,9 @@ public class UserInfo {
 
     private String name;
 
-    private String useravatar;
-
     private String email;
+
+    private String avatarcolor;
 
     public Integer getId() {
         return id;
@@ -25,19 +25,19 @@ public class UserInfo {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getUseravatar() {
-        return useravatar;
-    }
-
-    public void setUseravatar(String useravatar) {
-        this.useravatar = useravatar == null ? null : useravatar.trim();
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email == null ? null : email.trim();
+    }
+
+    public String getAvatarcolor() {
+        return avatarcolor;
+    }
+
+    public void setAvatarcolor(String avatarcolor) {
+        this.avatarcolor = avatarcolor == null ? null : avatarcolor.trim();
     }
 }

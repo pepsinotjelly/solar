@@ -15,5 +15,9 @@ export function getUserInfo(jwt: string) {
 }
 
 export function userBaseRegister(userRegister: UserRegister) {
-    return http.post<BaseResp>(`/user/register`, userRegister)
+    return http.post(`/user/register`, userRegister)
+}
+
+export function userUpdateAvatar(avatar:string,jwt: string){
+    return http.post(`/user/update/avatar`,avatar,{headers: {Authorization: `${jwt}`}})
 }

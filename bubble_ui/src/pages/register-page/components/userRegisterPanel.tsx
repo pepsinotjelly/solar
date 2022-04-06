@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Input, Modal, Toast} from "@douyinfe/semi-ui";
 import {useNavigate} from "react-router-dom";
 import {UserRegister} from "../../../model/user-info";
-import {userBaseRegister} from "../../../services/userService";
+import {userBaseRegister, userLogin} from "../../../services/userService";
 import {JWT} from "../../../constants";
 
 function UserRegisterPanel() {
@@ -15,32 +15,50 @@ function UserRegisterPanel() {
     const [inputUserEmail, setInputUserEmail] = useState<string>("")
     const handelUserEmailChange = (val: React.SetStateAction<string>) => setInputUserEmail(val);
 
-     const onClose = () => {
+    const onClose = () => {
         navigate("/login", {replace: true});
         console.log("onClose :: close the registerWindow!")
     };
-
+    const handleLogin = async (
+        e: React.MouseEvent<Element, MouseEvent>
+    ) => {
+        e.preventDefault();
+        //  设置超时时间
+        await new Promise((r) => setTimeout(r, 1000));
+        //  数据处理
+        try {
+            //  发送请求
+            const resp = await userLogin(inputUserName, inputUserPwd);
+            if (resp.status === 200) {
+                console.log("/user/login :: response.token :: ", resp.data.data)
+                localStorage.setItem(JWT, resp.data.data)
+                Toast.success(`已自动帮你登陆！`)
+                await new Promise((r) => setTimeout(r, 100));
+                navigate("/avatar-update", {replace: true});
+            }
+        } catch (err) {
+            Toast.error("登陆失败!")
+        }
+    };
     const handleRegister = async (
         e: React.MouseEvent<Element, MouseEvent>
     ) => {
         e.preventDefault();
-        await new Promise((r) => setTimeout(r, 5000));
+        await new Promise((r) => setTimeout(r, 1000));
         try {
             const userRegister: UserRegister = {
-                userAvatar: "",
+                userAvatar: "grey",
                 userName: inputUserName,
                 userEmail: inputUserEmail,
                 userPwd: inputUserPwd
             }
             const resp = await userBaseRegister(userRegister);
-            if (resp.status === 200) {
-                if (resp.data.baseCode === 0) {
-                    console.log("/user/register :: response.token :: ", resp.data.token)
-                    localStorage.setItem(JWT, resp.data.token)
-                    Toast.success(`Hi Welcome!`)
-                } else {
-                    Toast.error(resp.data.baseMsg)
-                }
+            console.log(resp)
+            if (resp.data.status === 200) {
+                Toast.success(`正在帮你登陆!`)
+                await handleLogin(e);
+            }else{
+                Toast.info(resp.data.msg)
             }
         } catch (err) {
             Toast.error("注册失败!")

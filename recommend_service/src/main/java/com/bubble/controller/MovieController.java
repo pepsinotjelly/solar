@@ -1,6 +1,12 @@
 package com.bubble.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.bubble.mapper.ItemInfoMapper;
+import com.bubble.mapper.ItemTagMapper;
+import com.bubble.mapper.UserBaseMapper;
+import com.bubble.mapper.UserRecommendMapper;
+import com.bubble.model.*;
+import com.bubble.service.ItemService;
 import com.bubble.service.impl.UserDetailsServiceImpl;
 import com.bubble.vo.MovieDetail;
 import com.bubble.vo.ResponseEntity;
@@ -16,6 +22,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,64 +38,93 @@ import java.util.List;
 public class MovieController {
     @Autowired
     private UserDetailsServiceImpl userDetailsServiceImpl;
+    @Autowired
+    private ItemService itemService;
+    @Resource
+    private UserRecommendMapper userRecommendMapper;
+    @Resource
+    private UserBaseMapper userBaseMapper;
+    @Resource
+    private ItemInfoMapper itemInfoMapper;
+    @Resource
+    private ItemTagMapper itemTagMapper;
+
     @GetMapping("/detail")
     public JSON getMovieDetail(@RequestParam(value = "id") String movieId) {
         MovieDetail movieDetail = new MovieDetail();
+        ItemInfo itemInfo = itemInfoMapper.selectByPrimaryKey(Integer.parseInt(movieId));
+        if (itemInfo == null) {
+            //  异常处理
+            log.info("ERROR :: get null ItemInfo !");
+            return (JSON) JSON.toJSON(movieDetail);
+        }
+        //  构造返回值
         movieDetail.setMovieId(movieId);
-        movieDetail.setMovieName("来自service的名字");
-        movieDetail.setImgUrl("https://image.tmdb.org/t/p/w300_and_h450_bestv2/zGdGINvf9oSysprbWnu85dIM7rc.jpg");
-        movieDetail.setMovieQuote("一段简介：作为我的电影简介吧");
-        log.info(String.valueOf((JSON) JSON.toJSON(movieDetail)));
+        movieDetail.setMovieName(itemInfo.getName());
+        movieDetail.setImgUrl(itemInfo.getImageUrl());
+        movieDetail.setMovieQuote(itemInfo.getOverview());
+        //  log.info(String.valueOf((JSON) JSON.toJSON(movieDetail)));
+        //  日志实在是太长了
         return (JSON) JSON.toJSON(movieDetail);
     }
 
     @GetMapping("/tag")
     public JSON MovieDetailByTagId(@RequestParam(value = "tagId") String tagId) {
-        List<MovieDetail> movieDetailList = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            MovieDetail movieDetail = new MovieDetail();
-            movieDetail.setMovieId("7758" + i);
-            movieDetail.setMovieName("这是movie_" + i);
-            movieDetail.setMovieQuote("这是评论_" + i);
-            movieDetail.setImgUrl("https://image.tmdb.org/t/p/w300_and_h450_bestv2/61yu1ejOBWUrrMRplRbjpvxgxVc.jpg");
-            movieDetailList.add(movieDetail);
+        //  获取tag和item映射关系
+        ItemTagExample itemTagExample = new ItemTagExample();
+        itemTagExample.createCriteria().andTagIdEqualTo(Integer.parseInt(tagId));
+        List<ItemTag> itemTagList = itemTagMapper.selectByExample(itemTagExample);
+        //  获取movie Id
+        List<Integer> movieIdList = new ArrayList<>();
+        for (ItemTag itemTag : itemTagList) {
+            movieIdList.add(itemTag.getItemId());
         }
+        //  通过movieId列表获取movieDetail列表
+        List<MovieDetail> movieDetailList = itemService.getMovieDetail(movieIdList);
         log.info(String.valueOf((JSON) JSON.toJSON(movieDetailList)));
         return (JSON) JSON.toJSON(movieDetailList);
     }
 
     @GetMapping("/recommend")
-    public JSON MovieRecommendByUserId(@RequestParam(value = "page") String page) {
+    public JSON MovieRecommendByUser(@RequestParam(value = "page") String page) {
         //  获取用户登陆信息
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (! (authentication instanceof AnonymousAuthenticationToken)) {
-            // 登入用户
-            log.info("MovieRecommendByUserId :: user is not with AnonymousAuthenticationToken");
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            //  用户已登陆
+            log.info("MovieRecommendByUser :: user is not with AnonymousAuthenticationToken");
         } else {
-            log.info("MovieRecommendByUserId :: get AnonymousAuthenticationToken");
+            //  用户未登陆
+            log.info("MovieRecommendByUser :: get AnonymousAuthenticationToken");
         }
-        if(authentication.getPrincipal() != null){
-            log.info("MovieRecommendByUserId :: user not null");
-            try{
+        if (authentication.getPrincipal() != null) {
+            //  获取Token中用户信息
+            log.info("MovieRecommendByUser :: user not null");
+            try {
                 User user = (User) authentication.getPrincipal();
                 String username = user.getUsername();
-                log.info("MovieRecommendByUserId :: "+username);
-            }catch (Exception e){
-                log.info("MovieRecommendByUserId :: no token error return default");
+                log.info("MovieRecommendByUser :: " + username);
+                UserBaseExample userBaseExample = new UserBaseExample();
+                userBaseExample.createCriteria().andNameEqualTo(username);
+                List<UserBase> userBaseList = userBaseMapper.selectByExample(userBaseExample);
+                log.info("MovieRecommendByUser :: userBaseList size:: " + userBaseList.size());
+                //  无法查找用户信息时兜底逻辑-返回默认列表
+                if (userBaseList.size() < 1) {
+                    log.info("cant find user error, return default page");
+                    return DefaultMovieRecommend(page);
+                }
+                //  获取推荐列表
+                List<MovieDetail> movieDetailList = itemService.getMovieRecommendByUser(userBaseList.get(0).getId(), page);
+                log.info("MovieRecommendByUser :: return value :: " + String.valueOf((JSON) JSON.toJSON(movieDetailList)));
+                return (JSON) JSON.toJSON(movieDetailList);
+            } catch (Exception e) {
+                log.info(e.toString());
+                log.info("MovieRecommendByUser Exception :: no token error return default");
                 return DefaultMovieRecommend(page);
             }
         }
-        List<MovieDetail> movieDetailList = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            MovieDetail movieDetail = new MovieDetail();
-            movieDetail.setMovieId("7758" + i);
-            movieDetail.setMovieName("这是movie_" + i);
-            movieDetail.setMovieQuote("这是评论_" + i);
-            movieDetail.setImgUrl("https://image.tmdb.org/t/p/w300_and_h450_bestv2/61yu1ejOBWUrrMRplRbjpvxgxVc.jpg");
-            movieDetailList.add(movieDetail);
-        }
-        log.info(String.valueOf((JSON) JSON.toJSON(movieDetailList)));
-        return (JSON) JSON.toJSON(movieDetailList);
+        //  Token中无法解析用户信息时返回默认列表
+        log.info("ERROR :: authentication.getPrincipal() == null");
+        return DefaultMovieRecommend(page);
     }
 
 

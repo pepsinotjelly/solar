@@ -1,13 +1,14 @@
 import {createContext, useContext} from "react";
+import {AvatarColor} from "@douyinfe/semi-ui/lib/es/avatar";
 
 export interface UserContext {
     userId: number;
     userName: string;
-    userAvatar: string;
+    userAvatar: AvatarColor | undefined;
 }
 
 export const getEmptyUser = (): UserContext => {
-    return {userId: -1, userName: '', userAvatar: ''}
+    return {userId: -1, userName: '', userAvatar: 'grey'}
 }
 
 export interface GlobalContext {
