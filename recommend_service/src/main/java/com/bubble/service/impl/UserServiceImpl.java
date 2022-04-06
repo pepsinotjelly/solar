@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
         if(userInfo != null){
             userEntity.setUserId(userInfo.getId().toString());
             userEntity.setUserName(userInfo.getName());
-            userEntity.setUserAvatar(userInfo.getUseravatar());
+            userEntity.setUserAvatar(userInfo.getAvatarcolor());
         }
 //        userEntity.setUserId(id);
 //        userEntity.setUserName("name_test");
