@@ -4,10 +4,9 @@
   <resultMap id="BaseResultMap" type="com.bubble.model.ItemInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="rating" jdbcType="DOUBLE" property="rating" />
     <result column="image" jdbcType="VARCHAR" property="image" />
     <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
-    <result column="quote" jdbcType="VARCHAR" property="quote" />
+    <result column="overview" jdbcType="VARCHAR" property="overview" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, rating, image, image_url, quote
+    id, name, image, image_url, overview
   </sql>
   <select id="selectByExample" parameterType="com.bubble.model.ItemInfoExample" resultMap="BaseResultMap">
     select
@@ -101,12 +100,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.bubble.model.ItemInfo">
-    insert into item_info (id, name, rating, 
-      image, image_url, quote
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{rating,jdbcType=DOUBLE}, 
-      #{image,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, #{quote,jdbcType=VARCHAR}
-      )
+    insert into item_info (id, name, image, 
+      image_url, overview)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
+      #{imageUrl,jdbcType=VARCHAR}, #{overview,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.bubble.model.ItemInfo">
     insert into item_info
@@ -117,17 +114,14 @@
       <if test="name != null">
         name,
       </if>
-      <if test="rating != null">
-        rating,
-      </if>
       <if test="image != null">
         image,
       </if>
       <if test="imageUrl != null">
         image_url,
       </if>
-      <if test="quote != null">
-        quote,
+      <if test="overview != null">
+        overview,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -137,17 +131,14 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="rating != null">
-        #{rating,jdbcType=DOUBLE},
-      </if>
       <if test="image != null">
         #{image,jdbcType=VARCHAR},
       </if>
       <if test="imageUrl != null">
         #{imageUrl,jdbcType=VARCHAR},
       </if>
-      <if test="quote != null">
-        #{quote,jdbcType=VARCHAR},
+      <if test="overview != null">
+        #{overview,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -166,17 +157,14 @@
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.rating != null">
-        rating = #{record.rating,jdbcType=DOUBLE},
-      </if>
       <if test="record.image != null">
         image = #{record.image,jdbcType=VARCHAR},
       </if>
       <if test="record.imageUrl != null">
         image_url = #{record.imageUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.quote != null">
-        quote = #{record.quote,jdbcType=VARCHAR},
+      <if test="record.overview != null">
+        overview = #{record.overview,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -187,10 +175,9 @@
     update item_info
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
-      rating = #{record.rating,jdbcType=DOUBLE},
       image = #{record.image,jdbcType=VARCHAR},
       image_url = #{record.imageUrl,jdbcType=VARCHAR},
-      quote = #{record.quote,jdbcType=VARCHAR}
+      overview = #{record.overview,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -201,17 +188,14 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="rating != null">
-        rating = #{rating,jdbcType=DOUBLE},
-      </if>
       <if test="image != null">
         image = #{image,jdbcType=VARCHAR},
       </if>
       <if test="imageUrl != null">
         image_url = #{imageUrl,jdbcType=VARCHAR},
       </if>
-      <if test="quote != null">
-        quote = #{quote,jdbcType=VARCHAR},
+      <if test="overview != null">
+        overview = #{overview,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -219,10 +203,9 @@
   <update id="updateByPrimaryKey" parameterType="com.bubble.model.ItemInfo">
     update item_info
     set name = #{name,jdbcType=VARCHAR},
-      rating = #{rating,jdbcType=DOUBLE},
       image = #{image,jdbcType=VARCHAR},
       image_url = #{imageUrl,jdbcType=VARCHAR},
-      quote = #{quote,jdbcType=VARCHAR}
+      overview = #{overview,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

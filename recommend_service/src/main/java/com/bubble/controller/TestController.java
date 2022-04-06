@@ -2,23 +2,16 @@ package com.bubble.controller;
 
 //import com.bubble.dal.UserInfoService;
 
-import com.bubble.mapper.ItemBaseMapper;
-import com.bubble.mapper.ItemTagMapper;
-import com.bubble.mapper.TagMapper;
-import com.bubble.mapper.UserBaseMapper;
+import com.bubble.mapper.*;
 import com.bubble.model.*;
 import com.bubble.service.ItemService;
 import com.bubble.service.RecommendService;
 import com.bubble.service.UserService;
-import com.bubble.utils.CryptoSystem;
 import com.bubble.utils.DataProcessor;
 import com.bubble.vo.ResponseEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.tomcat.util.digester.Digester;
-import org.apache.velocity.runtime.directive.Evaluate;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -27,17 +20,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import paillierp.Paillier;
-import paillierp.key.KeyGen;
-import paillierp.key.PaillierKey;
-import paillierp.key.PaillierPrivateKey;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.math.BigInteger;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -65,6 +54,8 @@ public class TestController {
     private ItemTagMapper itemTagMapper;
     @Resource
     private UserBaseMapper userBaseMapper;
+    @Resource
+    private ItemInfoMapper itemInfoMapper;
 
     @GetMapping("/test")
     public String test() {
@@ -75,7 +66,7 @@ public class TestController {
     @GetMapping("/everyone")
     public ResponseEntity testEveryone() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (! (authentication instanceof AnonymousAuthenticationToken)) {
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
             // 登入用户
             return new ResponseEntity(HttpStatus.OK.value(), "You are already login", authentication.getPrincipal());
         } else {
@@ -131,28 +122,29 @@ public class TestController {
 
     @GetMapping(value = "/security/password")
     public String EncodePassword() throws Exception {
-        for(int i = 1;i <= 600;i ++){
+        for (int i = 1; i <= 600; i++) {
             UserBase userBase = userBaseMapper.selectByPrimaryKey(i);
-            String originPwd = "user_"+i;
-            log.info("origin pwd :: "+originPwd);
-            log.info("md5 :: "+ DigestUtils.md5(originPwd));
+            String originPwd = "user_" + i;
+            log.info("origin pwd :: " + originPwd);
+            log.info("md5 :: " + DigestUtils.md5(originPwd));
             String tempPwd = bCryptPasswordEncoder.encode(originPwd);
-            log.info("tempPwd :: "+tempPwd);
+            log.info("tempPwd :: " + tempPwd);
             userBase.setPassword(tempPwd);
 //            userBaseMapper.updateByPrimaryKey(userBase);
-            log.info("updated user_"+userBase.getId());
+            log.info("updated user_" + userBase.getId());
         }
         return "done";
 
     }
+
     @GetMapping(value = "/security/update/userbase")
-    public String UpdateUserBase()throws Exception{
-        for(int i = 1;i <= 600;i ++){
+    public String UpdateUserBase() throws Exception {
+        for (int i = 1; i <= 600; i++) {
             UserBase userBase = userBaseMapper.selectByPrimaryKey(i);
-            log.info("origin :: "+userBase);
-            userBase.setName("user_"+i);
+            log.info("origin :: " + userBase);
+            userBase.setName("user_" + i);
             userBaseMapper.updateByPrimaryKey(userBase);
-            log.info("updated user_"+userBase.getId());
+            log.info("updated user_" + userBase.getId());
         }
         return "done";
     }
@@ -160,13 +152,91 @@ public class TestController {
 
     @GetMapping(value = "/security/matches")
     public String MatchesPassword() throws Exception {
-        for(int i = 1;i <= 600;i ++){
+        for (int i = 1; i <= 600; i++) {
             UserBase userBase = userBaseMapper.selectByPrimaryKey(i);
             String tempPwd = userBase.getPassword();
-            String testPwd = "user_"+i;
-            boolean mathes = bCryptPasswordEncoder.matches(testPwd,tempPwd);
-            log.info("matches :: "+String.valueOf(mathes) + "user_"+userBase.getId());
+            String testPwd = "user_" + i;
+            boolean mathes = bCryptPasswordEncoder.matches(testPwd, tempPwd);
+            log.info("matches :: " + String.valueOf(mathes) + "user_" + userBase.getId());
         }
         return "123";
+    }
+
+    @GetMapping(value = "/update/movie")
+    public String UpdateMovie() throws Exception {
+        File linksFile = new File("recommend_service/src/main/resources/image/links.csv");
+        HashMap<String,String> hashMap = new HashMap<>();
+        try {
+             //  初始化数据，通过 tmdbId 获取 movieId
+            BufferedReader linksReader = new BufferedReader(new FileReader(linksFile));
+            linksReader.readLine(); //  读取首行信息
+            String linksLine = null;
+            while ((linksLine = linksReader.readLine()) != null){
+                String[] links = linksLine.split(",",-1);
+                if(links[0] == null || links[2] == null){
+                    log.info("null data");
+                }
+                hashMap.put(links[2],links[0]); //  顺序为 :: tmdbId :: movieId
+            }
+            log.info("hash done " + hashMap.size());
+        }catch (Exception e){
+            return "ERROR";
+        }
+        File imageUrlFile = new File("recommend_service/src/main/resources/image/movie_path.csv");
+        try {
+            BufferedReader imageUrlReader = new BufferedReader(new FileReader(imageUrlFile));
+            String imageUrlLine = null;
+            while ((imageUrlLine = imageUrlReader.readLine()) != null) {
+                String item[] = imageUrlLine.split(",", -1);//CSV格式文件为逗号分隔符文件，这里根据逗号切分
+                String tmdbId = item[0];
+                String imageUrl = "https://image.tmdb.org"+item[1];
+                if(imageUrl == null){
+                    log.info("imageUrl == null");
+                }
+                if(!hashMap.containsKey(tmdbId)){
+                    log.info("cant find key");
+                }
+                String movieId = hashMap.get(tmdbId);
+                ItemInfo itemInfo = itemInfoMapper.selectByPrimaryKey(Integer.parseInt(movieId));
+                itemInfo.setImageUrl(imageUrl);
+                itemInfoMapper.updateByPrimaryKey(itemInfo);
+            }
+            log.info("update done");
+        } catch (Exception e) {
+            return e.toString();
+        }
+        File overviewFile = new File("recommend_service/src/main/resources/image/movie_overview_path.csv");
+        try {
+            BufferedReader overviewReader = new BufferedReader(new FileReader(overviewFile));
+            String overviewLine = null;
+            int count = 10722;
+            int pos = 1;
+            while ((overviewLine = overviewReader.readLine()) != null && pos < count) {
+                String item[] = overviewLine.split(",", -1);//CSV格式文件为逗号分隔符文件，这里根据逗号切分
+                String tmdbId = item[0];
+                String overview = "";
+                if(item.length < 2){
+                    log.info("length error :: "+ item);
+                }
+                for (int i = 1; i <= item.length - 1; i++) {
+                    overview = overview + item[i];
+                }
+                if(overview == null){
+                    log.info("overview == null");
+                }
+                if(!hashMap.containsKey(tmdbId)){
+                    log.info("cant find key");
+                }
+                String movieId = hashMap.get(tmdbId);
+                ItemInfo itemInfo = itemInfoMapper.selectByPrimaryKey(Integer.parseInt(movieId));
+                itemInfo.setOverview(overview);
+                itemInfoMapper.updateByPrimaryKey(itemInfo);
+                pos ++;
+            }
+            log.info("update done");
+        } catch (Exception e) {
+            return e.toString();
+        }
+        return "done!";
     }
 }

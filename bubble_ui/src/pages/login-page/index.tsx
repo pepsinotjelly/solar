@@ -3,7 +3,7 @@ import {Modal, Button} from '@douyinfe/semi-ui';
 import React, {useState} from "react";
 import {getEmptyUser, useGlobalContext, UserContext} from "../../context";
 import {Link, useNavigate} from "react-router-dom";
-import {userLogin} from "../../services/userService";
+import {userLogin, userLogout} from "../../services/userService";
 import {UserBase} from "../../model/user-info";
 import {JWT} from "../../constants";
 import {IconHelpCircle} from "@douyinfe/semi-icons";
@@ -19,14 +19,6 @@ function LoginPage() {
     const [inputPassword, setInputPassword] = useState<string>("")
     const handelUserPwdChange = (val: React.SetStateAction<string>) => setInputPassword(val);
 
-    // 退出登陆
-    const Logout = () => {
-        setUserContext(getEmptyUser())
-        //  删除用户token
-        localStorage.removeItem(JWT)
-        Toast.success("Logout Success！")
-        console.log("USER LOGOUT")
-    }
 
     const onClose = () => {
         navigate("/", {replace: true});
@@ -44,9 +36,9 @@ function LoginPage() {
         try {
             //  发送请求
             const resp = await userLogin(inputUsername, inputPassword);
-            console.log("MD5(inputPassword) :: "+MD5(inputPassword))
-            console.log("MD5(inputPassword) :: "+MD5(inputPassword))
-            console.log("MD5(inputPassword) :: "+MD5(inputPassword))
+            console.log("MD5(inputPassword) :: " + MD5(inputPassword))
+            console.log("MD5(inputPassword) :: " + MD5(inputPassword))
+            console.log("MD5(inputPassword) :: " + MD5(inputPassword))
             if (resp.status === 200) {
                 console.log("/user/login :: response.token :: ", resp.data.data)
                 localStorage.setItem(JWT, resp.data.data)

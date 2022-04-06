@@ -13,7 +13,7 @@ import AvatarUpload from "./components/avatarUpload";
 function RegisterPage() {
     const {userContext, setUserContext} = useGlobalContext();
     const jwt = localStorage.getItem(JWT)
-    if(jwt){
+    if(!jwt){
         return (
             <div>
                 <AvatarUpload/>

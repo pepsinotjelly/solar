@@ -63,7 +63,7 @@ function AvatarUpload() {
                     accept={imageOnly}
                     showUploadList={false}
                     onError={() => Toast.error('上传失败')}
-                    headers={{"ContentType":"image/jpeg"}}
+                    // headers={{"ContentType":"image/jpeg"}}
                 >
                     <Avatar src={inputUserAvatar} style={{margin: 4}} hoverMask={hoverMask}/>
                 </Upload>
