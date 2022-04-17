@@ -35,10 +35,9 @@ function LoginPage() {
         //  数据处理
         try {
             //  发送请求
-            const resp = await userLogin(inputUsername, inputPassword);
-            console.log("MD5(inputPassword) :: " + MD5(inputPassword))
-            console.log("MD5(inputPassword) :: " + MD5(inputPassword))
-            console.log("MD5(inputPassword) :: " + MD5(inputPassword))
+            const MDPwd = MD5(encodeURIComponent(inputPassword))
+            const resp = await userLogin(inputPassword,MDPwd);
+            console.log("MD5(encodeURIComponent(inputPassword)) :: " + MDPwd)
             if (resp.status === 200) {
                 console.log("/user/login :: response.token :: ", resp.data.data)
                 localStorage.setItem(JWT, resp.data.data)

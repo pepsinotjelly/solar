@@ -40,6 +40,7 @@ function App() {
                 console.log("userId :: ",resp.data.userId);
                 setUserContext({
                     userId: resp.data.userId,
+                    userEmail:resp.data.userEmail,
                     userAvatar: resp.data.userAvatar,
                     userName: resp.data.userName
                 });

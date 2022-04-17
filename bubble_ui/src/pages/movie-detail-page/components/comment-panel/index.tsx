@@ -51,7 +51,7 @@ function Comment() {
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
         //  加载状态-开始
-        setLoading(!loading)
+        setLoading(true)
         e.preventDefault();
         //  设置超时时间
         await new Promise((r) => setTimeout(r, 5000));
@@ -68,7 +68,7 @@ function Comment() {
             //  更新评论状态
             setSubmitDone(true)
             //  更新加载状态
-            setLoading(!loading)
+            setLoading(false)
             if (resp.status === 200) {
                 //  toast提示
                 Toast.success("提交成功啦！")

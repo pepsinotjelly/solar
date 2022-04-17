@@ -75,6 +75,7 @@ public class RecommendServiceImpl implements RecommendService {
         request.setStartPosition(min);
         request.setPublicKeyN(publicKey.getN().toString());
         request.setPublicKeyRnd("122333356");
+        log.info(String.valueOf(request));
         GetRecommendInfoResponse response = client.GetRecommendInfo(request);
         //获取AB、BB
         List<String> EnAB = response.getABList();
