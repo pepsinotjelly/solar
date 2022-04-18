@@ -41,6 +41,7 @@ public class CryptoSystem {
             EnA[i] = eSystem.encrypt(BigInteger.valueOf((long) (Double.parseDouble(A.get(i)) * coefficient)));
             EnCodeA.add(EnA[i].toString());
         }
+        log.info(String.valueOf(A.size()));
         log.info("ENCRYPTION DONE");
         return EnCodeA;
     }
@@ -58,6 +59,7 @@ public class CryptoSystem {
             DeA[i] = eSystem.decrypt(A[i]);
             DeCodeA.add(Double.toString(Double.parseDouble(DeA[i].toString())/coefficient));
         }
+        log.info(String.valueOf(AList.size()));
         log.info("DECRYPTION DONE");
         return DeCodeA;
     }

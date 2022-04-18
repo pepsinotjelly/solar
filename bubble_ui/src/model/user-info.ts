@@ -5,6 +5,7 @@ export interface UserInfo {
     userId: number;
     userName: string;
     userAvatar: AvatarColor | undefined;
+    userEmail: string;
 }
 
 export interface UserBase {

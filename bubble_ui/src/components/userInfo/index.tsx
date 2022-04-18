@@ -62,7 +62,9 @@ function UserInfoPanel() {
                             <Card style={{maxWidth: 340, borderRadius: "0px"}}>
                                 <Meta
                                     title={userContext.userName}
-                                    description={"userContext-email"}
+                                    description={
+                                        userContext.userEmail
+                                    }
                                     avatar={<Avatar size="small" color={userContext.userAvatar}/>}
                                 />
                             </Card>

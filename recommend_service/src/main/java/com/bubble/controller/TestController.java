@@ -26,6 +26,9 @@ import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -104,6 +107,11 @@ public class TestController {
         return dataProcessor.getDiff(100);
     }
 
+    @GetMapping(value = "/get/encrypt/time")
+    public String getTime()throws Exception{
+
+        return "done";
+    }
 
     @GetMapping(value = "/api/get-my-recommend")
     public String myRecommend(@RequestParam(value = "user_id") int user_id) throws Exception {
@@ -126,11 +134,12 @@ public class TestController {
             UserBase userBase = userBaseMapper.selectByPrimaryKey(i);
             String originPwd = "user_" + i;
             log.info("origin pwd :: " + originPwd);
-            log.info("md5 :: " + DigestUtils.md5(originPwd));
-            String tempPwd = bCryptPasswordEncoder.encode(originPwd);
+            String MD5Pwd = DigestUtils.md5Hex(URLEncoder.encode(originPwd, StandardCharsets.UTF_8.toString()));
+            log.info("md5 :: " + MD5Pwd);
+            String tempPwd = bCryptPasswordEncoder.encode(MD5Pwd);
             log.info("tempPwd :: " + tempPwd);
             userBase.setPassword(tempPwd);
-//            userBaseMapper.updateByPrimaryKey(userBase);
+            userBaseMapper.updateByPrimaryKey(userBase);
             log.info("updated user_" + userBase.getId());
         }
         return "done";

@@ -2,6 +2,7 @@ package com.bubble.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.bubble.vo.RatingRecord;
+import com.bubble.vo.ResponseEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -36,9 +37,13 @@ public class RatingController {
             User user = (User) authentication.getPrincipal();
             String username = user.getUsername();
             log.info("SubmitRatingRecord :: "+username);
+
         }
+        ResponseEntity response = new ResponseEntity();
+        response.setStatus(200);
+        response.setMsg("rating success");
         log.info(String.valueOf(ratingRecord));
-        log.info(String.valueOf((JSON) JSON.toJSON(ratingRecord)));
-        return (JSON) JSON.toJSON(ratingRecord);
+        log.info(String.valueOf((JSON) JSON.toJSON(response)));
+        return (JSON) JSON.toJSON(response);
     }
 }

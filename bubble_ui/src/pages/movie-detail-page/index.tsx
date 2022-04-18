@@ -49,7 +49,7 @@ function DetailPage() {
         console.log(tagDetailData)
         return (
             <>
-                <h2>调试用的-movieId:{params.id}</h2>
+                {/*<h2>调试用的-movieId:{params.id}</h2>*/}
                 <Layout className={'movie-detail-mainly-layout'} style={{height: '575px'}}>
                     <Sider style={{marginLeft: '42px'}}>
                         <MovieImgCard imgUrl={movieDetailData.imgUrl} cardWidth={333} cardHeight={500} movieName={''}/>
