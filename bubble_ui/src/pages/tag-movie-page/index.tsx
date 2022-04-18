@@ -11,7 +11,7 @@ import MovieDetailPanel from '../movie-detail-page/components/movie-detail';
 function TagMoviePage() {
     const {Title, Text} = Typography;
     const {Header, Footer, Content, Sider} = Layout;
-    const mockDataTag = {tagId: 1, color: 'green', children: 'Thrill'};
+    const mockDataTag = {tagId: 1, tagColor: 'green', tagName: 'Thrill'};
     const backGroundImg = '/resources/icecold.jpg';
     const [movieDetailData, setMovieDetailData] = useState<MovieDetail[]>([])
     const [tagDetailData, setTagDetailData] = useState<TagDetail>()

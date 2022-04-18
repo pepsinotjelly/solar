@@ -1,47 +1,64 @@
-import React, {useState} from 'react';
-import {Link, useParams} from "react-router-dom";
 import {Typography, Layout} from '@douyinfe/semi-ui';
-import MovieImgCard from "../movie-detail-page/components/movie-img";
-import MovieDetail from "../movie-detail-page/components/movie-detail";
-import TagDetailPlane from "../movie-detail-page/components/tags-detail";
+import TagDetail from "../../model/tag-detail";
+import AvatarListPanel from "./components/avatar-list";
 
 function AllTagPage() {
     const {Content} = Layout
-    const mockDataLine1 = [
-        {tagId: 1, children: 'Adventure', color: 'amber'},
-        {tagId: 2, children: 'Animation', color: 'green'},
-        {tagId: 3, children: 'Children', color: 'pink'},
-        {tagId: 4, children: 'Comedy', color: 'orange'},
-        {tagId: 5, children: 'Fantasy', color: 'violet'}]
-    const mockDataLine2 = [{tagId: 6, children: 'Romance', color: 'purple'},
-        {tagId: 7, children: 'Drama', color: 'lime'},
-        {tagId: 8, children: 'Action', color: 'red'},
-        {tagId: 9, children: 'Crime', color: 'blue'},
-        {tagId: 10, children: 'Thriller', color: 'red'}]
-    const mockDataLine3 = [{tagId: 11, children: 'Horror', color: 'blue'},
-        {tagId: 12, children: 'Mystery', color: 'amber'},
-        {tagId: 13, children: 'Sci-Fi', color: 'lime'},
-        {tagId: 14, children: 'War', color: 'red'},
-        {tagId: 15, children: 'Musical', color: 'light-blue'}]
-    const mockDataLine4 = [{tagId: 16, children: 'Documentary', color: 'indigo'},
-        {tagId: 17, children: 'IMAX', color: 'teal'},
-        {tagId: 18, children: 'Western', color: 'yellow'},
-        {tagId: 19, children: 'Film-Noir', color: 'cyan'},
-        {tagId: 20, children: '(no genres listed)', color: 'white'}
+    const {Title} = Typography;
+    const mockDataLine1: TagDetail[] = [
+        {tagId: 1, tagName: 'Adventure', tagColor: 'amber', tagImgUrl: ''},
+        {tagId: 7, tagName: 'Drama', tagColor: 'lime', tagImgUrl: ''},
+        {tagId: 3, tagName: 'Children', tagColor: 'pink', tagImgUrl: ''},
+        {tagId: 4, tagName: 'Comedy', tagColor: 'orange', tagImgUrl: ''},
+        {tagId: 5, tagName: 'Fantasy', tagColor: 'violet', tagImgUrl: ''}]
+    const mockDataLine2: TagDetail[] = [
+        {tagId: 6, tagName: 'Romance', tagColor: 'purple', tagImgUrl: ''},
+        {tagId: 2, tagName: 'Animation', tagColor: 'green', tagImgUrl: ''},
+        {tagId: 8, tagName: 'Action', tagColor: 'red', tagImgUrl: ''},
+        {tagId: 9, tagName: 'Crime', tagColor: 'blue', tagImgUrl: ''},
+        {tagId: 10, tagName: 'Thriller', tagColor: 'red', tagImgUrl: ''}
+    ]
+    const mockDataLine3: TagDetail[] = [
+        {tagId: 11, tagName: 'Horror', tagColor: 'blue', tagImgUrl: ''},
+        {tagId: 12, tagName: 'Mystery', tagColor: 'amber', tagImgUrl: ''},
+        {tagId: 13, tagName: 'Sci-Fi', tagColor: 'lime', tagImgUrl: ''},
+        {tagId: 14, tagName: 'War', tagColor: 'red', tagImgUrl: ''},
+        {tagId: 15, tagName: 'Musical', tagColor: 'light-blue', tagImgUrl: ''}]
+    const mockDataLine4: TagDetail[] = [
+        {tagId: 16, tagName: 'Documentary', tagColor: 'indigo', tagImgUrl: ''},
+        {tagId: 17, tagName: 'IMAX', tagColor: 'teal', tagImgUrl: ''},
+        {tagId: 18, tagName: 'Western', tagColor: 'yellow', tagImgUrl: ''},
+        {tagId: 19, tagName: 'Film-Noir', tagColor: 'cyan', tagImgUrl: ''},
+        // {tagId: 20, tagName: '(no genres listed)', tagColor: 'light-blue', tagImgUrl: ''}
     ]
     return (
         <div>
             <Layout>
                 <Content style={{
-                    width: '50%',
+                    width: '70%',
                     border: '1px solid var(--semi-color-border)',
-                    marginLeft: '30%',
-                    textAlign: 'center'
+                    marginLeft: '15%',
+                    textAlign: 'center',
+                    justifyContent: 'center',
+                    // height: '100%'
                 }}>
-                    {/*<TagDetailPlane tagList={mockDataLine1} tagBackgroundSize={'130px'} tagFrontSize={'18px'}/>*/}
-                    {/*<TagDetailPlane tagList={mockDataLine2} tagBackgroundSize={'30px'} tagFrontSize={'18px'}/>*/}
-                    {/*<TagDetailPlane tagList={mockDataLine3} tagBackgroundSize={'30px'} tagFrontSize={'18px'}/>*/}
-                    {/*<TagDetailPlane tagList={mockDataLine4} tagBackgroundSize={'30px'} tagFrontSize={'18px'}/>*/}
+                    <Title style={{
+                        textAlign: 'center',
+                        color: 'blueviolet',
+                        fontSize: '40px'
+                    }}>点击选择你喜欢的电影流派吧</Title>
+                    <br/><br/>
+
+                    <AvatarListPanel AvatarDataList={mockDataLine1}/>
+                    <AvatarListPanel AvatarDataList={mockDataLine2}/>
+                    <AvatarListPanel AvatarDataList={mockDataLine3}/>
+                    <AvatarListPanel AvatarDataList={mockDataLine4}/>
+
+                    {/*<TagDetailPlane tagList={mockDataLine1} tagFrontSize={'18px'} tagBackgroundSize={'50px'}/>*/}
+                    {/*<TagDetailPlane tagList={mockDataLine2} tagFrontSize={'20px'} tagBackgroundSize={'30px'}/>*/}
+                    {/*<TagDetailPlane tagList={mockDataLine3} tagFrontSize={'18px'} tagBackgroundSize={'30px'}/>*/}
+                    {/*<TagDetailPlane tagList={mockDataLine4} tagFrontSize={'19px'} tagBackgroundSize={'30px'}/>*/}
+                    <br/>
                 </Content>
             </Layout>
 

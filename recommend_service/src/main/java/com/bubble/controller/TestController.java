@@ -107,12 +107,6 @@ public class TestController {
         return dataProcessor.getDiff(100);
     }
 
-    @GetMapping(value = "/get/encrypt/time")
-    public String getTime()throws Exception{
-
-        return "done";
-    }
-
     @GetMapping(value = "/api/get-my-recommend")
     public String myRecommend(@RequestParam(value = "user_id") int user_id) throws Exception {
         log.info("userService.getMyRecommend(user_id)");

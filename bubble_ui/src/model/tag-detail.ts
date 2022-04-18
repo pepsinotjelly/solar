@@ -16,7 +16,8 @@ export type TagColor =
     | 'teal'
     | 'violet'
     | 'yellow'
-    | 'white';
+    // | 'white'
+    ;
 export default interface TagDetail {
     tagId: number;
     tagName: string;

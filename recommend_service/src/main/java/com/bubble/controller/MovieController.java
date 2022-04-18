@@ -36,6 +36,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/movie")
 public class MovieController {
+    private int[] DEFAULT_ITEM_LIST = new int[]{53, 99, 148, 430, 467, 496, 549, 626, 633, 876, 1140, 1150, 1151, 1406, 1533, 1571, 1631, 2075, 2196, 2314, 2824, 2969, 3046, 3073, 3086, 3096, 3241, 3302, 3473, 3496, 3567, 3678};
     @Autowired
     private UserDetailsServiceImpl userDetailsServiceImpl;
     @Autowired
@@ -130,12 +131,19 @@ public class MovieController {
 
     public JSON DefaultMovieRecommend(String page) {
         List<MovieDetail> movieDetailList = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
+        List<Integer> movieIdList = new ArrayList<>();
+        for(int i = 0;i < 4;i ++){
+            movieIdList.add(DEFAULT_ITEM_LIST[(i+ (Integer.parseInt(page)*4))%DEFAULT_ITEM_LIST.length]);
+        }
+        ItemInfoExample itemInfoExample = new ItemInfoExample();
+        itemInfoExample.createCriteria().andIdIn(movieIdList);
+        List<ItemInfo> itemInfoList = itemInfoMapper.selectByExample(itemInfoExample);
+        for(ItemInfo info:itemInfoList){
             MovieDetail movieDetail = new MovieDetail();
-            movieDetail.setMovieId("7758" + i);
-            movieDetail.setMovieName("这是movie_" + i);
-            movieDetail.setMovieQuote("这是评论_" + i);
-            movieDetail.setImgUrl("https://image.tmdb.org/t/p/w300_and_h450_bestv2/hbX0bBHTFThyChUel3INrvEZiFF.jpg");
+            movieDetail.setMovieName(info.getName());
+            movieDetail.setMovieQuote(info.getOverview());
+            movieDetail.setImgUrl(info.getImageUrl());
+            movieDetail.setMovieId(info.getId().toString());
             movieDetailList.add(movieDetail);
         }
         log.info(String.valueOf((JSON) JSON.toJSON(movieDetailList)));
