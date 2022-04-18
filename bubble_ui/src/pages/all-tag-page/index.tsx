@@ -6,30 +6,30 @@ function AllTagPage() {
     const {Content} = Layout
     const {Title} = Typography;
     const mockDataLine1: TagDetail[] = [
+        {tagId: 16, tagName: 'Document', tagColor: 'indigo', tagImgUrl: ''},
+        {tagId: 8, tagName: 'Action', tagColor: 'red', tagImgUrl: ''},
         {tagId: 1, tagName: 'Adventure', tagColor: 'amber', tagImgUrl: ''},
         {tagId: 7, tagName: 'Drama', tagColor: 'lime', tagImgUrl: ''},
-        {tagId: 3, tagName: 'Children', tagColor: 'pink', tagImgUrl: ''},
-        {tagId: 4, tagName: 'Comedy', tagColor: 'orange', tagImgUrl: ''},
-        {tagId: 5, tagName: 'Fantasy', tagColor: 'violet', tagImgUrl: ''}]
-    const mockDataLine2: TagDetail[] = [
-        {tagId: 6, tagName: 'Romance', tagColor: 'purple', tagImgUrl: ''},
         {tagId: 2, tagName: 'Animation', tagColor: 'green', tagImgUrl: ''},
-        {tagId: 8, tagName: 'Action', tagColor: 'red', tagImgUrl: ''},
+        {tagId: 17, tagName: 'IMAX', tagColor: 'teal', tagImgUrl: ''},
+    ]
+    const mockDataLine2: TagDetail[] = [
+        {tagId: 18, tagName: 'Western', tagColor: 'yellow', tagImgUrl: ''},
+        {tagId: 5, tagName: 'Fantasy', tagColor: 'violet', tagImgUrl: ''},
+        {tagId: 19, tagName: 'Film-Noir', tagColor: 'cyan', tagImgUrl: ''},
+        {tagId: 6, tagName: 'Romance', tagColor: 'purple', tagImgUrl: ''},
         {tagId: 9, tagName: 'Crime', tagColor: 'blue', tagImgUrl: ''},
-        {tagId: 10, tagName: 'Thriller', tagColor: 'red', tagImgUrl: ''}
+        {tagId: 10, tagName: 'Thriller', tagColor: 'red', tagImgUrl: ''},
+        {tagId: 15, tagName: 'Musical', tagColor: 'light-blue', tagImgUrl: ''},
+
     ]
     const mockDataLine3: TagDetail[] = [
         {tagId: 11, tagName: 'Horror', tagColor: 'blue', tagImgUrl: ''},
+        {tagId: 3, tagName: 'Children', tagColor: 'pink', tagImgUrl: ''},
         {tagId: 12, tagName: 'Mystery', tagColor: 'amber', tagImgUrl: ''},
-        {tagId: 13, tagName: 'Sci-Fi', tagColor: 'lime', tagImgUrl: ''},
         {tagId: 14, tagName: 'War', tagColor: 'red', tagImgUrl: ''},
-        {tagId: 15, tagName: 'Musical', tagColor: 'light-blue', tagImgUrl: ''}]
-    const mockDataLine4: TagDetail[] = [
-        {tagId: 16, tagName: 'Documentary', tagColor: 'indigo', tagImgUrl: ''},
-        {tagId: 17, tagName: 'IMAX', tagColor: 'teal', tagImgUrl: ''},
-        {tagId: 18, tagName: 'Western', tagColor: 'yellow', tagImgUrl: ''},
-        {tagId: 19, tagName: 'Film-Noir', tagColor: 'cyan', tagImgUrl: ''},
-        // {tagId: 20, tagName: '(no genres listed)', tagColor: 'light-blue', tagImgUrl: ''}
+        {tagId: 4, tagName: 'Comedy', tagColor: 'orange', tagImgUrl: ''},
+        {tagId: 13, tagName: 'Sci-Fi', tagColor: 'lime', tagImgUrl: ''},
     ]
     return (
         <div>
@@ -37,28 +37,22 @@ function AllTagPage() {
                 <Title style={{
                     textAlign: 'center',
                     color: 'blueviolet',
-                    fontSize: '40px'
+                    fontSize: '40px',
+
                 }}>点击选择你喜欢的电影流派吧</Title>
                 <br/>
 
                 <Content style={{
-                    width: '50%',
+                    width: '70%',
                     // border: '3px solid var(--semi-color-border)',
-                    marginLeft: '25%',
+                    marginLeft: '15%',
                     textAlign: 'center',
                     justifyContent: 'center',
-                    // height: '100%'
                 }}>
                     <br/>
                     <AvatarListPanel AvatarDataList={mockDataLine1}/>
                     <AvatarListPanel AvatarDataList={mockDataLine2}/>
                     <AvatarListPanel AvatarDataList={mockDataLine3}/>
-                    <AvatarListPanel AvatarDataList={mockDataLine4}/>
-
-                    {/*<TagDetailPlane tagList={mockDataLine1} tagFrontSize={'18px'} tagBackgroundSize={'50px'}/>*/}
-                    {/*<TagDetailPlane tagList={mockDataLine2} tagFrontSize={'20px'} tagBackgroundSize={'30px'}/>*/}
-                    {/*<TagDetailPlane tagList={mockDataLine3} tagFrontSize={'18px'} tagBackgroundSize={'30px'}/>*/}
-                    {/*<TagDetailPlane tagList={mockDataLine4} tagFrontSize={'19px'} tagBackgroundSize={'30px'}/>*/}
                     <br/>
                 </Content>
             </Layout>
