@@ -34,21 +34,22 @@ function AllTagPage() {
     return (
         <div>
             <Layout>
+                <Title style={{
+                    textAlign: 'center',
+                    color: 'blueviolet',
+                    fontSize: '40px'
+                }}>点击选择你喜欢的电影流派吧</Title>
+                <br/>
+
                 <Content style={{
-                    width: '70%',
-                    border: '1px solid var(--semi-color-border)',
-                    marginLeft: '15%',
+                    width: '50%',
+                    // border: '3px solid var(--semi-color-border)',
+                    marginLeft: '25%',
                     textAlign: 'center',
                     justifyContent: 'center',
                     // height: '100%'
                 }}>
-                    <Title style={{
-                        textAlign: 'center',
-                        color: 'blueviolet',
-                        fontSize: '40px'
-                    }}>点击选择你喜欢的电影流派吧</Title>
-                    <br/><br/>
-
+                    <br/>
                     <AvatarListPanel AvatarDataList={mockDataLine1}/>
                     <AvatarListPanel AvatarDataList={mockDataLine2}/>
                     <AvatarListPanel AvatarDataList={mockDataLine3}/>

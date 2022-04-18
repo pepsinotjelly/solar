@@ -21,8 +21,8 @@ function AvatarListPanel(props: { AvatarDataList: TagDetail[] }) {
                                     style={{
                                         width: (item.tagName.length * 13).toString() + 'px',
                                         height: (item.tagName.length * 13).toString() + 'px',
-                                        marginTop: (item.tagName.length * 0.01).toString() + 'px',
-                                        margin: 1
+                                        // marginTop: (item.tagName.length * 0.01).toString() + 'px',
+                                        margin: 3
                                     }}> {item.tagName}</Avatar>
                         </Link>
                     ))
