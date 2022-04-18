@@ -24,35 +24,48 @@ function LoginPage() {
         navigate("/", {replace: true});
         console.log("onClose :: close the window!")
     };
-
+    const checkLogin = (): boolean => {
+        if (inputUsername === '') {
+            Toast.error("name cannot be empty")
+            return false;
+        }
+        if (inputPassword === '') {
+            Toast.error("password is required")
+            return false;
+        }
+        return true;
+    }
     //  发送登陆请求
     const handleLogin = async (
         e: React.MouseEvent<Element, MouseEvent>
     ) => {
-        e.preventDefault();
-        //  设置超时时间
-        await new Promise((r) => setTimeout(r, 5000));
-        //  数据处理
-        try {
-            //  发送请求
-            const MDPwd = MD5(encodeURIComponent(inputPassword))
-            const resp = await userLogin(inputPassword,MDPwd);
-            console.log("MD5(encodeURIComponent(inputPassword)) :: " + MDPwd)
-            if (resp.status === 200) {
-                console.log("/user/login :: response.token :: ", resp.data.data)
-                localStorage.setItem(JWT, resp.data.data)
-                Toast.success(`Hi Welcome Back`)
-                await new Promise((r) => setTimeout(r, 100));
-                navigate("/", {replace: true});
+        if (checkLogin()) {
+            e.preventDefault();
+            //  设置超时时间
+            await new Promise((r) => setTimeout(r, 5000));
+            //  数据处理
+            try {
+                //  发送请求
+                const MDPwd = MD5(encodeURIComponent(inputPassword))
+                const resp = await userLogin(inputPassword, MDPwd);
+                console.log("MD5(encodeURIComponent(inputPassword)) :: " + MDPwd)
+                if (resp.status === 200) {
+                    console.log("/user/login :: response.token :: ", resp.data.data)
+                    localStorage.setItem(JWT, resp.data.data)
+                    Toast.success(`Hi Welcome Back`)
+                    await new Promise((r) => setTimeout(r, 100));
+                    navigate("/", {replace: true});
+                }
+                //  更新输入框中的用户id状态
+                setInputUsername("")
+                //  更新输入框中的密码状态
+                setInputPassword("")
+            } catch (err) {
+                Toast.error("登陆失败!")
             }
-        } catch (err) {
-            Toast.error("登陆失败!")
         }
-        //  更新输入框中的用户id状态
-        setInputUsername("")
-        //  更新输入框中的密码状态
-        setInputPassword("")
     };
+
     return (
         <div style={{height: "590px"}}>
             <Modal
