@@ -49,6 +49,7 @@ function TagMoviePage() {
                 <Content
                     style={{backgroundImage: `url(${tagDetailData?.tagImgUrl})`, height: '500px', width: '90%', marginLeft: '5%'}}>
                     <Title style={{
+                        fontSize:'100px',
                         marginTop: '200px',
                         textAlign: 'center',
                         color: 'whitesmoke'

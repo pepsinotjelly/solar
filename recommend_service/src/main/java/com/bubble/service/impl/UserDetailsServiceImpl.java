@@ -34,28 +34,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * 登陆验证时，通过username获取用户的所有权限信息
      * 并返回UserDetails放到spring的全局缓存SecurityContextHolder中，以供授权器使用
      */
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        UserBaseExample example = new UserBaseExample();
-//        example.createCriteria().andNameEqualTo(username);
-//        MyUserDetails myUserDetails = new MyUserDetails();
-//        log.info("MyCustomUserService :: loadUserByUsername :: username :: " + username);
-//        myUserDetails.setUsername(username);
-//        //获取用户权限，并把其添加到GrantedAuthority中
-//        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-//        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("USER");
-//        grantedAuthorities.add(grantedAuthority);
-//        myUserDetails.setAuthorities(grantedAuthorities);
-//        log.info("set role :: " + myUserDetails.getAuthorities());
-//        List<UserBase> userBaseList = userBaseMapper.selectByExample(example);
-//        if (userBaseList.isEmpty()) {
-//            throw new UsernameNotFoundException("user name invalid");
-//        }
-//        UserBase userBase = userBaseList.get(0);
-//        myUserDetails.setPassword(userBase.getPassword());
-//        log.info("loadUserByUsername :: password :: " + userBase.getPassword());
-//        return myUserDetails;
-//    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserBaseExample example = new UserBaseExample();
