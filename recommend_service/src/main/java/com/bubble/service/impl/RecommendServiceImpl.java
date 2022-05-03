@@ -75,18 +75,18 @@ public class RecommendServiceImpl implements RecommendService {
         request.setStartPosition(min);
         request.setPublicKeyN(publicKey.getN().toString());
         request.setPublicKeyRnd("122333356");
-        log.info(String.valueOf(request));
+//        log.info(String.valueOf(request));
         GetRecommendInfoResponse response = client.GetRecommendInfo(request);
         //获取AB、BB
         List<String> EnAB = response.getABList();
-        log.info("EnAB :: " + EnAB.toString());
+//        log.info("EnAB :: " + EnAB.toString());
         List<String> EnBB = response.getBBList();
-        log.info("EnBB :: " + EnBB.toString());
+//        log.info("EnBB :: " + EnBB.toString());
         //  解密AB、BB
         List<String> DeAB = cryptoSystem.Decryption(EnAB, 100, privateKey);
-        log.info("DeAB :: " + DeAB);
+//        log.info("DeAB :: " + DeAB);
         List<String> DeBB = cryptoSystem.Decryption(EnBB, 100, privateKey);
-        log.info("DeBB :: " + DeBB);
+//        log.info("DeBB :: " + DeBB);
         //  数据类型转换
         int N_user = response.getN();
         int M_user = response.getM();
@@ -153,13 +153,12 @@ public class RecommendServiceImpl implements RecommendService {
         for (int i = 0; i < Math.min(itemIndex.length, 300); i++) {
             recommendIdList.add(Integer.parseInt(itemIdList.get(itemIndex[i])));
         }
-        log.info("recommendIdList :: " + recommendIdList);
+//        log.info("recommendIdList :: " + recommendIdList);
         return recommendIdList;
     }
 
     @Override
     public List<String> getPlainSimilarityList(int userId) throws Exception {
-        // TODO
         //  构造A矩阵
         RatingRecordExample ratingRecordExample = new RatingRecordExample();
         ratingRecordExample.createCriteria().andUserIdEqualTo(userId);

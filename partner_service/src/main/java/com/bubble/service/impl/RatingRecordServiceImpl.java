@@ -102,7 +102,7 @@ public class RatingRecordServiceImpl implements RatingRecordService {
         response.setM(M);
         response.setN(M);
         response.setBaseResp(new BaseResp().setStatusCode(0).setStatusMsg("done"));
-        log.info("RESPONSE SENT :: GetRecommendInfoResponse"+response);
+        log.info("RESPONSE SENT :: GetRecommendInfoResponse");
         return response;
     }
 
@@ -161,7 +161,7 @@ public class RatingRecordServiceImpl implements RatingRecordService {
         response.setRatingList(itemSim);
         response.setItemIdList(itemList);
         response.setBaseResp(new BaseResp().setStatusMsg("DONE").setStatusCode(0));
-        log.info(String.valueOf(response));
+//        log.info(String.valueOf(response));
         return response;
     }
 

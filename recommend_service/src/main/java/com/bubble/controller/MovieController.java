@@ -78,7 +78,7 @@ public class MovieController {
         //  获取movie Id
         List<Integer> movieIdList = new ArrayList<>();
         for (ItemTag itemTag : itemTagList) {
-            movieIdList.add(itemTag.getItemId());
+            if(movieIdList.size()< 20) movieIdList.add(itemTag.getItemId());
         }
         //  通过movieId列表获取movieDetail列表
         List<MovieDetail> movieDetailList = itemService.getMovieDetail(movieIdList);

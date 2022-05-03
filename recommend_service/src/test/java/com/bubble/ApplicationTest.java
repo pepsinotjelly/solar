@@ -2,7 +2,9 @@ package com.bubble;
 
 import org.junit.jupiter.api.Test;
 //import org.junit.runner.RunWith;
+//import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.test.context.junit4.SpringRunner;
 
 //@RunWith(SpringRunner.class)
 @SpringBootTest
@@ -11,8 +13,30 @@ public class ApplicationTest{
     @Test
     void testSelect() {
         System.out.println("=====================TEST START======================");
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //    package com.bubble.controller;
 //
 ////import com.bubble.dal.UserInfoService;

@@ -92,7 +92,7 @@ public class TestController {
 
     @GetMapping(value = "/api/get-recommend-list")
     public List<String> getRecommendList(@RequestParam(value = "user_id") int user_id) throws Exception {
-
+        Thread.sleep(10000);
         return recommendService.getSimilarityList(user_id);
     }
 
