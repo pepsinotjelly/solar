@@ -65,7 +65,7 @@ public class TestController {
         return "OK";
     }
 
-    // 任何人都可以访问，在方法中判断用户是否合法
+//    测试-验证Token 任何人都可以访问，在方法中判断用户是否合法
     @GetMapping("/everyone")
     public ResponseEntity testEveryone() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -83,36 +83,41 @@ public class TestController {
         return new ResponseEntity(HttpStatus.OK.value(), "You are user", token);
     }
 
-
+//    测试-系统间实体信息同步
     @GetMapping(value = "/api/sync-item-base")
     public String syncItemBase() throws Exception {
         Boolean result = itemBaseService.SyncItemBase();
         return result.toString();
     }
 
+//    测试-推荐计算 示例：http://localhost:8080/test/api/get-recommend-list?user_id=1
     @GetMapping(value = "/api/get-recommend-list")
     public List<String> getRecommendList(@RequestParam(value = "user_id") int user_id) throws Exception {
-        Thread.sleep(10000);
+//        Thread.sleep(10000);
         return recommendService.getSimilarityList(user_id);
     }
 
+//    测试-明文推荐计算 示例：http://localhost:8080/test/api/get-plain-recommend-list?user_id=1
     @GetMapping(value = "/api/get-plain-recommend-list")
     public List<String> getPlainRecommendList(@RequestParam(value = "user_id") int user_id) throws Exception {
         return recommendService.getPlainSimilarityList(user_id);
     }
 
+//    测试-获取明文与密文计算结果对比
     @GetMapping(value = "/api/get-diff")
     public double[] getDiff() throws Exception {
         DataProcessor dataProcessor = DataProcessor.getDataProcessor();
         return dataProcessor.getDiff(100);
     }
 
+//    测试-用户推荐列表获取 示例：http://localhost:8080/test/api/get-my-recommend?user_id=1
     @GetMapping(value = "/api/get-my-recommend")
     public String myRecommend(@RequestParam(value = "user_id") int user_id) throws Exception {
         log.info("userService.getMyRecommend(user_id)");
         return userService.getMyRecommend(user_id);
     }
 
+//    测试-用户对电影评分上传
     @PostMapping(value = "/api/rate-movie")
     public Integer rateMovie(
             @RequestBody int user_id
