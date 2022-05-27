@@ -283,6 +283,7 @@ public class RecommendServiceImpl implements RecommendService {
         List<UserRecommend> originUserRecommendList = userRecommendMapper.selectByExample(userRecommendExample);
         int threshold = Math.min(20, itemIdList.size());
         // 更新 db
+        log.info("recommendList :: itemIdList :: "+itemIdList);
         if(!originUserRecommendList.isEmpty()){
             for(int i = 0;i < Math.min(threshold,originUserRecommendList.size());i ++){
                 UserRecommend userRecommend = new UserRecommend();

@@ -161,13 +161,13 @@ public class RatingRecordServiceImpl implements RatingRecordService {
         response.setRatingList(itemSim);
         response.setItemIdList(itemList);
         response.setBaseResp(new BaseResp().setStatusMsg("DONE").setStatusCode(0));
-//        log.info(String.valueOf(response));
+        log.info("RESPONSE SENT :: GetItemIdResponse :: "+String.valueOf(response));
         return response;
     }
 
     @Override
     public GetRecommendInfoResponse GetPlainRecommendInfo(GetRecommendInfoRequest request) throws TException {
-        log.info("REQUEST RECEIVE :: GetRecommendInfoRequest");
+        log.info("REQUEST RECEIVE :: GetRecommendInfoRequest :: " + request.toString());
         // 同步矩阵信息
         int N = request.getAListSize();
         GetRecommendInfoResponse response = new GetRecommendInfoResponse();
@@ -214,7 +214,7 @@ public class RatingRecordServiceImpl implements RatingRecordService {
         response.setM(M);
         response.setN(M);
         response.setBaseResp(new BaseResp().setStatusCode(0).setStatusMsg("done"));
-        log.info("RESPONSE SENT :: GetRecommendInfoResponse");
+        log.info("RESPONSE SENT :: GetRecommendInfoResponse :: " + response.toString());
         return response;
     }
 
@@ -260,6 +260,7 @@ public class RatingRecordServiceImpl implements RatingRecordService {
         response.setRatingList(itemSim);
         response.setItemIdList(itemList);
         response.setBaseResp(new BaseResp().setStatusMsg("DONE").setStatusCode(0));
+        log.info("GetPlainRecommendItemId :: response :: " + response);
         return response;
     }
 }
